@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ojcp.dev
+
+The website and reference provider for the [Open Job Context Protocol](https://github.com/AustinRecs/ojcp) (OJCP).
+
+## What This Is
+
+This repo powers [ojcp.dev](https://ojcp.dev) — a marketing site, spec reference, and **live OJCP-compliant provider** that serves mock job data to AI agents. It dogfoods the protocol by implementing all five OJCP tools against realistic mock data.
+
+### Live Endpoints
+
+| Endpoint | Description |
+|---|---|
+| `/.well-known/ojcp.json` | OJCP manifest (discovery) |
+| `/api/mcp` | MCP-compatible tool endpoint |
+| `/api/tools` | REST wrapper for the playground |
+
+### OJCP Tools Implemented
+
+- **`search_jobs`** — Text search with location/salary filters and fit scoring
+- **`get_job_detail`** — Full job detail with employer context
+- **`get_employer_context`** — Employer culture, benefits, hiring practices
+- **`begin_application`** — Initiate an application session
+- **`check_application_status`** — Track application progress
+
+### WebMCP
+
+On Chrome 146+ with the WebMCP flag enabled, the site registers OJCP tools via `navigator.modelContext.registerTool()` so browser-native agents can discover and call them directly.
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org/) + TypeScript + App Router
+- [Mantine v8](https://mantine.dev/) — UI components
+- [Zustand](https://zustand.docs.pmnd.rs/) + [Immer](https://immerjs.github.io/) — State management
+- [Zod v4](https://zod.dev/) — Schema validation
+- [@modelcontextprotocol/sdk](https://www.npmjs.com/package/@modelcontextprotocol/sdk) — MCP server
+- [pnpm](https://pnpm.io/) — Package manager
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Connecting an MCP Client
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Point any MCP client at the endpoint:
 
-## Learn More
+```
+http://localhost:3000/api/mcp
+```
 
-To learn more about Next.js, take a look at the following resources:
+Or test the manifest:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+curl http://localhost:3000/.well-known/ojcp.json
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+  app/
+    layout.tsx                  Root layout (Mantine + WebMCP)
+    page.tsx                    Landing page
+    .well-known/ojcp.json/
+      route.ts                  OJCP manifest endpoint
+    api/
+      mcp/route.ts              MCP server (Streamable HTTP)
+      tools/route.ts            REST tool wrapper
+  components/
+    Header.tsx                  Nav header
+    Hero.tsx                    Hero section
+    Features.tsx                Feature cards
+    Spec.tsx                    Schema & tools overview
+    HowItWorks.tsx              Timeline walkthrough
+    CodeExamples.tsx            Tabbed code samples
+    ApplyPaths.tsx              Apply path taxonomy table
+    Playground.tsx              Interactive API playground
+    Community.tsx               Get started / contribute
+    Footer.tsx                  Footer
+    WebMCPProvider.tsx           WebMCP tool registration
+  lib/
+    schemas.ts                  Zod schemas (mirrors OJCP JSON schemas)
+    mock-data.ts                Mock jobs, employers, fit scoring
+    ojcp-tools.ts               Tool handler implementations
+    mcp-server.ts               MCP server factory
+  store/
+    index.ts                    Zustand + Immer store
+  theme/
+    index.ts                    Mantine theme (OJCP brand)
+  types/
+    webmcp.d.ts                 WebMCP TypeScript types
+public/
+  logos/                        12 SVG logo variants
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Related
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [OJCP Spec](https://github.com/AustinRecs/ojcp) — The protocol specification, schemas, and examples

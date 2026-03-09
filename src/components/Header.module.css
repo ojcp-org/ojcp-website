@@ -1,0 +1,39 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(11, 22, 35, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(30, 143, 181, 0.15);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.wordmark {
+  font-family: var(--mantine-font-family-monospace);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ojcp-text-light);
+  letter-spacing: -0.5px;
+}
+
+.link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ojcp-text-muted);
+  padding: 6px 12px;
+  border-radius: var(--mantine-radius-sm);
+  transition: color 150ms, background 150ms;
+
+  &:hover {
+    color: var(--ojcp-text-light);
+    background: rgba(30, 143, 181, 0.1);
+  }
+}

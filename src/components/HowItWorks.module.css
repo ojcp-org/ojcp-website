@@ -1,0 +1,33 @@
+.root {
+  padding: 100px 0;
+  background: var(--ojcp-bg-dark);
+}
+
+.overline {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ojcp-cyan);
+  font-weight: 600;
+}
+
+.title {
+  font-size: 2.2rem;
+  color: var(--ojcp-text-light);
+}
+
+.timeline {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+@media (max-width: 48em) {
+  .root {
+    padding: 60px 0;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+}

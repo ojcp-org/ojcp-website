@@ -1,0 +1,27 @@
+<svg width="280" height="64" viewBox="0 0 280 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon mark -->
+  <g transform="translate(0, 0)">
+    <!-- Outer ring -->
+    <circle cx="32" cy="32" r="30" stroke="#1e8fb5" stroke-width="2" fill="none"/>
+    <!-- Inner ring (thinner, offset) -->
+    <circle cx="32" cy="32" r="22" stroke="#1e8fb5" stroke-width="1" fill="none" opacity="0.35"/>
+    <!-- Three nodes: top, bottom-left, bottom-right -->
+    <circle cx="32" cy="10" r="4" fill="#00c2e8"/>
+    <circle cx="14" cy="43" r="4" fill="#00c2e8"/>
+    <circle cx="50" cy="43" r="4" fill="#00c2e8"/>
+    <!-- Connecting lines -->
+    <line x1="32" y1="14" x2="17" y2="40" stroke="#1e8fb5" stroke-width="1.5" opacity="0.7"/>
+    <line x1="32" y1="14" x2="47" y2="40" stroke="#1e8fb5" stroke-width="1.5" opacity="0.7"/>
+    <line x1="18" y1="43" x2="46" y2="43" stroke="#1e8fb5" stroke-width="1.5" opacity="0.7"/>
+    <!-- Center dot -->
+    <circle cx="32" cy="32" r="3" fill="#00c2e8" opacity="0.5"/>
+    <!-- Lines from nodes to center -->
+    <line x1="32" y1="14" x2="32" y2="29" stroke="#00c2e8" stroke-width="1" opacity="0.3"/>
+    <line x1="17" y1="41" x2="30" y2="33" stroke="#00c2e8" stroke-width="1" opacity="0.3"/>
+    <line x1="47" y1="41" x2="34" y2="33" stroke="#00c2e8" stroke-width="1" opacity="0.3"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="76" y="38" font-family="'IBM Plex Mono', monospace" font-weight="700" font-size="28" fill="#e8f4fa" letter-spacing="-0.5">OJCP</text>
+  <!-- Tagline -->
+  <text x="77" y="54" font-family="'IBM Plex Sans', sans-serif" font-weight="300" font-size="11" fill="#4a7a9b" letter-spacing="0.08em">OPEN JOB CONTEXT PROTOCOL</text>
+</svg>
