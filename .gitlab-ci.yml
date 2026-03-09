@@ -1,0 +1,133 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  XDG_RUNTIME_DIR: "$CI_PROJECT_DIR/.tmp/xdg"
+  CONTAINERS_STORAGE_CONF: "$CI_PROJECT_DIR/.tmp/containers/storage.conf"
+  CONTAINERS_CONF: "$CI_PROJECT_DIR/.tmp/containers/containers.conf"
+
+.podman_setup: &podman_setup
+  - mkdir -p dist "$XDG_RUNTIME_DIR"
+  - mkdir -p "$(dirname "$CONTAINERS_STORAGE_CONF")"
+  - mkdir -p "$CI_PROJECT_DIR/.tmp/containers/storage" "$CI_PROJECT_DIR/.tmp/containers/run"
+  - |
+    cat > "$CONTAINERS_STORAGE_CONF" <<EOF
+    [storage]
+    driver="vfs"
+    graphroot="${CI_PROJECT_DIR}/.tmp/containers/storage"
+    runroot="${CI_PROJECT_DIR}/.tmp/containers/run"
+    EOF
+  - |
+    cat > "$CONTAINERS_CONF" <<EOF
+    [engine]
+    helper_binaries_dir=["/usr/libexec/podman"]
+    EOF
+  - |
+    HARBOR_REGISTRY="${HARBOR_HOST:-${HARBOR_URL:-${HARBOR_OCI:-}}}"
+    HARBOR_REGISTRY="${HARBOR_REGISTRY#oci://}"
+    HARBOR_REGISTRY="${HARBOR_REGISTRY#https://}"
+    if [[ -n "${HARBOR_REGISTRY}" && -n "${HARBOR_USERNAME:-}" ]]; then
+      podman login "${HARBOR_REGISTRY}" -u "${HARBOR_USERNAME}" -p "${HARBOR_PASSWORD}"
+    fi
+
+build_image_arm64:
+  stage: build
+  image:
+    name: quay.io/podman/stable:latest
+    entrypoint: [""]
+  variables:
+    TARGET_PLATFORM: "linux/arm64"
+  before_script:
+    - *podman_setup
+  script:
+    - HARBOR_REGISTRY="${HARBOR_HOST:-${HARBOR_URL:-${HARBOR_OCI:-localhost}}}"
+    - HARBOR_REGISTRY="${HARBOR_REGISTRY#oci://}"
+    - HARBOR_REGISTRY="${HARBOR_REGISTRY#https://}"
+    - IMAGE_REF="${HARBOR_REGISTRY}/${HARBOR_PROJECT:-rx-engineering}/ojcp-website"
+    - IMAGE_TAG="${CI_COMMIT_SHA}"
+    - PODMAN_IMAGE="${IMAGE_REF}:${IMAGE_TAG}-arm64"
+    - HOST_PLATFORM="$(podman info --format '{{.Host.OS}}/{{.Host.Arch}}')"
+    - podman build --platform "${TARGET_PLATFORM}" --build-arg "BUILDPLATFORM=${HOST_PLATFORM}" -f Dockerfile -t "${PODMAN_IMAGE}" .
+    - podman push "${PODMAN_IMAGE}"
+    - printf '%s\n' "${PODMAN_IMAGE}" > dist/image-arm64.txt
+  artifacts:
+    paths:
+      - dist/image-arm64.txt
+    expire_in: 1 week
+  interruptible: true
+  timeout: 45m
+  retry:
+    max: 1
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_TAG
+
+build_image_amd64:
+  stage: build
+  image:
+    name: quay.io/podman/stable:latest
+    entrypoint: [""]
+  variables:
+    TARGET_PLATFORM: "linux/amd64"
+  before_script:
+    - *podman_setup
+  script:
+    - HARBOR_REGISTRY="${HARBOR_HOST:-${HARBOR_URL:-${HARBOR_OCI:-localhost}}}"
+    - HARBOR_REGISTRY="${HARBOR_REGISTRY#oci://}"
+    - HARBOR_REGISTRY="${HARBOR_REGISTRY#https://}"
+    - IMAGE_REF="${HARBOR_REGISTRY}/${HARBOR_PROJECT:-rx-engineering}/ojcp-website"
+    - IMAGE_TAG="${CI_COMMIT_SHA}"
+    - PODMAN_IMAGE="${IMAGE_REF}:${IMAGE_TAG}-amd64"
+    - HOST_PLATFORM="$(podman info --format '{{.Host.OS}}/{{.Host.Arch}}')"
+    - podman build --platform "${TARGET_PLATFORM}" --build-arg "BUILDPLATFORM=${HOST_PLATFORM}" -f Dockerfile -t "${PODMAN_IMAGE}" .
+    - podman push "${PODMAN_IMAGE}"
+    - printf '%s\n' "${PODMAN_IMAGE}" > dist/image-amd64.txt
+  artifacts:
+    paths:
+      - dist/image-amd64.txt
+    expire_in: 1 week
+  interruptible: true
+  timeout: 45m
+  retry:
+    max: 1
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_TAG
+
+publish_manifest:
+  stage: deploy
+  image:
+    name: quay.io/podman/stable:latest
+    entrypoint: [""]
+  needs:
+    - build_image_arm64
+    - build_image_amd64
+  before_script:
+    - *podman_setup
+  script:
+    - HARBOR_REGISTRY="${HARBOR_HOST:-${HARBOR_URL:-${HARBOR_OCI:-localhost}}}"
+    - HARBOR_REGISTRY="${HARBOR_REGISTRY#oci://}"
+    - HARBOR_REGISTRY="${HARBOR_REGISTRY#https://}"
+    - IMAGE_REF="${HARBOR_REGISTRY}/${HARBOR_PROJECT:-rx-engineering}/ojcp-website"
+    - IMAGE_TAG="${CI_COMMIT_SHA}"
+    - MANIFEST="${IMAGE_REF}:${IMAGE_TAG}"
+    - ARM64_IMAGE="$(cat dist/image-arm64.txt)"
+    - AMD64_IMAGE="$(cat dist/image-amd64.txt)"
+    - podman manifest create "${MANIFEST}"
+    - podman manifest add "${MANIFEST}" "${ARM64_IMAGE}"
+    - podman manifest add "${MANIFEST}" "${AMD64_IMAGE}"
+    - podman manifest push --all "${MANIFEST}"
+    # Also tag as latest
+    - podman tag "${MANIFEST}" "${IMAGE_REF}:latest"
+    - podman push "${IMAGE_REF}:latest"
+    - printf '%s\n' "${MANIFEST}" > dist/image-ref.txt
+  artifacts:
+    paths:
+      - dist/image-ref.txt
+    expire_in: 1 week
+  interruptible: true
+  timeout: 20m
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_TAG
