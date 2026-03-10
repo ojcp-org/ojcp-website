@@ -140,6 +140,9 @@ publish_manifest:
     - podman manifest add "${MANIFEST}" "${ARM64_IMAGE}"
     - podman manifest add "${MANIFEST}" "${AMD64_IMAGE}"
     - podman manifest push --all "${MANIFEST}"
+    - LATEST="${IMAGE_REF}:latest"
+    - podman tag "${MANIFEST}" "${LATEST}"
+    - podman manifest push --all "${LATEST}"
     - printf '%s\n' "${MANIFEST}" > dist/image-ref.txt
   artifacts:
     paths:
