@@ -5,7 +5,7 @@ stages:
 variables:
   XDG_RUNTIME_DIR: "$CI_PROJECT_DIR/.tmp/xdg"
   HARBOR_REGISTRY: "core.harbor.recruitics.dev"
-  HARBOR_PROJECT: "platform-engineering"
+  HARBOR_PROJECT: "rx-engineering"
 
 build_image_arm64:
   stage: build
