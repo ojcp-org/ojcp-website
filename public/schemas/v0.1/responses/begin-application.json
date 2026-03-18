@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ojcp.dev/schemas/v0.1/responses/begin-application.json",
+  "title": "OJCP begin_application Response",
+  "description": "Response schema for the begin_application tool.",
+  "type": "object",
+  "required": ["ojcp_version", "application_id", "status", "apply_path"],
+  "properties": {
+    "ojcp_version": {
+      "type": "string",
+      "description": "The OJCP specification version."
+    },
+    "application_id": {
+      "type": "string",
+      "description": "Unique identifier for this application session. Use with check_application_status."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["initiated", "pending_submission", "submitted"],
+      "description": "Current status of the application session."
+    },
+    "apply_path": {
+      "type": "object",
+      "required": ["type", "supports_agent_submission"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The selected apply path type."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for the application entry point."
+        },
+        "required_fields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Fields required to complete the application."
+        },
+        "optional_fields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional fields that can strengthen the application."
+        },
+        "estimated_completion_minutes": {
+          "type": "integer",
+          "description": "Estimated time to complete."
+        },
+        "supports_agent_submission": {
+          "type": "boolean",
+          "description": "Whether this path supports autonomous agent submission."
+        }
+      },
+      "description": "The apply path descriptor for this application."
+    },
+    "session_token": {
+      "type": "string",
+      "description": "Opaque token for multi-step apply flows. Include in subsequent requests."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this application session expires."
+    }
+  }
+}
