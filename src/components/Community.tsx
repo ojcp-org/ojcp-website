@@ -13,10 +13,16 @@ import {
 } from "@mantine/core";
 import {
   IconBook,
-  IconBrandGithub,
+  IconBrandGitlab,
   IconCode,
   IconUsers,
 } from "@tabler/icons-react";
+import {
+  specBlob,
+  specTree,
+  specIssues,
+  specDiscussions,
+} from "@/lib/repo-urls";
 import classes from "./Community.module.css";
 
 const cards = [
@@ -26,7 +32,7 @@ const cards = [
     description:
       "The full OJCP v0.1 specification covers tools, schemas, apply paths, and security requirements.",
     action: "View Specification",
-    href: "https://github.com/AustinRecs/ojcp/blob/main/spec/ojcp-v0.1.md",
+    href: specBlob("spec/ojcp-v0.1.md"),
   },
   {
     icon: IconCode,
@@ -34,15 +40,15 @@ const cards = [
     description:
       "JSON Schemas for JobPosting, CandidateContext, AgentDeclaration, and the Manifest.",
     action: "Browse Schemas",
-    href: "https://github.com/AustinRecs/ojcp/tree/main/schemas",
+    href: specTree("schemas"),
   },
   {
-    icon: IconBrandGithub,
+    icon: IconBrandGitlab,
     title: "Contribute",
     description:
       "OJCP is open. File issues, propose changes, or build a reference implementation.",
     action: "Open an Issue",
-    href: "https://github.com/AustinRecs/ojcp/issues",
+    href: specIssues,
   },
   {
     icon: IconUsers,
@@ -50,7 +56,7 @@ const cards = [
     description:
       "Shape the future of agent-ready hiring. We welcome ATS vendors, job boards, and agent developers.",
     action: "Get Involved",
-    href: "https://github.com/AustinRecs/ojcp/discussions",
+    href: specDiscussions,
   },
 ];
 

@@ -1,0 +1,17 @@
+{
+  "@context": "https://ojcp.dev/context/v1",
+  "@type": "OJCPProvider",
+  "domain": "jobs.globex.com",
+  "name": "Globex Corporation Jobs",
+  "description": "Diversified technology conglomerate hiring across AI, cloud infrastructure, and data science.",
+  "mcp_endpoint": "https://jobs.globex.com/ojcp/mcp",
+  "manifest_url": "https://jobs.globex.com/.well-known/ojcp.json",
+  "industries": ["technology", "artificial intelligence", "cloud computing"],
+  "location": { "city": "San Francisco", "state": "CA", "country": "US" },
+  "tools": ["search_jobs", "get_job_detail", "get_employer_context", "begin_application"],
+  "apply_paths": ["apply_anywhere", "ats_direct"],
+  "has_agent_apply": true,
+  "verified": true,
+  "verified_at": "2026-03-13T00:00:00Z",
+  "registered_at": "2026-03-11T00:00:00Z"
+}

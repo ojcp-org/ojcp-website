@@ -25,7 +25,8 @@ const schemas = [
       "provider",
       "tools",
       "mcp_endpoint",
-      "apply_paths",
+      "auth",
+      "rate_limits",
     ],
   },
   {
@@ -34,10 +35,10 @@ const schemas = [
     description: "Extends schema.org/JobPosting with agent-specific fields",
     fields: [
       "ojcp_id",
-      "fit_score",
       "skills_required",
+      "experienceLevel",
       "apply_paths",
-      "team_context",
+      "urgency",
     ],
   },
   {
@@ -47,8 +48,8 @@ const schemas = [
     fields: [
       "consent_scope",
       "skills",
-      "years_experience",
-      "resume_embedding_hash",
+      "experience_years",
+      "employment_type_preference",
     ],
   },
   {
@@ -82,9 +83,10 @@ export function Spec() {
             Schemas & Tools
           </Title>
           <Text ta="center" className={classes.subtitle} maw={600}>
-            OJCP defines four core schemas and five MCP-compatible tools.
+            OJCP defines four core schemas and five standard MCP tools.
             Providers MUST implement <code>search_jobs</code>; all others are
-            recommended.
+            recommended. Custom tools use namespaced names
+            (e.g., <code>acme:get_referral_link</code>).
           </Text>
         </Stack>
 
@@ -99,18 +101,15 @@ export function Spec() {
                 key={tool.name}
                 size="lg"
                 radius="sm"
-                variant={tool.required ? "filled" : "light"}
-                color={tool.required ? "ojcpCyan" : "ojcpTeal"}
+                variant="light"
+                color="ojcpTeal"
                 className={classes.toolBadge}
               >
                 {tool.name}
-                {tool.required && " *"}
+                {tool.required && " (required)"}
               </Badge>
             ))}
           </Group>
-          <Text size="xs" c="var(--ojcp-text-muted)" mt="sm">
-            * Required for conformance
-          </Text>
         </Card>
 
         {/* Schema cards */}

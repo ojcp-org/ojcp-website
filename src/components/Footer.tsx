@@ -1,6 +1,12 @@
 "use client";
 
 import { Container, Group, Text, Anchor, Image, Stack } from "@mantine/core";
+import {
+  specRepo,
+  specBlob,
+  specTree,
+  specDiscussions,
+} from "@/lib/repo-urls";
 import classes from "./Footer.module.css";
 
 export function Footer() {
@@ -38,7 +44,7 @@ export function Footer() {
                 Resources
               </Text>
               <Anchor
-                href="https://github.com/AustinRecs/ojcp/blob/main/spec/ojcp-v0.1.md"
+                href={specBlob("spec/ojcp-v0.1.md")}
                 target="_blank"
                 size="sm"
                 c="var(--ojcp-text-muted-light)"
@@ -47,7 +53,7 @@ export function Footer() {
                 Specification
               </Anchor>
               <Anchor
-                href="https://github.com/AustinRecs/ojcp/tree/main/schemas"
+                href={specTree("schemas")}
                 target="_blank"
                 size="sm"
                 c="var(--ojcp-text-muted-light)"
@@ -56,7 +62,7 @@ export function Footer() {
                 Schemas
               </Anchor>
               <Anchor
-                href="https://github.com/AustinRecs/ojcp/tree/main/examples"
+                href={specTree("examples")}
                 target="_blank"
                 size="sm"
                 c="var(--ojcp-text-muted-light)"
@@ -77,16 +83,16 @@ export function Footer() {
                 Community
               </Text>
               <Anchor
-                href="https://github.com/AustinRecs/ojcp"
+                href={specRepo}
                 target="_blank"
                 size="sm"
                 c="var(--ojcp-text-muted-light)"
                 underline="hover"
               >
-                GitHub
+                Repository
               </Anchor>
               <Anchor
-                href="https://github.com/AustinRecs/ojcp/discussions"
+                href={specDiscussions}
                 target="_blank"
                 size="sm"
                 c="var(--ojcp-text-muted-light)"
@@ -95,7 +101,7 @@ export function Footer() {
                 Discussions
               </Anchor>
               <Anchor
-                href="https://github.com/AustinRecs/ojcp/blob/main/CONTRIBUTING.md"
+                href={specBlob("CONTRIBUTING.md")}
                 target="_blank"
                 size="sm"
                 c="var(--ojcp-text-muted-light)"

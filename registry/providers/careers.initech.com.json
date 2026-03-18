@@ -1,0 +1,17 @@
+{
+  "@context": "https://ojcp.dev/context/v1",
+  "@type": "OJCPProvider",
+  "domain": "careers.initech.com",
+  "name": "Initech Hiring",
+  "description": "Enterprise software company specializing in financial systems and compliance technology.",
+  "mcp_endpoint": "https://careers.initech.com/ojcp/mcp",
+  "manifest_url": "https://careers.initech.com/.well-known/ojcp.json",
+  "industries": ["financial services", "enterprise software", "compliance"],
+  "location": { "city": "Austin", "state": "TX", "country": "US" },
+  "tools": ["search_jobs", "get_job_detail", "begin_application"],
+  "apply_paths": ["ats_direct"],
+  "has_agent_apply": false,
+  "verified": true,
+  "verified_at": "2026-03-12T00:00:00Z",
+  "registered_at": "2026-03-12T00:00:00Z"
+}

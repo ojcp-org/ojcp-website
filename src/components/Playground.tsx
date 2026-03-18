@@ -38,13 +38,13 @@ export function Playground() {
   const [salaryMin, setSalaryMin] = useState("");
 
   // get_job_detail state
-  const [jobId, setJobId] = useState("acme:sbe-2026-001");
+  const [jobId, setJobId] = useState("careers.acme.com:sbe-2026-001");
 
   // get_employer_context state
   const [employerId, setEmployerId] = useState<string | null>("acme");
 
   // begin_application state
-  const [applyJobId, setApplyJobId] = useState("acme:sbe-2026-001");
+  const [applyJobId, setApplyJobId] = useState("careers.acme.com:sbe-2026-001");
 
   // check_application_status state
   const [applicationId, setApplicationId] = useState("");
@@ -184,7 +184,7 @@ export function Playground() {
               <Stack gap="sm">
                 <TextInput
                   label="Job ID"
-                  placeholder="acme:sbe-2026-001"
+                  placeholder="careers.acme.com:sbe-2026-001"
                   value={jobId}
                   onChange={(e) => setJobId(e.currentTarget.value)}
                   classNames={{ label: classes.label, input: classes.input }}
@@ -243,7 +243,7 @@ export function Playground() {
               <Stack gap="sm">
                 <TextInput
                   label="Job ID"
-                  placeholder="acme:sbe-2026-001"
+                  placeholder="careers.acme.com:sbe-2026-001"
                   value={applyJobId}
                   onChange={(e) => setApplyJobId(e.currentTarget.value)}
                   classNames={{ label: classes.label, input: classes.input }}

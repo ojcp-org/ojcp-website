@@ -6,6 +6,7 @@ import {
   beginApplication,
   checkApplicationStatus,
 } from "./ojcp-tools";
+import { findOjcpProviders } from "./registry-tools";
 import { z } from "zod/v4";
 
 export function createOjcpServer() {
@@ -198,6 +199,29 @@ export function createOjcpServer() {
     },
     async (params) => {
       const result = checkApplicationStatus(params);
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: JSON.stringify(result, null, 2),
+          },
+        ],
+      };
+    }
+  );
+
+  // ── find_ojcp_providers (registry) ──
+  server.tool(
+    "find_ojcp_providers",
+    "Find OJCP-compliant job data providers by industry, location, or employer name.",
+    {
+      industry: z.string().optional().describe("Industry to filter by (e.g. 'technology', 'healthcare')"),
+      employer_name: z.string().optional().describe("Employer or provider name to search for"),
+      location: z.string().optional().describe("Location to filter by (city, state, or country)"),
+      has_agent_apply: z.boolean().optional().describe("Filter for providers that support autonomous agent applications"),
+    },
+    async (params) => {
+      const result = findOjcpProviders(params);
       return {
         content: [
           {

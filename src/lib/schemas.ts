@@ -179,6 +179,34 @@ export const ManifestSchema = z.object({
     .optional(),
 });
 
+// ── Registry ──
+export const RegistryProviderSchema = z.object({
+  domain: z.string(),
+  name: z.string(),
+  description: z.string(),
+  mcp_endpoint: z.string(),
+  manifest_url: z.string(),
+  industries: z.array(z.string()),
+  location: z.object({
+    city: z.string().optional(),
+    state: z.string().optional(),
+    country: z.string(),
+  }),
+  tools: z.array(z.string()),
+  apply_paths: z.array(z.string()),
+  has_agent_apply: z.boolean(),
+  verified: z.boolean(),
+  verified_at: z.string(),
+  registered_at: z.string(),
+});
+
+export const FindOjcpProvidersInputSchema = z.object({
+  industry: z.string().optional(),
+  employer_name: z.string().optional(),
+  location: z.string().optional(),
+  has_agent_apply: z.boolean().optional(),
+});
+
 // ── Type exports ──
 export type ApplyPath = z.infer<typeof ApplyPathSchema>;
 export type JobPosting = z.infer<typeof JobPostingSchema>;
@@ -190,3 +218,5 @@ export type GetEmployerContextInput = z.infer<typeof GetEmployerContextInputSche
 export type BeginApplicationInput = z.infer<typeof BeginApplicationInputSchema>;
 export type CheckApplicationStatusInput = z.infer<typeof CheckApplicationStatusInputSchema>;
 export type Manifest = z.infer<typeof ManifestSchema>;
+export type RegistryProvider = z.infer<typeof RegistryProviderSchema>;
+export type FindOjcpProvidersInput = z.infer<typeof FindOjcpProvidersInputSchema>;

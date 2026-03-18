@@ -6,6 +6,7 @@ import {
   beginApplication,
   checkApplicationStatus,
 } from "@/lib/ojcp-tools";
+import { findOjcpProviders } from "@/lib/registry-tools";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -45,11 +46,14 @@ export async function POST(request: Request) {
       case "check_application_status":
         result = checkApplicationStatus(args);
         break;
+      case "find_ojcp_providers":
+        result = findOjcpProviders(args);
+        break;
       default:
         return NextResponse.json(
           {
             error: "unknown_tool",
-            message: `Unknown tool: ${tool}. Available: search_jobs, get_job_detail, get_employer_context, begin_application, check_application_status`,
+            message: `Unknown tool: ${tool}. Available: search_jobs, get_job_detail, get_employer_context, begin_application, check_application_status, find_ojcp_providers`,
           },
           { status: 400, headers: cors }
         );

@@ -1,0 +1,111 @@
+.root {
+  padding: 120px 0 80px;
+  min-height: 100vh;
+  background: var(--ojcp-bg-dark);
+}
+
+.overline {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ojcp-cyan);
+  font-weight: 600;
+}
+
+.title {
+  font-size: 2.2rem;
+  color: var(--ojcp-text-light);
+}
+
+.subtitle {
+  color: var(--ojcp-text-muted-light);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 250px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: rgba(11, 22, 35, 0.6);
+  border: 1px solid rgba(30, 143, 181, 0.12);
+  transition: border-color 200ms, transform 200ms;
+
+  &:hover {
+    border-color: rgba(30, 143, 181, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+.cardDomain {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 13px;
+  color: var(--ojcp-cyan);
+}
+
+.cardDescription {
+  color: var(--ojcp-text-muted-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.toolCount {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 12px;
+}
+
+.cta {
+  text-align: center;
+  padding: 60px 0 0;
+}
+
+.ctaText {
+  color: var(--ojcp-text-muted-light);
+  font-size: 0.95rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--ojcp-text-muted-light);
+}
+
+@media (max-width: 48em) {
+  .root {
+    padding: 80px 0 60px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchInput {
+    min-width: unset;
+  }
+}

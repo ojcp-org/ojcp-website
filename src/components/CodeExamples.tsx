@@ -17,10 +17,12 @@ const manifestExample = `// /.well-known/ojcp.json
   "ojcp_version": "0.1",
   "provider": {
     "name": "Acme Careers",
-    "url": "https://careers.acme.com",
-    "contact_email": "api@acme.com"
+    "employer_id": "acme",
+    "description": "Global leader in industrial innovation",
+    "industries": ["manufacturing", "engineering"],
+    "hq_location": { "city": "Chicago", "state": "IL", "country": "US" }
   },
-  "mcp_endpoint": "https://api.acme.com/mcp",
+  "mcp_endpoint": "https://careers.acme.com/ojcp/mcp",
   "tools": [
     "search_jobs",
     "get_job_detail",
@@ -30,8 +32,13 @@ const manifestExample = `// /.well-known/ojcp.json
   ],
   "apply_paths": ["ats_direct", "adaptive_apply"],
   "auth": {
-    "type": "bearer",
-    "token_url": "https://api.acme.com/oauth/token"
+    "required": true,
+    "optional_scopes": ["apply", "candidate_data"]
+  },
+  "rate_limits": {
+    "anonymous_rps": 10,
+    "authenticated_rps": 50,
+    "burst_limit": 100
   }
 }`;
 
@@ -51,9 +58,9 @@ const searchExample = `// MCP tool call: search_jobs
     },
     "candidate_context": {
       "ojcp_candidate_context_version": "0.1",
-      "consent_scope": "search_and_match",
+      "consent_scope": "search_personalization",
       "skills": ["Go", "Kubernetes", "PostgreSQL"],
-      "years_experience": 8
+      "experience_years": 8
     },
     "pagination": { "limit": 5 }
   }
@@ -64,10 +71,14 @@ const responseExample = `// search_jobs response
   "total": 23,
   "jobs": [
     {
-      "ojcp_id": "acme:sbe-2024-001",
+      "ojcp_id": "careers.acme.com:sbe-2024-001",
       "title": "Senior Backend Engineer",
-      "employer": { "name": "Acme Corp", "id": "acme" },
+      "employer": {
+        "name": "Acme Corp",
+        "ojcp_employer_id": "acme"
+      },
       "employmentType": "full_time",
+      "experienceLevel": "senior",
       "datePosted": "2026-03-01",
       "baseSalary": {
         "currency": "USD",
@@ -76,12 +87,12 @@ const responseExample = `// search_jobs response
       },
       "skills_required": ["Go", "PostgreSQL", "gRPC"],
       "fit_score": 0.91,
-      "fit_rationale": "Strong overlap on Go and PostgreSQL. 8 years experience exceeds senior threshold.",
+      "fit_rationale": "Strong overlap on Go and PostgreSQL.",
       "apply_paths": [
         {
           "type": "adaptive_apply",
           "supports_agent_submission": true,
-          "url": "https://api.acme.com/apply/sbe-2024-001",
+          "url": "https://careers.acme.com/apply/sbe-2024-001",
           "required_fields": ["resume", "email", "name"],
           "estimated_completion_minutes": 2
         }
@@ -94,14 +105,15 @@ const applyExample = `// MCP tool call: begin_application
 {
   "name": "begin_application",
   "arguments": {
-    "job_id": "acme:sbe-2024-001",
+    "job_id": "careers.acme.com:sbe-2024-001",
     "apply_path": "adaptive_apply",
     "candidate_context": {
       "ojcp_candidate_context_version": "0.1",
-      "consent_scope": "apply",
-      "name": "Jane Doe",
-      "email": "jane@example.com",
-      "resume_url": "https://storage.example.com/resume.pdf"
+      "consent_scope": "application_prefill",
+      "skills": ["Go", "Kubernetes", "PostgreSQL"],
+      "experience_years": 8,
+      "current_title": "Staff Engineer",
+      "work_authorization": "us_citizen"
     },
     "agent_declaration": {
       "agent_id": "com.example.jobagent",

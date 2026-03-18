@@ -1,0 +1,17 @@
+{
+  "@context": "https://ojcp.dev/context/v1",
+  "@type": "OJCPProvider",
+  "domain": "careers.acme.com",
+  "name": "Acme Corp Careers",
+  "description": "Global leader in industrial innovation. 200+ open roles across manufacturing, engineering, and logistics.",
+  "mcp_endpoint": "https://careers.acme.com/ojcp/mcp",
+  "manifest_url": "https://careers.acme.com/.well-known/ojcp.json",
+  "industries": ["manufacturing", "engineering", "logistics"],
+  "location": { "city": "Chicago", "state": "IL", "country": "US" },
+  "tools": ["search_jobs", "get_job_detail", "get_employer_context", "begin_application", "check_application_status"],
+  "apply_paths": ["adaptive_apply", "apply_anywhere", "ats_direct"],
+  "has_agent_apply": true,
+  "verified": true,
+  "verified_at": "2026-03-14T00:00:00Z",
+  "registered_at": "2026-03-10T00:00:00Z"
+}

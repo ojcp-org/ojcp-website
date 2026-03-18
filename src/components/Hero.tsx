@@ -10,7 +10,8 @@ import {
   Stack,
   Badge,
 } from "@mantine/core";
-import { IconArrowRight, IconBrandGithub } from "@tabler/icons-react";
+import { IconArrowRight, IconBrandGitlab } from "@tabler/icons-react";
+import { specRepo, repoHostLabel } from "@/lib/repo-urls";
 import classes from "./Hero.module.css";
 
 export function Hero() {
@@ -51,7 +52,7 @@ export function Hero() {
           <Group gap="md" mt="sm" className={classes.buttons}>
             <Button
               component="a"
-              href="#spec"
+              href="/#spec"
               size="lg"
               color="ojcpCyan"
               variant="filled"
@@ -62,14 +63,14 @@ export function Hero() {
             </Button>
             <Button
               component="a"
-              href="https://github.com/AustinRecs/ojcp"
+              href={specRepo}
               target="_blank"
               size="lg"
               variant="outline"
               color="ojcpTeal"
-              leftSection={<IconBrandGithub size={18} />}
+              leftSection={<IconBrandGitlab size={18} />}
             >
-              View on GitHub
+              View on {repoHostLabel}
             </Button>
           </Group>
         </Stack>

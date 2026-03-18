@@ -172,6 +172,60 @@ export function WebMCPProvider() {
       },
     });
 
+    // ── find_ojcp_providers (registry) ──
+    mc.registerTool({
+      name: "find_ojcp_providers",
+      description:
+        "Find OJCP-compliant job data providers by industry, location, or employer name. Use this to discover which employers and job boards support the OJCP protocol.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          industry: {
+            type: "string",
+            description: "Industry to search for (e.g. 'technology', 'healthcare')",
+          },
+          employer_name: {
+            type: "string",
+            description: "Provider or employer name to search for",
+          },
+          location: {
+            type: "string",
+            description: "Location filter (city, state, or country)",
+          },
+          has_agent_apply: {
+            type: "string",
+            enum: ["true", "false"],
+            description: "Filter for providers supporting agent apply",
+          },
+        },
+      },
+      execute: async (params) => {
+        const res = await fetch("/api/tools", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tool: "find_ojcp_providers",
+            arguments: {
+              industry: params.industry,
+              employer_name: params.employer_name,
+              location: params.location,
+              has_agent_apply: params.has_agent_apply === "true" ? true : undefined,
+            },
+          }),
+        });
+        const data = await res.json();
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `Found ${data.total_results} OJCP providers.`,
+            },
+            { type: "json" as const, data },
+          ],
+        };
+      },
+    });
+
     // Cleanup on unmount
     return () => {
       if (!("modelContext" in window.navigator)) return;
@@ -180,6 +234,7 @@ export function WebMCPProvider() {
       ctx.unregisterTool("get_job_detail");
       ctx.unregisterTool("get_employer_context");
       ctx.unregisterTool("begin_application");
+      ctx.unregisterTool("find_ojcp_providers");
     };
   }, []);
 

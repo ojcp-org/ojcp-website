@@ -11,15 +11,17 @@ import {
   Stack,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBrandGithub } from "@tabler/icons-react";
+import { IconBrandGitlab } from "@tabler/icons-react";
+import { specRepo, repoHostLabel } from "@/lib/repo-urls";
 import classes from "./Header.module.css";
 
 const links = [
-  { label: "Spec", href: "#spec" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Examples", href: "#examples" },
-  { label: "Playground", href: "#playground" },
-  { label: "Community", href: "#community" },
+  { label: "Spec", href: "/#spec" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Examples", href: "/#examples" },
+  { label: "Playground", href: "/#playground" },
+  { label: "Registry", href: "/registry" },
+  { label: "Community", href: "/#community" },
 ];
 
 export function Header() {
@@ -51,14 +53,14 @@ export function Header() {
           ))}
           <Button
             component="a"
-            href="https://github.com/AustinRecs/ojcp"
+            href={specRepo}
             target="_blank"
             variant="subtle"
             color="gray"
             size="sm"
-            leftSection={<IconBrandGithub size={18} />}
+            leftSection={<IconBrandGitlab size={18} />}
           >
-            GitHub
+            {repoHostLabel}
           </Button>
         </Group>
 

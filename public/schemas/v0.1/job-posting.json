@@ -55,6 +55,10 @@
       "type": "string",
       "description": "Type of employment. Standard values: full_time, part_time, contract, internship, temporary. Providers MAY use additional values (e.g., freelance, volunteer, apprenticeship). Note: schema.org uses UPPERCASE — OJCP normalizes to lowercase."
     },
+    "experienceLevel": {
+      "type": "string",
+      "description": "Required experience level. Standard values: entry, mid, senior, lead, director, executive. Providers MAY use additional values."
+    },
     "jobLocation": {
       "type": "object",
       "properties": {
