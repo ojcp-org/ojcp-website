@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Anchor,
   Container,
   Title,
   Text,
@@ -40,13 +41,17 @@ export function Hero() {
           <Title order={1} className={classes.title} ta="center">
             The open standard for
             <br />
-            <span className={classes.highlight}>agent-consumable job feeds</span>
+            <span className={classes.highlight}>agent-native job data</span>
           </Title>
 
           <Text className={classes.subtitle} ta="center" maw={640}>
-            OJCP defines how AI agents discover, reason over, and act on job
-            opportunities. Built on MCP. Interoperable with schema.org.
-            Designed for the agentic web.
+            Part of the{" "}
+            <Anchor href="/about" c="var(--ojcp-cyan)" underline="hover">
+              Open Agent Jobs Initiative
+            </Anchor>
+            . OJCP defines how AI agents discover, reason over, and act on job
+            opportunities. Built on MCP. Interoperable with schema.org. Designed
+            for the agentic web.
           </Text>
 
           <Group gap="md" mt="sm" className={classes.buttons}>

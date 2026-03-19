@@ -1,0 +1,95 @@
+.root {
+  padding: 120px 0 100px;
+}
+
+.overline {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ojcp-cyan);
+  font-weight: 600;
+}
+
+.title {
+  font-size: 2.6rem;
+  color: var(--ojcp-text-light);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--ojcp-text-muted-light);
+  font-size: 1.15rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #00c2e8, #1e8fb5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section {
+  padding: 60px 0;
+}
+
+.sectionAlt {
+  padding: 60px 0;
+  background: var(--ojcp-bg-dark-alt);
+}
+
+.sectionTitle {
+  font-size: 1.6rem;
+  color: var(--ojcp-text-light);
+  font-weight: 600;
+}
+
+.body {
+  color: var(--ojcp-text-muted-light);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.card {
+  background: rgba(11, 22, 35, 0.6);
+  border: 1px solid rgba(30, 143, 181, 0.12);
+  transition: border-color 200ms;
+
+  &:hover {
+    border-color: rgba(30, 143, 181, 0.3);
+  }
+}
+
+.icon {
+  background: rgba(0, 194, 232, 0.08);
+}
+
+.pillarTitle {
+  color: var(--ojcp-text-light);
+}
+
+.rxLogo {
+  opacity: 0.85;
+  transition: opacity 200ms;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 48em) {
+  .root {
+    padding: 100px 0 60px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+}

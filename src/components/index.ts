@@ -8,3 +8,5 @@ export { ApplyPaths } from "./ApplyPaths";
 export { Playground } from "./Playground";
 export { Community } from "./Community";
 export { Footer } from "./Footer";
+export { NotFound } from "./NotFound";
+export { About } from "./About";

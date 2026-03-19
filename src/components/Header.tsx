@@ -16,6 +16,7 @@ import { specRepo, repoHostLabel } from "@/lib/repo-urls";
 import classes from "./Header.module.css";
 
 const links = [
+  { label: "About", href: "/about" },
   { label: "Spec", href: "/#spec" },
   { label: "How It Works", href: "/#how-it-works" },
   { label: "Examples", href: "/#examples" },
@@ -30,15 +31,17 @@ export function Header() {
   return (
     <header className={classes.header}>
       <Container size="lg" className={classes.inner}>
-        <Group gap="xs">
-          <Image
-            src="/logos/icon-32.svg"
-            alt="OJCP"
-            w={28}
-            h={28}
-          />
-          <span className={classes.wordmark}>OJCP</span>
-        </Group>
+        <Anchor href="/" underline="never">
+          <Group gap="xs">
+            <Image
+              src="/logos/icon-32.svg"
+              alt="OJCP"
+              w={28}
+              h={28}
+            />
+            <span className={classes.wordmark}>OJCP</span>
+          </Group>
+        </Anchor>
 
         <Group gap="sm" visibleFrom="sm">
           {links.map((link) => (
