@@ -43,6 +43,17 @@
   }
 }
 
+.codeBadge {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.toggle {
+  background: rgba(6, 16, 26, 0.8);
+  border: 1px solid rgba(30, 143, 181, 0.12);
+}
+
 .code {
   border-radius: var(--mantine-radius-md);
   font-size: 13px;

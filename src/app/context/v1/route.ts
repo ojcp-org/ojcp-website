@@ -182,6 +182,64 @@ const context = {
       "@id": "ojcp:resumeEmbeddingHash",
       "@type": "xsd:string",
     },
+
+    // ── Identity Verification ──
+    VerificationStep: "ojcp:VerificationStep",
+    VerificationProof: "ojcp:VerificationProof",
+    VerifierManifest: "ojcp:VerifierManifest",
+
+    verification_steps: {
+      "@id": "ojcp:verificationSteps",
+      "@container": "@set",
+    },
+    verification_proofs: {
+      "@id": "ojcp:verificationProofs",
+      "@container": "@set",
+    },
+    verification_url: { "@id": "ojcp:verificationUrl", "@type": "@id" },
+    verification_type: {
+      "@id": "ojcp:verificationType",
+      "@type": "@vocab",
+    },
+    verifier_id: { "@id": "ojcp:verifierId", "@type": "xsd:string" },
+    verifier_name: { "@id": "ojcp:verifierName", "@type": "xsd:string" },
+    verifier_manifest_url: {
+      "@id": "ojcp:verifierManifestUrl",
+      "@type": "@id",
+    },
+    step_id: { "@id": "ojcp:stepId", "@type": "xsd:string" },
+    proof_token: { "@id": "ojcp:proofToken", "@type": "xsd:string" },
+    subject_hash: { "@id": "ojcp:subjectHash", "@type": "xsd:string" },
+    human_required: {
+      "@id": "ojcp:humanRequired",
+      "@type": "xsd:boolean",
+    },
+    requires_verification: {
+      "@id": "ojcp:requiresVerification",
+      "@type": "xsd:boolean",
+    },
+    accepted_verifiers: {
+      "@id": "ojcp:acceptedVerifiers",
+      "@container": "@set",
+    },
+    supported_verifiers: {
+      "@id": "ojcp:supportedVerifiers",
+      "@container": "@set",
+    },
+    public_keys_url: { "@id": "ojcp:publicKeysUrl", "@type": "@id" },
+    proof_format: { "@id": "ojcp:proofFormat", "@type": "xsd:string" },
+    proof_ttl_seconds: {
+      "@id": "ojcp:proofTtlSeconds",
+      "@type": "xsd:integer",
+    },
+    callback_supported: {
+      "@id": "ojcp:callbackSupported",
+      "@type": "xsd:boolean",
+    },
+    verification_status: {
+      "@id": "ojcp:verificationStatus",
+      "@type": "@id",
+    },
   },
 };
 

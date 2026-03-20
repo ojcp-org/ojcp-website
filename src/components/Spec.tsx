@@ -11,14 +11,17 @@ import {
   Badge,
   List,
   ThemeIcon,
+  Anchor,
 } from "@mantine/core";
-import { IconCheck } from "@tabler/icons-react";
+import { IconCheck, IconExternalLink } from "@tabler/icons-react";
+import { specRendered } from "@/lib/repo-urls";
 import classes from "./Spec.module.css";
 
 const schemas = [
   {
     name: "Job Manifest",
     file: "manifest.json",
+    specFragment: "manifest",
     description: "Discovery endpoint at /.well-known/ojcp.json",
     fields: [
       "ojcp_version",
@@ -32,6 +35,7 @@ const schemas = [
   {
     name: "JobPosting",
     file: "job-posting.json",
+    specFragment: "schema-job-posting",
     description: "Extends schema.org/JobPosting with agent-specific fields",
     fields: [
       "ojcp_id",
@@ -44,6 +48,7 @@ const schemas = [
   {
     name: "CandidateContext",
     file: "candidate-context.json",
+    specFragment: "schema-candidate-context",
     description: "Consent-scoped candidate profile for personalized results",
     fields: [
       "consent_scope",
@@ -55,6 +60,7 @@ const schemas = [
   {
     name: "AgentDeclaration",
     file: "agent-declaration.json",
+    specFragment: "schema-agent-declaration",
     description: "Agent self-identification for audit trails",
     fields: [
       "agent_id",
@@ -63,14 +69,56 @@ const schemas = [
       "user_consent_token",
     ],
   },
+  {
+    name: "VerificationStep",
+    file: "verification-step.json",
+    specFragment: "identity-session-initiation",
+    description: "Identity verification action for human completion",
+    fields: [
+      "step_id",
+      "type",
+      "verifier_id",
+      "verification_url",
+      "human_required",
+    ],
+  },
+  {
+    name: "VerificationProof",
+    file: "verification-proof.json",
+    specFragment: "identity-proof-format",
+    description: "JWS proof with required claims: iss, aud, sub, iat, exp, nonce — no PII",
+    fields: [
+      "step_id",
+      "verifier_id",
+      "proof_token (JWS)",
+      "subject_hash (SHA-256)",
+      "issued_at",
+      "expires_at",
+    ],
+  },
+  {
+    name: "VerifierManifest",
+    file: "verifier-manifest.json",
+    specFragment: "identity-discovery",
+    description: "Discovery document hosted at /.well-known/ojcp-verifier.json",
+    fields: [
+      "verifier_id",
+      "verification_types",
+      "proof_delivery_methods",
+      "proof_format (jws|jws+jwe)",
+      "signing_algorithms",
+      "public_keys_url (JWKS)",
+    ],
+  },
 ];
 
 const tools = [
-  { name: "search_jobs", required: true },
-  { name: "get_job_detail", required: false },
-  { name: "get_employer_context", required: false },
-  { name: "begin_application", required: false },
-  { name: "check_application_status", required: false },
+  { name: "search_jobs", required: true, specFragment: "tool-search-jobs" },
+  { name: "get_job_detail", required: false, specFragment: "tool-get-job-detail" },
+  { name: "get_employer_context", required: false, specFragment: "tool-get-employer-context" },
+  { name: "begin_application", required: false, specFragment: "tool-begin-application" },
+  { name: "submit_application", required: false, specFragment: "tool-submit-application" },
+  { name: "check_application_status", required: false, specFragment: "tool-check-application-status" },
 ];
 
 export function Spec() {
@@ -83,7 +131,7 @@ export function Spec() {
             Schemas & Tools
           </Title>
           <Text ta="center" className={classes.subtitle} maw={600}>
-            OJCP defines four core schemas and five standard MCP tools.
+            OJCP defines seven core schemas and six standard MCP tools.
             Providers MUST implement <code>search_jobs</code>; all others are
             recommended. Custom tools use namespaced names
             (e.g., <code>acme:get_referral_link</code>).
@@ -97,17 +145,25 @@ export function Spec() {
           </Text>
           <Group gap="sm" wrap="wrap">
             {tools.map((tool) => (
-              <Badge
+              <Anchor
                 key={tool.name}
-                size="lg"
-                radius="sm"
-                variant="light"
-                color="ojcpTeal"
-                className={classes.toolBadge}
+                href={`${specRendered}#${tool.specFragment}`}
+                target="_blank"
+                underline="never"
               >
-                {tool.name}
-                {tool.required && " (required)"}
-              </Badge>
+                <Badge
+                  size="lg"
+                  radius="sm"
+                  variant="light"
+                  color="ojcpTeal"
+                  className={classes.toolBadge}
+                  rightSection={<IconExternalLink size={12} />}
+                  style={{ cursor: "pointer" }}
+                >
+                  {tool.name}
+                  {tool.required && " (required)"}
+                </Badge>
+              </Anchor>
             ))}
           </Group>
         </Card>
@@ -122,9 +178,20 @@ export function Spec() {
               radius="md"
             >
               <Group justify="space-between" mb="sm">
-                <Text fw={600} size="lg" c="var(--ojcp-text-light)">
+                <Anchor
+                  href={`${specRendered}#${schema.specFragment}`}
+                  target="_blank"
+                  underline="hover"
+                  c="var(--ojcp-text-light)"
+                  fw={600}
+                  size="lg"
+                >
                   {schema.name}
-                </Text>
+                  <IconExternalLink
+                    size={14}
+                    style={{ marginLeft: 6, opacity: 0.5, verticalAlign: "middle" }}
+                  />
+                </Anchor>
                 <Badge
                   variant="outline"
                   color="ojcpTeal"

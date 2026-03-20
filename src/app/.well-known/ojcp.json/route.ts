@@ -15,6 +15,7 @@ const manifest = {
     "get_job_detail",
     "get_employer_context",
     "begin_application",
+    "submit_application",
     "check_application_status",
   ],
   feed_endpoints: {
@@ -29,6 +30,24 @@ const manifest = {
     requests_per_minute: 60,
     requests_per_day: 10000,
   },
+  // supported_verifiers: No confirmed verifier partnerships yet.
+  // Uncomment when ID.me / Checkr / Clear integrations are confirmed.
+  // supported_verifiers: [
+  //   {
+  //     verifier_id: "id.me",
+  //     verifier_name: "ID.me",
+  //     verifier_manifest_url: "https://id.me/.well-known/ojcp-verifier.json",
+  //     verification_types: ["identity", "government_id"],
+  //     required_for_paths: ["adaptive_apply"],
+  //   },
+  //   {
+  //     verifier_id: "checkr",
+  //     verifier_name: "Checkr",
+  //     verifier_manifest_url: "https://checkr.com/.well-known/ojcp-verifier.json",
+  //     verification_types: ["background_check"],
+  //     required_for_paths: ["adaptive_apply"],
+  //   },
+  // ],
 };
 
 export async function GET() {

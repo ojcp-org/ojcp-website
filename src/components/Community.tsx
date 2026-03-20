@@ -18,7 +18,7 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 import {
-  specBlob,
+  specRendered,
   specTree,
   specIssues,
   specDiscussions,
@@ -32,7 +32,7 @@ const cards = [
     description:
       "The full OJCP v0.1 specification covers tools, schemas, apply paths, and security requirements.",
     action: "View Specification",
-    href: specBlob("spec/ojcp-v0.1.md"),
+    href: specRendered,
   },
   {
     icon: IconCode,

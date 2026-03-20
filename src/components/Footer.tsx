@@ -3,6 +3,7 @@
 import { Container, Group, Text, Anchor, Image, Stack } from "@mantine/core";
 import {
   specRepo,
+  specRendered,
   specBlob,
   specTree,
   specDiscussions,
@@ -44,7 +45,7 @@ export function Footer() {
                 Resources
               </Text>
               <Anchor
-                href={specBlob("spec/ojcp-v0.1.md")}
+                href={specRendered}
                 target="_blank"
                 size="sm"
                 c="var(--ojcp-text-muted-light)"

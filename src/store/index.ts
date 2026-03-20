@@ -11,7 +11,7 @@ interface SiteState {
 export const useSiteStore = create<SiteState>()(
   immer((set) => ({
     activeSection: "hero",
-    activeCodeTab: "manifest",
+    activeCodeTab: "discover",
     setActiveSection: (section) =>
       set((state) => {
         state.activeSection = section;

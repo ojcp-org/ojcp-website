@@ -4,6 +4,7 @@ import {
   getJobDetail,
   getEmployerContext,
   beginApplication,
+  submitApplication,
   checkApplicationStatus,
 } from "@/lib/ojcp-tools";
 import { findOjcpProviders } from "@/lib/registry-tools";
@@ -43,6 +44,9 @@ export async function POST(request: Request) {
       case "begin_application":
         result = beginApplication(args);
         break;
+      case "submit_application":
+        result = submitApplication(args);
+        break;
       case "check_application_status":
         result = checkApplicationStatus(args);
         break;
@@ -53,7 +57,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
           {
             error: "unknown_tool",
-            message: `Unknown tool: ${tool}. Available: search_jobs, get_job_detail, get_employer_context, begin_application, check_application_status, find_ojcp_providers`,
+            message: `Unknown tool: ${tool}. Available: search_jobs, get_job_detail, get_employer_context, begin_application, submit_application, check_application_status, find_ojcp_providers`,
           },
           { status: 400, headers: cors }
         );

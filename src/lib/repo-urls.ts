@@ -26,6 +26,10 @@ function infix(url: string) {
 
 export const specRepo = SPEC_REPO;
 
+/** Rendered spec hosted via GitLab Pages */
+export const specRendered =
+  process.env.NEXT_PUBLIC_SPEC_PAGES_URL ?? "https://spec.ojcp.dev/";
+
 export function specBlob(path: string, branch = "main") {
   return `${SPEC_REPO}${infix(SPEC_REPO)}/blob/${branch}/${path}`;
 }

@@ -4,6 +4,7 @@ import {
   getJobDetail,
   getEmployerContext,
   beginApplication,
+  submitApplication,
   checkApplicationStatus,
 } from "./ojcp-tools";
 import { findOjcpProviders } from "./registry-tools";
@@ -46,7 +47,7 @@ export function createOjcpServer() {
           salary_min: z.number().optional(),
           salary_max: z.number().optional(),
           experience_level: z
-            .enum(["entry", "mid", "senior", "director", "executive"])
+            .enum(["entry", "mid", "senior", "lead", "director", "executive"])
             .optional(),
           posted_within_days: z.number().optional(),
         })
@@ -54,9 +55,9 @@ export function createOjcpServer() {
       candidate_context: z
         .object({
           ojcp_candidate_context_version: z.string().default("0.1"),
-          consent_scope: z.enum(["search_and_match", "apply", "full_profile"]),
+          consent_scope: z.enum(["search_personalization", "fit_scoring", "application_prefill", "full_profile"]),
           skills: z.array(z.string()).optional(),
-          years_experience: z.number().optional(),
+          experience_years: z.number().optional(),
         })
         .optional(),
       pagination: z
@@ -89,9 +90,9 @@ export function createOjcpServer() {
       candidate_context: z
         .object({
           ojcp_candidate_context_version: z.string().default("0.1"),
-          consent_scope: z.enum(["search_and_match", "apply", "full_profile"]),
+          consent_scope: z.enum(["search_personalization", "fit_scoring", "application_prefill", "full_profile"]),
           skills: z.array(z.string()).optional(),
-          years_experience: z.number().optional(),
+          experience_years: z.number().optional(),
         })
         .optional(),
     },
@@ -133,7 +134,7 @@ export function createOjcpServer() {
   // ── begin_application ──
   server.tool(
     "begin_application",
-    "Initiate an application for a job. Returns an apply path descriptor including required fields, the preferred apply mechanism, and a session token for multi-step apply flows.",
+    "Initiate an application for a job. Returns an apply path descriptor including required fields, the preferred apply mechanism, a session token for multi-step apply flows, and optional screening_questions the candidate must answer.",
     {
       job_id: z.string(),
       apply_path: z
@@ -141,7 +142,9 @@ export function createOjcpServer() {
           "ats_direct",
           "adaptive_apply",
           "apply_anywhere",
-          "indeed_apply",
+          "platform_apply",
+          "email_apply",
+          "external_url",
           "custom",
         ])
         .optional()
@@ -151,7 +154,7 @@ export function createOjcpServer() {
       candidate_context: z
         .object({
           ojcp_candidate_context_version: z.string().default("0.1"),
-          consent_scope: z.enum(["search_and_match", "apply", "full_profile"]),
+          consent_scope: z.enum(["search_personalization", "fit_scoring", "application_prefill", "full_profile"]),
           name: z.string().optional(),
           email: z.string().optional(),
           resume_url: z.string().optional(),
@@ -172,9 +175,102 @@ export function createOjcpServer() {
           user_consent_token: z.string().optional(),
         })
         .optional(),
+      source_attribution: z
+        .object({
+          referrer: z.string().optional().describe("Traffic source (e.g. job board domain)"),
+          reference_id: z.string().optional().describe("Provider-specific tracking ID"),
+        })
+        .optional()
+        .describe("Optional traffic source attribution for analytics"),
     },
     async (params) => {
       const result = beginApplication(params);
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: JSON.stringify(result, null, 2),
+          },
+        ],
+      };
+    }
+  );
+
+  // ── submit_application ──
+  server.tool(
+    "submit_application",
+    "Submit a previously initiated application with application data, verification proofs, and/or candidate context. Include screening question answers in application_data.answers keyed by question_id.",
+    {
+      application_id: z
+        .string()
+        .describe("Application ID from begin_application"),
+      session_token: z
+        .string()
+        .describe("Session token from begin_application"),
+      application_data: z
+        .object({
+          answers: z
+            .record(z.string(), z.unknown())
+            .optional()
+            .describe("Screening question answers keyed by question_id"),
+          cover_letter: z.string().optional().describe("Cover letter text"),
+          resume_url: z.string().optional().describe("URL to candidate resume"),
+          custom_fields: z
+            .record(z.string(), z.unknown())
+            .optional()
+            .describe("Additional ATS-specific fields"),
+        })
+        .optional()
+        .describe(
+          "Application payload — screening answers, cover letter, resume, and custom fields. Shape determined by begin_application response."
+        ),
+      verification_proofs: z
+        .array(
+          z.object({
+            step_id: z.string(),
+            verifier_id: z.string(),
+            verification_type: z.enum([
+              "identity",
+              "government_id",
+              "biometric",
+              "address",
+              "employment",
+              "education",
+              "background_check",
+            ]),
+            proof_token: z.string().describe("Signed proof artifact (JWT)"),
+            subject_hash: z.string().describe("SHA-256 hash of verified subject identity"),
+            issued_at: z.string().describe("ISO 8601 timestamp"),
+            expires_at: z.string().describe("ISO 8601 timestamp"),
+          })
+        )
+        .optional()
+        .describe("Cryptographic proofs from completed verification steps"),
+      agent_declaration: z
+        .object({
+          agent_id: z.string(),
+          agent_version: z.string().optional(),
+          acting_on_behalf_of: z.enum([
+            "human_user",
+            "recruiter",
+            "autonomous_workflow",
+          ]),
+          interaction_mode: z
+            .enum(["assisted", "autonomous", "supervised"])
+            .optional(),
+          user_consent_token: z.string().optional(),
+        })
+        .optional(),
+      source_attribution: z
+        .object({
+          referrer: z.string().optional().describe("Traffic source (e.g. job board domain)"),
+          reference_id: z.string().optional().describe("Provider-specific tracking ID"),
+        })
+        .optional()
+        .describe("Optional traffic source attribution for analytics"),
+    },
+    async (params) => {
+      const result = submitApplication(params);
       return {
         content: [
           {

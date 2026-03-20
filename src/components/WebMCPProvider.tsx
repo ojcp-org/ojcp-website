@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { createMockProofToken } from "@/lib/mock-jwt";
 
 /**
  * Registers OJCP tools via the WebMCP imperative API (navigator.modelContext).
@@ -172,6 +173,65 @@ export function WebMCPProvider() {
       },
     });
 
+    // ── submit_application ──
+    mc.registerTool({
+      name: "submit_application",
+      description:
+        "Submit a previously initiated application with verification proofs. Use after begin_application returns status 'pending_verification'.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          application_id: {
+            type: "string",
+            description: "Application ID from begin_application",
+          },
+          session_token: {
+            type: "string",
+            description: "Session token from begin_application",
+          },
+        },
+        required: ["application_id", "session_token"],
+      },
+      execute: async (params) => {
+        const res = await fetch("/api/tools", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tool: "submit_application",
+            arguments: {
+              application_id: params.application_id,
+              session_token: params.session_token,
+              verification_proofs: [
+                {
+                  step_id: "mock_step",
+                  verifier_id: "id.me",
+                  verification_type: "identity",
+                  proof_token: createMockProofToken({
+                    verifierId: "id.me",
+                    stepId: "mock_step",
+                  }),
+                  issued_at: new Date().toISOString(),
+                  expires_at: new Date(
+                    Date.now() + 86400000
+                  ).toISOString(),
+                },
+              ],
+            },
+          }),
+        });
+        const data = await res.json();
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `Application submission: ${data.status || "error"}`,
+            },
+            { type: "json" as const, data },
+          ],
+        };
+      },
+    });
+
     // ── find_ojcp_providers (registry) ──
     mc.registerTool({
       name: "find_ojcp_providers",
@@ -234,6 +294,7 @@ export function WebMCPProvider() {
       ctx.unregisterTool("get_job_detail");
       ctx.unregisterTool("get_employer_context");
       ctx.unregisterTool("begin_application");
+      ctx.unregisterTool("submit_application");
       ctx.unregisterTool("find_ojcp_providers");
     };
   }, []);

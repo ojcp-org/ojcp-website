@@ -28,8 +28,8 @@ const paths = [
     agentSupport: "full",
   },
   {
-    type: "indeed_apply",
-    description: "Indeed's native apply flow",
+    type: "platform_apply",
+    description: "Third-party platform-managed apply flow (e.g., Indeed Apply, Easy Apply)",
     agentSupport: "limited",
   },
   {

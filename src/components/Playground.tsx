@@ -18,6 +18,7 @@ import {
 } from "@mantine/core";
 import { CodeHighlight } from "@mantine/code-highlight";
 import { IconPlayerPlay, IconPlugConnected } from "@tabler/icons-react";
+import { createMockProofToken } from "@/lib/mock-jwt";
 import classes from "./Playground.module.css";
 
 type ToolName =
@@ -25,6 +26,7 @@ type ToolName =
   | "get_job_detail"
   | "get_employer_context"
   | "begin_application"
+  | "submit_application"
   | "check_application_status";
 
 export function Playground() {
@@ -38,13 +40,17 @@ export function Playground() {
   const [salaryMin, setSalaryMin] = useState("");
 
   // get_job_detail state
-  const [jobId, setJobId] = useState("careers.acme.com:sbe-2026-001");
+  const [jobId, setJobId] = useState("acme:sbe-2026-001");
 
   // get_employer_context state
   const [employerId, setEmployerId] = useState<string | null>("acme");
 
-  // begin_application state
-  const [applyJobId, setApplyJobId] = useState("careers.acme.com:sbe-2026-001");
+  // begin_application state (default to verification-required job)
+  const [applyJobId, setApplyJobId] = useState("globex:sa-2026-004");
+
+  // submit_application state
+  const [submitAppId, setSubmitAppId] = useState("");
+  const [sessionToken, setSessionToken] = useState("");
 
   // check_application_status state
   const [applicationId, setApplicationId] = useState("");
@@ -62,9 +68,13 @@ export function Playground() {
         const data = await res.json();
         setResponse(JSON.stringify(data, null, 2));
 
-        // Auto-populate application_id when begin_application returns one
+        // Auto-populate IDs when begin_application returns them
         if (tool === "begin_application" && data.application_id) {
           setApplicationId(data.application_id);
+          if (data.session_token) {
+            setSubmitAppId(data.application_id);
+            setSessionToken(data.session_token);
+          }
         }
       } catch (err) {
         setResponse(
@@ -126,6 +136,7 @@ export function Playground() {
               <Tabs.Tab value="get_job_detail">get_job_detail</Tabs.Tab>
               <Tabs.Tab value="get_employer_context">get_employer_context</Tabs.Tab>
               <Tabs.Tab value="begin_application">begin_application</Tabs.Tab>
+              <Tabs.Tab value="submit_application">submit_application</Tabs.Tab>
               <Tabs.Tab value="check_application_status">
                 check_status
               </Tabs.Tab>
@@ -184,7 +195,7 @@ export function Playground() {
               <Stack gap="sm">
                 <TextInput
                   label="Job ID"
-                  placeholder="careers.acme.com:sbe-2026-001"
+                  placeholder="acme:sbe-2026-001"
                   value={jobId}
                   onChange={(e) => setJobId(e.currentTarget.value)}
                   classNames={{ label: classes.label, input: classes.input }}
@@ -243,7 +254,7 @@ export function Playground() {
               <Stack gap="sm">
                 <TextInput
                   label="Job ID"
-                  placeholder="careers.acme.com:sbe-2026-001"
+                  placeholder="acme:sbe-2026-001"
                   value={applyJobId}
                   onChange={(e) => setApplyJobId(e.currentTarget.value)}
                   classNames={{ label: classes.label, input: classes.input }}
@@ -266,6 +277,55 @@ export function Playground() {
                   disabled={loading}
                 >
                   Execute
+                </Button>
+              </Stack>
+            </Tabs.Panel>
+
+            {/* ── submit_application ── */}
+            <Tabs.Panel value="submit_application">
+              <Stack gap="sm">
+                <TextInput
+                  label="Application ID"
+                  placeholder="Run begin_application on a verification-required job first"
+                  description="Auto-populated from begin_application (try globex:sa-2026-004)"
+                  value={submitAppId}
+                  onChange={(e) => setSubmitAppId(e.currentTarget.value)}
+                  classNames={{ label: classes.label, input: classes.input }}
+                />
+                <TextInput
+                  label="Session Token"
+                  placeholder="Auto-populated from begin_application"
+                  value={sessionToken}
+                  onChange={(e) => setSessionToken(e.currentTarget.value)}
+                  classNames={{ label: classes.label, input: classes.input }}
+                />
+                <Button
+                  onClick={() =>
+                    callTool("submit_application", {
+                      application_id: submitAppId,
+                      session_token: sessionToken,
+                      verification_proofs: [
+                        {
+                          step_id: "mock_step",
+                          verifier_id: "id.me",
+                          verification_type: "identity",
+                          proof_token: createMockProofToken({
+                            verifierId: "id.me",
+                            stepId: "mock_step",
+                          }),
+                          issued_at: new Date().toISOString(),
+                          expires_at: new Date(Date.now() + 86400000).toISOString(),
+                        },
+                      ],
+                    })
+                  }
+                  color="ojcpCyan"
+                  leftSection={
+                    loading ? <Loader size={14} color="dark" /> : <IconPlayerPlay size={16} />
+                  }
+                  disabled={loading || !submitAppId}
+                >
+                  Submit with Mock Proof
                 </Button>
               </Stack>
             </Tabs.Panel>

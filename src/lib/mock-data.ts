@@ -1,4 +1,4 @@
-import type { JobPosting } from "./schemas";
+import type { JobPosting, VerificationStep, ScreeningQuestion } from "./schemas";
 
 // ── Employers ──
 export const employers = {
@@ -119,6 +119,10 @@ export const jobs: JobPosting[] = [
       "We're looking for a senior backend engineer to help scale our API platform serving 10M+ requests/day. You'll work on Go microservices, design distributed systems, and mentor junior engineers.",
     baseSalary: { currency: "USD", minValue: 170000, maxValue: 210000 },
     jobLocation: { country: "US", remote: true },
+    requisition_id: "REQ-2026-0142",
+    department: "Engineering",
+    hiring_manager: "Dana Park",
+    remote_policy: "fully_remote",
     skills_required: ["Go", "PostgreSQL", "gRPC", "Kubernetes"],
     skills_preferred: ["Terraform", "Redis", "OpenTelemetry"],
     team_context: {
@@ -186,6 +190,10 @@ export const jobs: JobPosting[] = [
       "Lead the architecture of Globex's real-time payment processing system handling $2B+ in annual transaction volume. You'll drive technical decisions across the payments domain.",
     baseSalary: { currency: "USD", minValue: 220000, maxValue: 280000 },
     jobLocation: { city: "New York", state: "NY", country: "US", remote: false },
+    requisition_id: "GX-ENG-2026-019",
+    department: "Payments Engineering",
+    hiring_manager: "Alex Chen",
+    remote_policy: "on_site",
     skills_required: ["Java", "Kafka", "PostgreSQL", "Payment Systems"],
     skills_preferred: ["Kotlin", "Event Sourcing", "PCI Compliance"],
     team_context: {
@@ -362,6 +370,83 @@ export const jobs: JobPosting[] = [
       },
     ],
   },
+  {
+    ojcp_id: "globex:sa-2026-004",
+    title: "Security Analyst — Financial Compliance",
+    employer: { name: "Globex International", id: "globex" },
+    datePosted: "2026-03-10",
+    employmentType: "full_time",
+    description:
+      "Join Globex's compliance team to monitor financial transactions, investigate suspicious activity, and ensure regulatory compliance. Identity verification required due to financial regulatory requirements.",
+    baseSalary: { currency: "USD", minValue: 120000, maxValue: 160000 },
+    jobLocation: { city: "New York", state: "NY", country: "US", remote: false },
+    skills_required: ["Financial Compliance", "AML", "SQL", "Risk Analysis"],
+    skills_preferred: ["Python", "Tableau", "CAMS Certification"],
+    team_context: {
+      team_name: "Financial Compliance",
+      team_size: 8,
+      reports_to: "Chief Compliance Officer",
+    },
+    urgency: "high",
+    application_volume_signal: "low",
+    agent_notes:
+      "Identity verification required via ID.me due to financial regulatory requirements. Candidates must be US citizens.",
+    apply_paths: [
+      {
+        type: "adaptive_apply",
+        supports_agent_submission: true,
+        url: "https://ojcp.dev/api/mock-apply/globex-sa-2026-004",
+        required_fields: ["resume", "email", "name", "work_authorization"],
+        estimated_completion_minutes: 10,
+        requires_verification: true,
+        accepted_verifiers: ["id.me"],
+      },
+    ],
+  },
+  {
+    ojcp_id: "initech:ciso-2026-003",
+    title: "Chief Information Security Officer",
+    employer: { name: "Initech Systems", id: "initech" },
+    datePosted: "2026-03-12",
+    employmentType: "full_time",
+    description:
+      "Lead Initech's security program. You'll set security strategy, manage compliance certifications, and build out the security team. Identity verification and background check required.",
+    baseSalary: { currency: "USD", minValue: 200000, maxValue: 280000 },
+    jobLocation: { city: "Austin", state: "TX", country: "US", remote: false },
+    requisition_id: "IT-SEC-2026-001",
+    department: "Security",
+    hiring_manager: "Jordan Lee",
+    remote_policy: "hybrid",
+    skills_required: [
+      "Information Security",
+      "Compliance",
+      "Risk Management",
+      "SOC 2",
+    ],
+    skills_preferred: ["CISSP", "ISO 27001", "Incident Response", "Cloud Security"],
+    team_context: {
+      team_name: "Security",
+      team_size: 4,
+      reports_to: "CEO",
+      description:
+        "Building the security function from the ground up. You'll be the first dedicated security leader.",
+    },
+    urgency: "critical",
+    application_volume_signal: "low",
+    agent_notes:
+      "Requires both identity verification (ID.me) and background check (Checkr) due to access to sensitive customer data and SOC 2 requirements.",
+    apply_paths: [
+      {
+        type: "adaptive_apply",
+        supports_agent_submission: true,
+        url: "https://ojcp.dev/api/mock-apply/initech-ciso-2026-003",
+        required_fields: ["resume", "email", "name", "work_authorization"],
+        estimated_completion_minutes: 15,
+        requires_verification: true,
+        accepted_verifiers: ["id.me", "checkr"],
+      },
+    ],
+  },
 ];
 
 // ── Fit scoring ──
@@ -426,29 +511,41 @@ export function computeFitScore(
 }
 
 // ── Application sessions ──
-const applicationSessions = new Map<
-  string,
-  {
-    application_id: string;
-    job_id: string;
-    status: string;
-    created_at: string;
-    apply_path: string;
-  }
->();
+interface ApplicationSession {
+  application_id: string;
+  job_id: string;
+  status: string;
+  created_at: string;
+  apply_path: string;
+  session_token: string;
+  verification_steps?: VerificationStep[];
+  verification_completed?: boolean;
+}
+
+const applicationSessions = new Map<string, ApplicationSession>();
 
 export function createApplicationSession(
   jobId: string,
-  applyPath: string
+  applyPath: string,
+  requiresVerification = false,
+  acceptedVerifiers: string[] = ["id.me"]
 ) {
   const id = `app_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-  const session = {
+  const token = `sess_${Math.random().toString(36).slice(2, 12)}`;
+  const session: ApplicationSession = {
     application_id: id,
     job_id: jobId,
-    status: "submitted",
+    status: requiresVerification ? "pending_verification" : "submitted",
     created_at: new Date().toISOString(),
     apply_path: applyPath,
+    session_token: token,
   };
+
+  if (requiresVerification) {
+    session.verification_steps = createVerificationSteps(id, acceptedVerifiers);
+    session.verification_completed = false;
+  }
+
   applicationSessions.set(id, session);
   return session;
 }
@@ -457,14 +554,144 @@ export function getApplicationSession(applicationId: string) {
   const session = applicationSessions.get(applicationId);
   if (!session) return null;
 
-  // Simulate status progression based on time
-  const elapsed = Date.now() - new Date(session.created_at).getTime();
-  if (elapsed > 60000) {
-    session.status = "under_review";
-  }
-  if (elapsed > 120000) {
-    session.status = "interview_scheduled";
+  // Only progress time-based status for submitted (non-verification) sessions
+  if (session.status === "submitted") {
+    const elapsed = Date.now() - new Date(session.created_at).getTime();
+    if (elapsed > 60000) {
+      session.status = "under_review";
+    }
+    if (elapsed > 120000) {
+      session.status = "interview_scheduled";
+    }
   }
 
   return session;
+}
+
+export function completeVerification(applicationId: string): ApplicationSession | null {
+  const session = applicationSessions.get(applicationId);
+  if (!session || session.status !== "pending_verification") return null;
+  session.status = "submitted";
+  session.verification_completed = true;
+  return session;
+}
+
+// ── Verification mock data ──
+
+const verifierConfig: Record<
+  string,
+  { name: string; type: VerificationStep["type"]; baseUrl: string; minutes: number; instructions: string }
+> = {
+  "id.me": {
+    name: "ID.me",
+    type: "identity",
+    baseUrl: "https://verify.id.me/ojcp",
+    minutes: 5,
+    instructions:
+      "Candidate must complete ID.me identity verification. Open the verification URL in a browser.",
+  },
+  checkr: {
+    name: "Checkr",
+    type: "background_check",
+    baseUrl: "https://checkr.com/ojcp/verify",
+    minutes: 10,
+    instructions:
+      "Candidate must authorize a background check via Checkr. Open the verification URL and complete the authorization form.",
+  },
+};
+
+// ── Screening questions ──
+
+const screeningQuestionsByJob: Record<string, ScreeningQuestion[]> = {
+  "globex:sa-2026-004": [
+    {
+      question_id: "work_auth",
+      question_text: "Are you authorized to work in the United States?",
+      answer_type: "boolean",
+      required: true,
+    },
+    {
+      question_id: "aml_experience",
+      question_text: "How many years of AML/compliance experience do you have?",
+      answer_type: "number",
+      required: true,
+      min: 0,
+      max: 50,
+    },
+    {
+      question_id: "clearance",
+      question_text: "Do you currently hold any financial regulatory certifications?",
+      answer_type: "single_select",
+      options: ["CAMS", "CFE", "CRCM", "None", "Other"],
+      required: false,
+    },
+  ],
+  "initech:ciso-2026-003": [
+    {
+      question_id: "security_certs",
+      question_text: "Which security certifications do you hold?",
+      answer_type: "multi_select",
+      options: ["CISSP", "CISM", "CEH", "OSCP", "ISO 27001 Lead Auditor", "None"],
+      required: true,
+    },
+    {
+      question_id: "leadership_years",
+      question_text: "How many years of security leadership experience do you have?",
+      answer_type: "number",
+      required: true,
+      min: 0,
+      max: 40,
+    },
+  ],
+  "acme:sbe-2026-001": [
+    {
+      question_id: "start_date",
+      question_text: "What is your earliest available start date?",
+      answer_type: "date",
+      required: false,
+    },
+    {
+      question_id: "visa_sponsorship",
+      question_text: "Will you require visa sponsorship now or in the future?",
+      answer_type: "boolean",
+      required: true,
+    },
+    {
+      question_id: "cover_letter",
+      question_text: "Please provide a brief cover letter.",
+      answer_type: "text",
+      required: false,
+      min_length: 50,
+      max_length: 2000,
+    },
+  ],
+};
+
+export function getScreeningQuestions(jobId: string): ScreeningQuestion[] {
+  return screeningQuestionsByJob[jobId] || [];
+}
+
+function createVerificationSteps(
+  applicationId: string,
+  acceptedVerifiers: string[] = ["id.me"]
+): VerificationStep[] {
+  const steps: VerificationStep[] = [];
+  for (const [index, verifierId] of acceptedVerifiers.entries()) {
+    const config = verifierConfig[verifierId];
+    if (!config) continue;
+    steps.push({
+      step_id: `vs_${applicationId}_${index + 1}`,
+      type: config.type,
+      verifier_id: verifierId,
+      verifier_name: config.name,
+      verification_url: `${config.baseUrl}?session=mock_${applicationId}`,
+      required: true,
+      human_required: true,
+      estimated_completion_minutes: config.minutes,
+      instructions: config.instructions,
+      expires_at: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
+      proof_delivery: "agent_submitted",
+    });
+  }
+  return steps;
 }

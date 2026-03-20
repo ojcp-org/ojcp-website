@@ -1,11 +1,13 @@
 import "@mantine/core/styles.css";
 import "@mantine/code-highlight/styles.css";
+import "highlight.js/styles/github-dark-dimmed.min.css";
 import "./globals.css";
 
 import type { Metadata } from "next";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "@/theme";
 import { WebMCPProvider } from "@/components/WebMCPProvider";
+import { CodeHighlightProvider } from "@/components/CodeHighlightProvider";
 
 export const metadata: Metadata = {
   title: "OJCP — Open Job Context Protocol",
@@ -28,8 +30,10 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
-          <WebMCPProvider />
-          {children}
+          <CodeHighlightProvider>
+            <WebMCPProvider />
+            {children}
+          </CodeHighlightProvider>
         </MantineProvider>
       </body>
     </html>

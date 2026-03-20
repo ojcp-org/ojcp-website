@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@mantine/code-highlight": "^8.3.16",
@@ -14,7 +16,9 @@
     "@mantine/hooks": "^8.3.16",
     "@modelcontextprotocol/sdk": "^1.27.1",
     "@tabler/icons-react": "^3.40.0",
+    "highlight.js": "^11.11.1",
     "immer": "^11.1.4",
+    "jose": "^6.2.2",
     "next": "16.1.6",
     "postcss": "^8.5.8",
     "postcss-preset-mantine": "^1.18.0",
@@ -32,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.0"
   }
 }

@@ -1,4 +1,5 @@
 stages:
+  - test
   - build
   - manifest
 
@@ -7,8 +8,21 @@ variables:
   HARBOR_REGISTRY: "core.harbor.recruitics.dev"
   HARBOR_PROJECT: "rx-engineering"
 
+test:
+  stage: test
+  image: node:24-alpine
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm test
+    - pnpm lint
+  interruptible: true
+  timeout: 5m
+
 build_image_arm64:
   stage: build
+  needs: [test]
   image:
     name: quay.io/podman/stable:latest
     entrypoint: [""]
@@ -55,6 +69,7 @@ build_image_arm64:
 
 build_image_amd64:
   stage: build
+  needs: [test]
   image:
     name: quay.io/podman/stable:latest
     entrypoint: [""]
