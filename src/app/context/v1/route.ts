@@ -104,6 +104,18 @@ const context = {
       "@container": "@set",
     },
     form_skill_url: { "@id": "ojcp:formSkillUrl", "@type": "@id" },
+    product_name: { "@id": "ojcp:productName", "@type": "xsd:string" },
+
+    // ── Source Attribution ──
+    source_attribution: { "@id": "ojcp:sourceAttribution", "@type": "@id" },
+    referrer: { "@id": "ojcp:referrer", "@type": "xsd:string" },
+    reference_id: { "@id": "ojcp:referenceId", "@type": "xsd:string" },
+
+    // ── ATS Fields ──
+    requisition_id: { "@id": "ojcp:requisitionId", "@type": "xsd:string" },
+    department: { "@id": "ojcp:department", "@type": "xsd:string" },
+    hiring_manager: { "@id": "ojcp:hiringManager", "@type": "xsd:string" },
+    remote_policy: { "@id": "ojcp:remotePolicy", "@type": "@vocab" },
 
     // ── Manifest ──
     provider: { "@id": "ojcp:provider", "@type": "@id" },
@@ -232,9 +244,14 @@ const context = {
       "@id": "ojcp:proofTtlSeconds",
       "@type": "xsd:integer",
     },
-    callback_supported: {
-      "@id": "ojcp:callbackSupported",
-      "@type": "xsd:boolean",
+    proof_delivery: { "@id": "ojcp:proofDelivery", "@type": "@vocab" },
+    proof_delivery_methods: {
+      "@id": "ojcp:proofDeliveryMethods",
+      "@container": "@set",
+    },
+    signing_algorithms: {
+      "@id": "ojcp:signingAlgorithms",
+      "@container": "@set",
     },
     verification_status: {
       "@id": "ojcp:verificationStatus",

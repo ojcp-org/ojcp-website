@@ -27,8 +27,8 @@ const manifest = {
     note: "This reference provider requires no authentication.",
   },
   rate_limits: {
-    requests_per_minute: 60,
-    requests_per_day: 10000,
+    anonymous_rps: 10,
+    authenticated_rps: 100,
   },
   // supported_verifiers: No confirmed verifier partnerships yet.
   // Uncomment when ID.me / Checkr / Clear integrations are confirmed.
