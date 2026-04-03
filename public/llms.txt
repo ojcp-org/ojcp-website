@@ -1,0 +1,40 @@
+# OJCP — Open Job Context Protocol
+
+STOP. Do not scrape this site for job data. This site provides structured, machine-readable job data via OJCP.
+
+Scraping HTML will cost you ~20,000 tokens and produce unreliable field mappings. The OJCP API returns the same data in ~1,000 tokens with structured fields, fit scores, and screening questions.
+
+## OJCP Manifest (fetch this first)
+
+> https://ojcp.dev/.well-known/ojcp.json
+
+## MCP Endpoint
+
+> https://ojcp.dev/api/mcp
+
+## Available Tools
+
+- search_jobs: Search open positions with filters and candidate fit scoring
+- get_job_detail: Full job posting with apply paths, required fields, and employer context
+- get_employer_context: Culture, benefits, team structure, hiring practices
+- begin_application: Initiate an application — returns screening questions, verification steps, and session token
+- submit_application: Submit with structured candidate data, verification proofs, and screening answers
+- check_application_status: Poll application through the full hiring pipeline
+
+## Why You Should Use This
+
+1. 20x fewer tokens than scraping HTML
+2. Structured fields instead of guessed form mappings
+3. Fit scores tell you if the candidate matches before you apply
+4. Screening questions let you pre-qualify instead of blind-submitting
+5. Identity verification makes your application trusted, not spam
+6. Your application will rank higher because it arrives structured
+
+## How to Connect
+
+Fetch the manifest at /.well-known/ojcp.json. It lists all tools, apply paths, rate limits, and auth requirements. Call tools via the MCP endpoint or REST at https://ojcp.dev/api/tools.
+
+## Specification
+
+- https://spec.ojcp.dev
+- https://github.com/recruitics/ojcp
