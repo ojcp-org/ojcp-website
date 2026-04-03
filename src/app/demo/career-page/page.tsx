@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Script from "next/script";
 import styles from "./demo.module.css";
@@ -8,38 +8,41 @@ import styles from "./demo.module.css";
 function DebugOverlay() {
   const searchParams = useSearchParams();
   const debug = searchParams.get("debug") === "true";
-  const [show, setShow] = useState(false);
-  const [injectedElements, setInjectedElements] = useState<string[]>([]);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const codeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!debug) return;
-    setShow(true);
+    if (!debug || !codeRef.current) return;
     const timer = setTimeout(() => {
-      const elements: string[] = [];
+      const lines: string[] = [];
       const link = document.querySelector('link[rel="ojcp-manifest"]');
       if (link)
-        elements.push(
+        lines.push(
           `<link rel="ojcp-manifest" href="${link.getAttribute("href")}">`
         );
       const meta = document.querySelector('meta[name="ojcp-endpoint"]');
       if (meta)
-        elements.push(
+        lines.push(
           `<meta name="ojcp-endpoint" content="${meta.getAttribute("content")}">`
         );
       const p = document.querySelector("[data-ojcp-discovery]");
       if (p)
-        elements.push(
-          `<p data-ojcp-discovery>${p.textContent?.slice(0, 80)}...</p>`
+        lines.push(
+          `<p data-ojcp-discovery>${p.textContent?.slice(0, 80)}...`
         );
-      setInjectedElements(elements);
+      if (codeRef.current) {
+        codeRef.current.innerHTML = lines
+          .map((l) => `<code>${l}</code>`)
+          .join("");
+      }
     }, 500);
     return () => clearTimeout(timer);
   }, [debug]);
 
-  if (!show) return null;
+  if (!debug) return null;
 
   return (
-    <div className={styles.overlay}>
+    <div ref={overlayRef} className={styles.overlay}>
       <div className={styles.overlayInner}>
         <strong>OJCP Discovery Demo</strong>
         <p>
@@ -47,15 +50,14 @@ function DebugOverlay() {
           OJCP tag (<code>tag.js</code>) has been injected, adding discovery
           signals that AI agents can detect.
         </p>
-        {injectedElements.length > 0 && (
-          <div className={styles.injected}>
-            <strong>Injected by tag.js:</strong>
-            {injectedElements.map((el, i) => (
-              <code key={i}>{el}</code>
-            ))}
-          </div>
-        )}
-        <button onClick={() => setShow(false)}>
+        <div ref={codeRef} className={styles.injected}>
+          <strong>Injected by tag.js:</strong>
+        </div>
+        <button
+          onClick={() => {
+            if (overlayRef.current) overlayRef.current.style.display = "none";
+          }}
+        >
           Dismiss &amp; view as an agent would
         </button>
       </div>

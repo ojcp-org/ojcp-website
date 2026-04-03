@@ -18,7 +18,6 @@
     document.querySelector('script[src*="tag.js"]');
   if (!script) return;
 
-  var employer = script.getAttribute("data-employer") || "unknown";
   var manifestUrl =
     script.getAttribute("data-manifest") ||
     "https://ojcp.dev/.well-known/ojcp.json";
