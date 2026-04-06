@@ -114,7 +114,7 @@ export function About() {
                     size={40}
                     radius="md"
                     variant="light"
-                    color="ojcpCyan"
+                    color="ojcpGold"
                     className={classes.icon}
                   >
                     <pillar.icon size={22} />
@@ -160,7 +160,7 @@ export function About() {
                 component="a"
                 href="/registry"
                 size="lg"
-                color="ojcpCyan"
+                color="ojcpGold"
                 variant="filled"
                 rightSection={<IconArrowRight size={18} />}
               >
@@ -172,7 +172,7 @@ export function About() {
                 target="_blank"
                 size="lg"
                 variant="outline"
-                color="ojcpTeal"
+                color="ojcpBlue"
               >
                 Start a Discussion
               </Button>

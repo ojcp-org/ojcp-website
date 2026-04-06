@@ -4,9 +4,9 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(11, 22, 35, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(30, 143, 181, 0.15);
+  background: rgba(12, 12, 15, 0.90);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(232, 168, 48, 0.08);
 }
 
 .inner {
@@ -34,6 +34,6 @@
 
   &:hover {
     color: var(--ojcp-text-light);
-    background: rgba(30, 143, 181, 0.1);
+    background: rgba(232, 168, 48, 0.06);
   }
 }

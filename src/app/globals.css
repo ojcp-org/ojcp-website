@@ -1,13 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --ojcp-bg-dark: #0b1623;
-  --ojcp-bg-dark-alt: #0b1e2d;
-  --ojcp-ring: #1e8fb5;
-  --ojcp-cyan: #00c2e8;
-  --ojcp-text-light: #e8f4fa;
-  --ojcp-text-muted: #4a7a9b;
-  --ojcp-text-muted-light: #6a9ab8;
+  --ojcp-bg-dark: #0c0c0f;
+  --ojcp-bg-dark-alt: #111116;
+  --ojcp-bg-surface: #18181e;
+  --ojcp-bg-elevated: #1e1e26;
+  --ojcp-gold: #e8a830;
+  --ojcp-gold-light: #f0c060;
+  --ojcp-gold-muted: #a07820;
+  --ojcp-ring: #c49028;
+  --ojcp-blue: #5b9fd4;
+  --ojcp-blue-muted: #3d6f9e;
+  --ojcp-text-light: #ececf0;
+  --ojcp-text-muted: #6b6b78;
+  --ojcp-text-muted-light: #9090a0;
 }
 
 * {
@@ -25,6 +31,6 @@ body {
 }
 
 ::selection {
-  background: rgba(0, 194, 232, 0.3);
-  color: #e8f4fa;
+  background: rgba(232, 168, 48, 0.25);
+  color: #ececf0;
 }

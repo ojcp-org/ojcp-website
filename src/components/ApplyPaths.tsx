@@ -52,7 +52,7 @@ const paths = [
 
 function AgentBadge({ level }: { level: string }) {
   const colorMap: Record<string, string> = {
-    full: "teal",
+    full: "ojcpGold",
     limited: "yellow",
     varies: "blue",
     none: "gray",

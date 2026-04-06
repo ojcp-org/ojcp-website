@@ -89,7 +89,7 @@ export function Features() {
                 size={48}
                 radius="md"
                 variant="light"
-                color="ojcpCyan"
+                color="ojcpGold"
                 className={classes.icon}
               >
                 <feature.icon size={26} />

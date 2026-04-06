@@ -84,7 +84,7 @@ export function Registry() {
 
           {loading ? (
             <Group justify="center" py="xl">
-              <Loader color="cyan" />
+              <Loader color="ojcpGold" />
             </Group>
           ) : providers.length === 0 ? (
             <div className={classes.emptyState}>
@@ -161,7 +161,7 @@ function RegistrationForm() {
     <Card className={classes.card} padding="xl" radius="md" mt="xl">
       <Stack gap="md">
         <Group gap="xs">
-          <IconPlus size={20} color="var(--ojcp-cyan)" />
+          <IconPlus size={20} color="var(--ojcp-gold)" />
           <Title order={3} c="white" size="h4">
             Register Your Provider
           </Title>
@@ -183,7 +183,7 @@ function RegistrationForm() {
           <Button
             onClick={validate}
             loading={validating}
-            color="cyan"
+            color="ojcpGold"
             size="md"
           >
             Validate
@@ -204,14 +204,14 @@ function RegistrationForm() {
           <Stack gap="sm">
             <Alert
               icon={<IconCheck size={16} />}
-              color="teal"
+              color="ojcpGold"
               variant="light"
             >
               Manifest validated successfully! Click below to submit a registration request.
             </Alert>
             <Button
               onClick={openIssue}
-              color="cyan"
+              color="ojcpGold"
               variant="outline"
               leftSection={<IconPlus size={16} />}
             >
@@ -238,7 +238,7 @@ function ProviderCard({ provider: p }: { provider: RegistryProvider }) {
           {p.verified && (
             <Badge
               leftSection={<IconShieldCheck size={14} />}
-              color="teal"
+              color="ojcpGold"
               variant="light"
               size="sm"
             >
@@ -253,7 +253,7 @@ function ProviderCard({ provider: p }: { provider: RegistryProvider }) {
 
         <Group gap="xs">
           {p.industries.slice(0, 3).map((ind) => (
-            <Badge key={ind} variant="dot" color="blue" size="sm">
+            <Badge key={ind} variant="dot" color="ojcpGold" size="sm">
               {ind}
             </Badge>
           ))}
@@ -276,8 +276,8 @@ function ProviderCard({ provider: p }: { provider: RegistryProvider }) {
           </Group>
           {p.has_agent_apply && (
             <Group gap={4}>
-              <IconRobot size={14} color="var(--ojcp-cyan)" />
-              <Text size="xs" c="cyan">
+              <IconRobot size={14} color="var(--ojcp-gold)" />
+              <Text size="xs" c="var(--ojcp-gold)">
                 Agent apply
               </Text>
             </Group>

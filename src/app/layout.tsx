@@ -1,6 +1,6 @@
 import "@mantine/core/styles.css";
 import "@mantine/code-highlight/styles.css";
-import "highlight.js/styles/github-dark-dimmed.min.css";
+import "highlight.js/styles/monokai-sublime.min.css";
 import "./globals.css";
 
 import type { Metadata } from "next";

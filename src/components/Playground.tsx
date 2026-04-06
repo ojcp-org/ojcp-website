@@ -102,7 +102,7 @@ export function Playground() {
           <Group gap="xs" mt="xs">
             <Badge
               variant="dot"
-              color="teal"
+              color="ojcpGold"
               size="sm"
               className={classes.endpointBadge}
             >
@@ -111,7 +111,7 @@ export function Playground() {
             </Badge>
             <Badge
               variant="dot"
-              color="teal"
+              color="ojcpGold"
               size="sm"
               className={classes.endpointBadge}
             >
@@ -128,7 +128,7 @@ export function Playground() {
               setResponse(null);
             }}
             variant="pills"
-            color="ojcpCyan"
+            color="ojcpGold"
             classNames={{ tab: classes.tab }}
           >
             <Tabs.List mb="lg" justify="center" style={{ flexWrap: "wrap" }}>
@@ -157,7 +157,7 @@ export function Playground() {
                     label="Remote OK"
                     checked={remoteOk}
                     onChange={(e) => setRemoteOk(e.currentTarget.checked)}
-                    color="ojcpCyan"
+                    color="ojcpGold"
                     classNames={{ label: classes.label }}
                   />
                   <TextInput
@@ -179,7 +179,7 @@ export function Playground() {
                         : undefined,
                     })
                   }
-                  color="ojcpCyan"
+                  color="ojcpGold"
                   leftSection={
                     loading ? <Loader size={14} color="dark" /> : <IconPlayerPlay size={16} />
                   }
@@ -207,7 +207,7 @@ export function Playground() {
                       include_employer_context: true,
                     })
                   }
-                  color="ojcpCyan"
+                  color="ojcpGold"
                   leftSection={
                     loading ? <Loader size={14} color="dark" /> : <IconPlayerPlay size={16} />
                   }
@@ -238,7 +238,7 @@ export function Playground() {
                       employer_id: employerId,
                     })
                   }
-                  color="ojcpCyan"
+                  color="ojcpGold"
                   leftSection={
                     loading ? <Loader size={14} color="dark" /> : <IconPlayerPlay size={16} />
                   }
@@ -270,7 +270,7 @@ export function Playground() {
                       },
                     })
                   }
-                  color="ojcpCyan"
+                  color="ojcpGold"
                   leftSection={
                     loading ? <Loader size={14} color="dark" /> : <IconPlayerPlay size={16} />
                   }
@@ -319,7 +319,7 @@ export function Playground() {
                       ],
                     })
                   }
-                  color="ojcpCyan"
+                  color="ojcpGold"
                   leftSection={
                     loading ? <Loader size={14} color="dark" /> : <IconPlayerPlay size={16} />
                   }
@@ -347,7 +347,7 @@ export function Playground() {
                       application_id: applicationId,
                     })
                   }
-                  color="ojcpCyan"
+                  color="ojcpGold"
                   leftSection={
                     loading ? <Loader size={14} color="dark" /> : <IconPlayerPlay size={16} />
                   }
@@ -366,7 +366,7 @@ export function Playground() {
                 <Text size="xs" fw={600} c="var(--ojcp-text-muted)" tt="uppercase">
                   Response
                 </Text>
-                <Badge variant="light" color="teal" size="xs">
+                <Badge variant="light" color="ojcpGold" size="xs">
                   200 OK
                 </Badge>
               </Group>

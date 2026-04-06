@@ -299,7 +299,7 @@ export function CodeExamples() {
             value={activeCodeTab}
             onChange={(v) => setActiveCodeTab(v || "discover")}
             variant="pills"
-            color="ojcpCyan"
+            color="ojcpGold"
             classNames={{ tab: classes.tab }}
           >
             <Tabs.List mb="md" justify="center">
@@ -324,7 +324,7 @@ export function CodeExamples() {
                       <Group justify="space-between" align="center" mb="xs">
                         <Badge
                           variant="light"
-                          color={eShowResponse ? "teal" : "ojcpCyan"}
+                          color="ojcpGold"
                           size="sm"
                           className={classes.codeBadge}
                         >
@@ -342,7 +342,7 @@ export function CodeExamples() {
                               { label: "Response", value: "response" },
                             ]}
                             size="xs"
-                            color="ojcpCyan"
+                            color="ojcpGold"
                             className={classes.toggle}
                           />
                         )}

@@ -4,11 +4,11 @@
 
 .overline {
   font-family: var(--mantine-font-family-monospace);
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--ojcp-cyan);
-  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--ojcp-gold);
+  font-weight: 500;
 }
 
 .title {
@@ -26,7 +26,7 @@
 }
 
 .highlight {
-  background: linear-gradient(135deg, #00c2e8, #1e8fb5);
+  background: linear-gradient(135deg, #e8a830, #f0c060);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -54,17 +54,17 @@
 }
 
 .card {
-  background: rgba(11, 22, 35, 0.6);
-  border: 1px solid rgba(30, 143, 181, 0.12);
+  background: rgba(24, 24, 30, 0.6);
+  border: 1px solid rgba(232, 168, 48, 0.08);
   transition: border-color 200ms;
 
   &:hover {
-    border-color: rgba(30, 143, 181, 0.3);
+    border-color: rgba(232, 168, 48, 0.22);
   }
 }
 
 .icon {
-  background: rgba(0, 194, 232, 0.08);
+  background: rgba(232, 168, 48, 0.06);
 }
 
 .pillarTitle {

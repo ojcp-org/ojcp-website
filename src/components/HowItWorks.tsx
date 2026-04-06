@@ -79,7 +79,7 @@ export function HowItWorks() {
           active={3}
           bulletSize={40}
           lineWidth={2}
-          color="ojcpCyan"
+          color="ojcpGold"
           className={classes.timeline}
         >
           {steps.map((step) => (
@@ -89,7 +89,7 @@ export function HowItWorks() {
                 <ThemeIcon
                   size={40}
                   radius="xl"
-                  color="ojcpCyan"
+                  color="ojcpGold"
                   variant="filled"
                 >
                   <step.icon size={20} />

@@ -22,8 +22,8 @@
   height: 600px;
   background: radial-gradient(
     ellipse at center,
-    rgba(0, 194, 232, 0.08) 0%,
-    rgba(30, 143, 181, 0.04) 40%,
+    rgba(232, 168, 48, 0.06) 0%,
+    rgba(196, 144, 40, 0.03) 40%,
     transparent 70%
   );
   pointer-events: none;
@@ -53,7 +53,7 @@
   font-size: 3.2rem;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   color: var(--ojcp-text-light);
 
   @media (max-width: 48em) {
@@ -62,7 +62,7 @@
 }
 
 .highlight {
-  background: linear-gradient(135deg, #00c2e8, #1e8fb5);
+  background: linear-gradient(135deg, #e8a830, #f0c060);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

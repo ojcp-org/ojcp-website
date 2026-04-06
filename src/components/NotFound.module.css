@@ -22,8 +22,8 @@
   height: 600px;
   background: radial-gradient(
     ellipse at center,
-    rgba(0, 194, 232, 0.06) 0%,
-    rgba(30, 143, 181, 0.03) 40%,
+    rgba(232, 168, 48, 0.04) 0%,
+    rgba(196, 144, 40, 0.02) 40%,
     transparent 70%
   );
   pointer-events: none;
@@ -39,7 +39,7 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: -4px;
-  background: linear-gradient(135deg, #00c2e8, #1e8fb5);
+  background: linear-gradient(135deg, #e8a830, #f0c060);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

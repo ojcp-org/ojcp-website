@@ -23,7 +23,7 @@ export function Hero() {
         <Stack align="center" gap="xl">
           <Badge
             variant="outline"
-            color="ojcpCyan"
+            color="ojcpGold"
             size="lg"
             radius="sm"
             className={classes.badge}
@@ -46,7 +46,7 @@ export function Hero() {
 
           <Text className={classes.subtitle} ta="center" maw={640}>
             Part of the{" "}
-            <Anchor href="/about" c="var(--ojcp-cyan)" underline="hover">
+            <Anchor href="/about" c="var(--ojcp-gold)" underline="hover">
               Open Agent Jobs Initiative
             </Anchor>
             . OJCP defines how AI agents discover, reason over, and act on job
@@ -59,7 +59,7 @@ export function Hero() {
               component="a"
               href="/#spec"
               size="lg"
-              color="ojcpCyan"
+              color="ojcpGold"
               variant="filled"
               rightSection={<IconArrowRight size={18} />}
               className={classes.cta}
@@ -72,7 +72,7 @@ export function Hero() {
               target="_blank"
               size="lg"
               variant="outline"
-              color="ojcpTeal"
+              color="ojcpBlue"
               leftSection={<IconBrandGitlab size={18} />}
             >
               View on {repoHostLabel}

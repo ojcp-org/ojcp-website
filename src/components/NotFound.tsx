@@ -41,7 +41,7 @@ export function NotFound() {
               component="a"
               href="/"
               size="lg"
-              color="ojcpCyan"
+              color="ojcpGold"
               variant="filled"
               leftSection={<IconHome size={18} />}
               className={classes.cta}
@@ -53,7 +53,7 @@ export function NotFound() {
               href="/#spec"
               size="lg"
               variant="outline"
-              color="ojcpTeal"
+              color="ojcpBlue"
               rightSection={<IconArrowRight size={18} />}
             >
               View the Spec

@@ -155,7 +155,7 @@ export function Spec() {
                   size="lg"
                   radius="sm"
                   variant="light"
-                  color="ojcpTeal"
+                  color="ojcpBlue"
                   className={classes.toolBadge}
                   rightSection={<IconExternalLink size={12} />}
                   style={{ cursor: "pointer" }}
@@ -194,7 +194,7 @@ export function Spec() {
                 </Anchor>
                 <Badge
                   variant="outline"
-                  color="ojcpTeal"
+                  color="ojcpBlue"
                   size="xs"
                   radius="sm"
                   className={classes.fileBadge}
@@ -209,7 +209,7 @@ export function Spec() {
                 spacing="xs"
                 size="sm"
                 icon={
-                  <ThemeIcon size={18} radius="xl" color="ojcpCyan" variant="light">
+                  <ThemeIcon size={18} radius="xl" color="ojcpGold" variant="light">
                     <IconCheck size={12} />
                   </ThemeIcon>
                 }

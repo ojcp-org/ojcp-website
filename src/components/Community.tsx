@@ -88,7 +88,7 @@ export function Community() {
                   size={40}
                   radius="md"
                   variant="light"
-                  color="ojcpCyan"
+                  color="ojcpGold"
                 >
                   <card.icon size={22} />
                 </ThemeIcon>
@@ -104,7 +104,7 @@ export function Community() {
                 href={card.href}
                 target="_blank"
                 variant="light"
-                color="ojcpCyan"
+                color="ojcpGold"
                 size="sm"
               >
                 {card.action}
