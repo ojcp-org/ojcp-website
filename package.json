@@ -20,7 +20,7 @@
     "immer": "^11.1.4",
     "jose": "^6.2.2",
     "motion": "^12.38.0",
-    "next": "16.1.6",
+    "next": "16.1.7",
     "postcss": "^8.5.8",
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
