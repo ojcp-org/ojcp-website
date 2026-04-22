@@ -27,19 +27,19 @@ const pillars = [
     icon: IconScale,
     title: "Open Governance",
     description:
-      "OJCP is governed by a steering committee of founding members via an RFC process. No single company has veto power. At v1.0 we commit to transitioning spec governance to a neutral foundation.",
+      "OJCP is governed by a 7-seat steering committee representing distinct ecosystem segments via an RFC process. No single company has veto power. Pre-v1.0 we commit to transferring infrastructure to a neutral foundation.",
   },
   {
     icon: IconUsers,
     title: "Multi-Stakeholder Coalition",
     description:
-      "OAJI brings together enterprise employers, ATS vendors, job boards, staffing agencies, and AI agent platforms. Credibility comes from the breadth of the coalition, not the size of any one member.",
+      "OAJI brings together enterprise employers, ATS vendors, job boards, staffing agencies, and AI agent platforms to coordinate adoption and shape ecosystem priorities. Credibility comes from the breadth of the coalition, not the size of any one member.",
   },
   {
     icon: IconRocket,
     title: "Agent-First Future",
     description:
-      "AI agents are becoming the primary way candidates discover and apply to jobs. OAJI ensures this transition happens on open rails — not inside walled gardens controlled by a single platform.",
+      "AI agents are becoming the primary way candidates discover and apply to jobs. OAJI exists to ensure this transition happens on open rails — not inside walled gardens controlled by a single platform.",
   },
   {
     icon: IconShieldCheck,
@@ -63,9 +63,10 @@ export function About() {
               </span>
             </Title>
             <Text ta="center" className={classes.subtitle} maw={680}>
-              OAJI is an industry coalition dedicated to making job data
-              agent-accessible through open standards. OJCP — the Open Job
-              Context Protocol — is the technical foundation.
+              OAJI is an industry coalition that supports the adoption of open
+              standards for agent-accessible job data. The Open Job Context
+              Protocol (OJCP) is the first such standard, governed
+              independently by its own steering committee.
             </Text>
           </Stack>
         </Container>
@@ -84,9 +85,9 @@ export function About() {
               AI agents are rapidly changing how people find and apply to jobs.
               Today, every job board, ATS, and employer exposes job data
               differently — forcing agent developers to build custom
-              integrations for each source. OAJI exists to solve this with a
-              single, open protocol that any provider can implement and any
-              agent can consume.
+              integrations for each source. OAJI is the coalition working to
+              solve this; OJCP is the technical specification that does it.
+              Any provider can implement OJCP, and any agent can consume it.
             </Text>
           </Stack>
         </Container>
@@ -187,6 +188,11 @@ export function About() {
                 w={160}
                 className={classes.rxLogo}
               />
+              <Text size="xs" c="var(--ojcp-text-muted)" mt={8} ta="center" maw={520}>
+                Recruitics founded OAJI and authored the OJCP v0.1 specification.
+                OJCP is governed independently by its steering committee — Recruitics
+                holds one seat of seven.
+              </Text>
             </Stack>
           </Stack>
         </Container>

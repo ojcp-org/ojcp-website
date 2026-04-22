@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import {
   IconBook,
-  IconBrandGitlab,
+  IconBrandGithub,
   IconCode,
   IconUsers,
 } from "@tabler/icons-react";
@@ -43,7 +43,7 @@ const cards = [
     href: specTree("schemas"),
   },
   {
-    icon: IconBrandGitlab,
+    icon: IconBrandGithub,
     title: "Contribute",
     description:
       "OJCP is open. File issues, propose changes, or build a reference implementation.",

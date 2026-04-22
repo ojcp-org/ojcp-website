@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { motion, useMotionValue, useTransform, animate } from "motion/react";
 import { useEffect, useState } from "react";
-import { IconArrowRight, IconBrandGitlab } from "@tabler/icons-react";
+import { IconArrowRight, IconBrandGithub } from "@tabler/icons-react";
 import { specRepo, repoHostLabel } from "@/lib/repo-urls";
 import classes from "./Hero.module.css";
 
@@ -138,7 +138,7 @@ export function Hero() {
                   size="lg"
                   variant="outline"
                   color="ojcpBlue"
-                  leftSection={<IconBrandGitlab size={18} />}
+                  leftSection={<IconBrandGithub size={18} />}
                 >
                   View on {repoHostLabel}
                 </Button>

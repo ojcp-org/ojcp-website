@@ -11,7 +11,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBrandGitlab } from "@tabler/icons-react";
+import { IconBrandGithub } from "@tabler/icons-react";
 import { specRepo, repoHostLabel } from "@/lib/repo-urls";
 import classes from "./Header.module.css";
 
@@ -61,7 +61,7 @@ export function Header() {
             variant="subtle"
             color="gray"
             size="sm"
-            leftSection={<IconBrandGitlab size={18} />}
+            leftSection={<IconBrandGithub size={18} />}
           >
             {repoHostLabel}
           </Button>

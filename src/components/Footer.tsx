@@ -115,7 +115,7 @@ export function Footer() {
         </Group>
 
         <Text size="xs" c="var(--ojcp-text-muted)" mt={48} ta="center">
-          Released under CC BY 4.0. OJCP is an open community project.
+          Spec: CC BY 4.0 · Code: Apache 2.0. OJCP is an open community project.
         </Text>
       </Container>
     </footer>
