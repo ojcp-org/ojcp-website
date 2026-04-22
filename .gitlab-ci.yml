@@ -10,7 +10,11 @@ variables:
 
 test:
   stage: test
+<<<<<<< Updated upstream
   image: core.harbor.recruitics.dev/dockerhub/library/node:24-alpine
+=======
+  image: public.ecr.aws/docker/library/node:24-alpine
+>>>>>>> Stashed changes
   before_script:
     - corepack enable
     - pnpm install --frozen-lockfile
