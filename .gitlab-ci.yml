@@ -10,7 +10,7 @@ variables:
 
 test:
   stage: test
-  image: public.ecr.aws/docker/library/node:24-alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:24-alpine
   before_script:
     - corepack enable
     - pnpm install --frozen-lockfile

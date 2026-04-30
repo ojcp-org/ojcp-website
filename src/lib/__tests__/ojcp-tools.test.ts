@@ -155,7 +155,7 @@ describe("getJobDetail", () => {
     expect(res.job.requisition_id).toBe("REQ-2026-0142");
     expect(res.job.department).toBe("Engineering");
     expect(res.job.hiring_manager).toBe("Dana Park");
-    expect(res.job.remote_policy).toBe("fully_remote");
+    expect(res.job.remote_policy).toBe("remote");
   });
 });
 
@@ -290,7 +290,7 @@ describe("submitApplication", () => {
   });
 
   it("returns error for wrong session token", () => {
-    const session = createApplicationSession("acme:sbe-2026-001", "adaptive_apply");
+    const session = createApplicationSession("acme:sbe-2026-001", "provider_hosted");
     const res = submitApplication({
       application_id: session.application_id,
       session_token: "wrong_token",
@@ -301,7 +301,7 @@ describe("submitApplication", () => {
   it("requires proofs when verification is pending", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -316,7 +316,7 @@ describe("submitApplication", () => {
   it("rejects proof with missing iss claim", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -362,7 +362,7 @@ describe("submitApplication", () => {
   it("rejects proof with mismatched nonce vs application_id", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -400,7 +400,7 @@ describe("submitApplication", () => {
   it("rejects proof with mismatched sub vs subject_hash", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -436,7 +436,7 @@ describe("submitApplication", () => {
   it("rejects expired proof", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -473,7 +473,7 @@ describe("submitApplication", () => {
   it("rejects unrecognized verifier", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -510,7 +510,7 @@ describe("submitApplication", () => {
   it("succeeds with valid proof and screening answers", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -551,7 +551,7 @@ describe("submitApplication", () => {
   it("accepts application_data with screening answers", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -591,7 +591,7 @@ describe("submitApplication", () => {
   });
 
   it("submits non-verification application without proofs", () => {
-    const session = createApplicationSession("acme:sbe-2026-001", "adaptive_apply");
+    const session = createApplicationSession("acme:sbe-2026-001", "provider_hosted");
     // Non-verification sessions start as "submitted", so we need to test against that
     // Actually they start as "submitted" already, so submitApplication would reject with invalid_status
     // Let's test with a fresh pending_submission — but our mock doesn't support that directly.
@@ -602,7 +602,7 @@ describe("submitApplication", () => {
   it("returns validation_failed for missing required screening answers", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -642,7 +642,7 @@ describe("submitApplication", () => {
   it("returns validation_failed for out_of_range screening answer", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -684,7 +684,7 @@ describe("submitApplication", () => {
   it("returns validation_failed for invalid_option screening answer", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -729,7 +729,7 @@ describe("submitApplication", () => {
 
 describe("checkApplicationStatus", () => {
   it("returns status for known application", () => {
-    const session = createApplicationSession("acme:sbe-2026-001", "adaptive_apply");
+    const session = createApplicationSession("acme:sbe-2026-001", "provider_hosted");
     const res = checkApplicationStatus({
       application_id: session.application_id,
     });
@@ -745,7 +745,7 @@ describe("checkApplicationStatus", () => {
   it("includes verification status for pending_verification", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );

@@ -35,7 +35,7 @@ const discoverManifest = `{
     "begin_application",
     "check_application_status"
   ],
-  "apply_paths": ["ats_direct", "adaptive_apply"],
+  "apply_paths": ["ats_direct", "provider_hosted"],
   "auth": {
     "required": true,
     "optional_scopes": ["apply", "candidate_data"]
@@ -101,7 +101,7 @@ const searchResponse = `{
       "fit_rationale": "Strong overlap on Go and PostgreSQL.",
       "apply_paths": [
         {
-          "type": "adaptive_apply",
+          "type": "provider_hosted",
           "supports_agent_submission": true,
           "url": "https://careers.acme.com/apply/sbe-2026-001",
           "required_fields": ["resume", "email", "name"],
@@ -118,7 +118,7 @@ const applyRequest = `{
   "name": "begin_application",
   "arguments": {
     "job_id": "acme:sbe-2026-001",
-    "apply_path": "adaptive_apply",
+    "apply_path": "provider_hosted",
     "candidate_context": {
       "ojcp_candidate_context_version": "0.1",
       "consent_scope": "application_prefill",
@@ -145,7 +145,7 @@ const applyResponse = `{
   "application_id": "app_abc123",
   "status": "pending_verification",
   "apply_path": {
-    "type": "adaptive_apply",
+    "type": "provider_hosted",
     "supports_agent_submission": true,
     "requires_verification": true,
     "accepted_verifiers": ["id.me"]

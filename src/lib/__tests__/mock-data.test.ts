@@ -98,7 +98,7 @@ describe("computeFitScore", () => {
 
 describe("createApplicationSession", () => {
   it("creates session with unique ID and token", () => {
-    const session = createApplicationSession("acme:sbe-2026-001", "adaptive_apply");
+    const session = createApplicationSession("acme:sbe-2026-001", "provider_hosted");
     expect(session.application_id).toMatch(/^app_/);
     expect(session.session_token).toMatch(/^sess_/);
     expect(session.status).toBe("submitted");
@@ -107,7 +107,7 @@ describe("createApplicationSession", () => {
   it("creates verification session with steps", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -120,7 +120,7 @@ describe("createApplicationSession", () => {
   it("creates multi-verifier session", () => {
     const session = createApplicationSession(
       "initech:ciso-2026-003",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me", "checkr"]
     );
@@ -132,7 +132,7 @@ describe("createApplicationSession", () => {
   it("verification steps have expires_at", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -145,7 +145,7 @@ describe("createApplicationSession", () => {
   it("verification steps have required fields", () => {
     const session = createApplicationSession(
       "globex:sa-2026-004",
-      "adaptive_apply",
+      "provider_hosted",
       true,
       ["id.me"]
     );
@@ -207,7 +207,7 @@ describe("getScreeningQuestions", () => {
 
 describe("getApplicationSession", () => {
   it("retrieves created session", () => {
-    const session = createApplicationSession("acme:sbe-2026-001", "adaptive_apply");
+    const session = createApplicationSession("acme:sbe-2026-001", "provider_hosted");
     const retrieved = getApplicationSession(session.application_id);
     expect(retrieved).not.toBeNull();
     expect(retrieved!.application_id).toBe(session.application_id);

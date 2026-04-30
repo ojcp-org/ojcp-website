@@ -122,23 +122,18 @@ export const jobs: JobPosting[] = [
     requisition_id: "REQ-2026-0142",
     department: "Engineering",
     hiring_manager: "Dana Park",
-    remote_policy: "fully_remote",
+    remote_policy: "remote",
     skills_required: ["Go", "PostgreSQL", "gRPC", "Kubernetes"],
     skills_preferred: ["Terraform", "Redis", "OpenTelemetry"],
-    team_context: {
-      team_name: "Platform Engineering",
-      team_size: 8,
-      reports_to: "VP of Engineering",
-      description:
-        "The platform team owns core API infrastructure, developer tooling, and reliability.",
-    },
+    team_context:
+      "Platform Engineering (8 engineers). Reports to VP of Engineering. Owns core API infrastructure, developer tooling, and reliability.",
     urgency: "high",
     application_volume_signal: "moderate",
     agent_notes:
       "Strong Go experience is essential. Distributed systems background preferred over web framework experience.",
     apply_paths: [
       {
-        type: "adaptive_apply",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/acme-sbe-2026-001",
         required_fields: ["resume", "email", "name"],
@@ -163,16 +158,13 @@ export const jobs: JobPosting[] = [
     jobLocation: { city: "San Francisco", state: "CA", country: "US", remote: true },
     skills_required: ["React", "TypeScript", "CSS", "Design Systems"],
     skills_preferred: ["Next.js", "Figma", "Storybook", "Accessibility"],
-    team_context: {
-      team_name: "Frontend Platform",
-      team_size: 5,
-      reports_to: "Director of Engineering",
-    },
+    team_context:
+      "Frontend Platform (5 engineers). Reports to Director of Engineering.",
     urgency: "moderate",
     application_volume_signal: "high",
     apply_paths: [
       {
-        type: "adaptive_apply",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/acme-fe-2026-002",
         required_fields: ["resume", "email", "name", "portfolio_url"],
@@ -196,20 +188,15 @@ export const jobs: JobPosting[] = [
     remote_policy: "on_site",
     skills_required: ["Java", "Kafka", "PostgreSQL", "Payment Systems"],
     skills_preferred: ["Kotlin", "Event Sourcing", "PCI Compliance"],
-    team_context: {
-      team_name: "Payments Core",
-      team_size: 12,
-      reports_to: "CTO",
-      description:
-        "The Payments Core team owns the transaction engine, ledger, and reconciliation systems.",
-    },
+    team_context:
+      "Payments Core (12 engineers). Reports to CTO. Owns the transaction engine, ledger, and reconciliation systems.",
     urgency: "critical",
     application_volume_signal: "low",
     agent_notes:
       "This is a high-impact principal role. Candidates should have 10+ years and direct payment systems experience.",
     apply_paths: [
       {
-        type: "apply_anywhere",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/globex-pse-2026-001",
         required_fields: ["resume", "email", "name", "cover_letter"],
@@ -229,16 +216,13 @@ export const jobs: JobPosting[] = [
     jobLocation: { city: "New York", state: "NY", country: "US", remote: true },
     skills_required: ["Python", "PyTorch", "SQL", "MLOps"],
     skills_preferred: ["Spark", "Feature Stores", "A/B Testing"],
-    team_context: {
-      team_name: "ML Platform",
-      team_size: 6,
-      reports_to: "Head of Data Science",
-    },
+    team_context:
+      "ML Platform (6 engineers). Reports to Head of Data Science.",
     urgency: "high",
     application_volume_signal: "moderate",
     apply_paths: [
       {
-        type: "adaptive_apply",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/globex-mle-2026-002",
         required_fields: ["resume", "email", "name"],
@@ -258,23 +242,20 @@ export const jobs: JobPosting[] = [
     jobLocation: { city: "Austin", state: "TX", country: "US", remote: true },
     skills_required: ["React", "Node.js", "TypeScript", "PostgreSQL"],
     skills_preferred: ["GraphQL", "AWS", "Docker"],
-    team_context: {
-      team_name: "Product Engineering",
-      team_size: 10,
-      reports_to: "Engineering Manager",
-    },
+    team_context:
+      "Product Engineering (10 engineers). Reports to Engineering Manager.",
     urgency: "moderate",
     application_volume_signal: "high",
     apply_paths: [
       {
-        type: "adaptive_apply",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/initech-fse-2026-001",
         required_fields: ["resume", "email", "name"],
         estimated_completion_minutes: 2,
       },
       {
-        type: "external_url",
+        type: "external_redirect",
         supports_agent_submission: false,
         url: "https://initech.example.com/careers/fse-2026-001",
       },
@@ -292,18 +273,15 @@ export const jobs: JobPosting[] = [
     jobLocation: { country: "US", remote: true },
     skills_required: ["Technical Writing", "Public Speaking", "JavaScript", "APIs"],
     skills_preferred: ["Python", "Open Source", "Video Production"],
-    team_context: {
-      team_name: "Developer Experience",
-      team_size: 3,
-      reports_to: "Head of Product",
-    },
+    team_context:
+      "Developer Experience (3 engineers). Reports to Head of Product.",
     urgency: "low",
     application_volume_signal: "low",
     agent_notes:
       "Looking for someone who has shipped developer-facing content (blog posts, talks, docs). Code samples welcome.",
     apply_paths: [
       {
-        type: "adaptive_apply",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/initech-devrel-2026-002",
         required_fields: ["resume", "email", "name", "portfolio_url"],
@@ -323,11 +301,8 @@ export const jobs: JobPosting[] = [
     jobLocation: { country: "US", remote: true },
     skills_required: ["Kubernetes", "Terraform", "Prometheus", "Linux"],
     skills_preferred: ["Go", "PagerDuty", "Chaos Engineering"],
-    team_context: {
-      team_name: "Infrastructure",
-      team_size: 6,
-      reports_to: "Director of Infrastructure",
-    },
+    team_context:
+      "Infrastructure (6 engineers). Reports to Director of Infrastructure.",
     urgency: "moderate",
     application_volume_signal: "moderate",
     apply_paths: [
@@ -353,16 +328,13 @@ export const jobs: JobPosting[] = [
     jobLocation: { city: "New York", state: "NY", country: "US", remote: false },
     skills_required: ["Product Management", "APIs", "Developer Experience", "Analytics"],
     skills_preferred: ["Fintech", "Technical Background", "SQL"],
-    team_context: {
-      team_name: "API Platform",
-      team_size: 8,
-      reports_to: "VP of Product",
-    },
+    team_context:
+      "API Platform (8 engineers). Reports to VP of Product.",
     urgency: "moderate",
     application_volume_signal: "high",
     apply_paths: [
       {
-        type: "apply_anywhere",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/globex-pm-2026-003",
         required_fields: ["resume", "email", "name"],
@@ -382,18 +354,15 @@ export const jobs: JobPosting[] = [
     jobLocation: { city: "New York", state: "NY", country: "US", remote: false },
     skills_required: ["Financial Compliance", "AML", "SQL", "Risk Analysis"],
     skills_preferred: ["Python", "Tableau", "CAMS Certification"],
-    team_context: {
-      team_name: "Financial Compliance",
-      team_size: 8,
-      reports_to: "Chief Compliance Officer",
-    },
+    team_context:
+      "Financial Compliance (8 members). Reports to Chief Compliance Officer.",
     urgency: "high",
     application_volume_signal: "low",
     agent_notes:
       "Identity verification required via ID.me due to financial regulatory requirements. Candidates must be US citizens.",
     apply_paths: [
       {
-        type: "adaptive_apply",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/globex-sa-2026-004",
         required_fields: ["resume", "email", "name", "work_authorization"],
@@ -424,20 +393,15 @@ export const jobs: JobPosting[] = [
       "SOC 2",
     ],
     skills_preferred: ["CISSP", "ISO 27001", "Incident Response", "Cloud Security"],
-    team_context: {
-      team_name: "Security",
-      team_size: 4,
-      reports_to: "CEO",
-      description:
-        "Building the security function from the ground up. You'll be the first dedicated security leader.",
-    },
+    team_context:
+      "Security (4 members). Reports to CEO. Building the security function from the ground up. You'll be the first dedicated security leader.",
     urgency: "critical",
     application_volume_signal: "low",
     agent_notes:
       "Requires both identity verification (ID.me) and background check (Checkr) due to access to sensitive customer data and SOC 2 requirements.",
     apply_paths: [
       {
-        type: "adaptive_apply",
+        type: "provider_hosted",
         supports_agent_submission: true,
         url: "https://ojcp.dev/api/mock-apply/initech-ciso-2026-003",
         required_fields: ["resume", "email", "name", "work_authorization"],

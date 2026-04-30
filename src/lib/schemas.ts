@@ -4,11 +4,10 @@ import { z } from "zod/v4";
 export const ApplyPathSchema = z.object({
   type: z.enum([
     "ats_direct",
-    "adaptive_apply",
-    "apply_anywhere",
-    "platform_apply",
-    "email_apply",
-    "external_url",
+    "provider_hosted",
+    "platform_native",
+    "email",
+    "external_redirect",
     "custom",
   ]),
   product_name: z.string().optional(),
@@ -51,19 +50,12 @@ export const JobPostingSchema = z.object({
     .optional(),
   skills_required: z.array(z.string()).optional(),
   skills_preferred: z.array(z.string()).optional(),
-  team_context: z
-    .object({
-      team_name: z.string().optional(),
-      team_size: z.number().optional(),
-      reports_to: z.string().optional(),
-      description: z.string().optional(),
-    })
-    .optional(),
+  team_context: z.string().optional(),
   // ATS fields
   requisition_id: z.string().optional(),
   department: z.string().optional(),
   hiring_manager: z.string().optional(),
-  remote_policy: z.enum(["fully_remote", "hybrid", "on_site"]).optional(),
+  remote_policy: z.enum(["on_site", "hybrid", "remote", "flexible"]).optional(),
   urgency: z.enum(["low", "moderate", "high", "critical"]).optional(),
   application_volume_signal: z
     .enum(["low", "moderate", "high", "very_high"])
@@ -206,7 +198,7 @@ export const SourceAttributionSchema = z.object({
 
 // ── Warning (non-fatal response feedback) ──
 export const WarningSchema = z.object({
-  code: z.enum(["fields_ignored", "scope_exceeded", "deprecated_field", "answer_coerced"]),
+  code: z.enum(["fields_ignored", "scope_exceeded", "deprecated_field", "answer_coerced", "stale_data"]),
   message: z.string(),
   fields: z.array(z.string()).optional(),
 });

@@ -21,7 +21,7 @@ const manifest = {
   feed_endpoints: {
     jobs: "https://ojcp.dev/api/jobs",
   },
-  apply_paths: ["adaptive_apply", "apply_anywhere", "ats_direct"],
+  apply_paths: ["provider_hosted", "ats_direct"],
   auth: {
     type: "none",
     note: "This reference provider requires no authentication.",
@@ -38,14 +38,14 @@ const manifest = {
   //     verifier_name: "ID.me",
   //     verifier_manifest_url: "https://id.me/.well-known/ojcp-verifier.json",
   //     verification_types: ["identity", "government_id"],
-  //     required_for_paths: ["adaptive_apply"],
+  //     required_for_paths: ["provider_hosted"],
   //   },
   //   {
   //     verifier_id: "checkr",
   //     verifier_name: "Checkr",
   //     verifier_manifest_url: "https://checkr.com/.well-known/ojcp-verifier.json",
   //     verification_types: ["background_check"],
-  //     required_for_paths: ["adaptive_apply"],
+  //     required_for_paths: ["provider_hosted"],
   //   },
   // ],
 };

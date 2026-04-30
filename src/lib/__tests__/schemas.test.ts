@@ -285,13 +285,13 @@ describe("JobPostingSchema", () => {
       title: "Test",
       employer: { name: "Acme" },
       datePosted: "2026-03-01",
-      remote_policy: "flexible",
+      remote_policy: "wherever",
     });
     expect(result.success).toBe(false);
   });
 
   it("accepts all valid remote_policy values", () => {
-    for (const policy of ["fully_remote", "hybrid", "on_site"]) {
+    for (const policy of ["on_site", "hybrid", "remote", "flexible"]) {
       const result = JobPostingSchema.safeParse({
         ojcp_id: "acme:test-001",
         title: "Test",

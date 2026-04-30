@@ -18,28 +18,23 @@ const paths = [
     agentSupport: "varies",
   },
   {
-    type: "adaptive_apply",
-    description: "Configurable, brandable, agent-ready apply flow",
+    type: "provider_hosted",
+    description: "Provider controls the apply flow and delivers to ATS",
     agentSupport: "full",
   },
   {
-    type: "apply_anywhere",
-    description: "End-to-end apply flow with ATS delivery",
-    agentSupport: "full",
-  },
-  {
-    type: "platform_apply",
-    description: "Third-party platform-managed apply flow (e.g., Indeed Apply, Easy Apply)",
+    type: "platform_native",
+    description: "Third-party platform owns the flow (e.g., Indeed Apply, Easy Apply)",
     agentSupport: "limited",
   },
   {
-    type: "email_apply",
+    type: "email",
     description: "Legacy email-based application",
     agentSupport: "none",
   },
   {
-    type: "external_url",
-    description: "Redirect to external page",
+    type: "external_redirect",
+    description: "Redirect to opaque external page",
     agentSupport: "none",
   },
   {

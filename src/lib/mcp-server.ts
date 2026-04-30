@@ -140,11 +140,10 @@ export function createOjcpServer() {
       apply_path: z
         .enum([
           "ats_direct",
-          "adaptive_apply",
-          "apply_anywhere",
-          "platform_apply",
-          "email_apply",
-          "external_url",
+          "provider_hosted",
+          "platform_native",
+          "email",
+          "external_redirect",
           "custom",
         ])
         .optional()
