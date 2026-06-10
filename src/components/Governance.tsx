@@ -20,26 +20,26 @@ import {
   IconArrowRight,
 } from "@tabler/icons-react";
 import { specDiscussions } from "@/lib/repo-urls";
-import classes from "./About.module.css";
+import classes from "./Governance.module.css";
 
 const pillars = [
   {
     icon: IconScale,
     title: "Open Governance",
     description:
-      "OJCP is governed by a 7-seat steering committee representing distinct ecosystem segments via an RFC process. No single company has veto power. Pre-v1.0 we commit to transferring infrastructure to a neutral foundation.",
+      "OJCP is governed by a 7-seat steering committee representing distinct ecosystem segments via a public RFC process. No single company has veto power. Pre-v1.0 we commit to transferring infrastructure to a neutral foundation.",
   },
   {
     icon: IconUsers,
-    title: "Multi-Stakeholder Coalition",
+    title: "Multi-Stakeholder",
     description:
-      "OAJI brings together enterprise employers, ATS vendors, job boards, staffing agencies, and AI agent platforms to coordinate adoption and shape ecosystem priorities. Credibility comes from the breadth of the coalition, not the size of any one member.",
+      "The steering committee brings together enterprise employers, ATS vendors, job boards, staffing agencies, and AI agent platforms. Credibility comes from the breadth of representation, not the size of any one member.",
   },
   {
     icon: IconRocket,
     title: "Agent-First Future",
     description:
-      "AI agents are becoming the primary way candidates discover and apply to jobs. OAJI exists to ensure this transition happens on open rails — not inside walled gardens controlled by a single platform.",
+      "AI agents are becoming the primary way candidates discover and apply to jobs. OJCP exists to ensure this transition happens on open rails — not inside walled gardens controlled by a single platform.",
   },
   {
     icon: IconShieldCheck,
@@ -49,24 +49,22 @@ const pillars = [
   },
 ];
 
-export function About() {
+export function Governance() {
   return (
     <>
       <section className={classes.root}>
         <Container size="lg">
           <Stack align="center" gap="xs" mb={48}>
-            <Text className={classes.overline}>About</Text>
+            <Text className={classes.overline}>Governance</Text>
             <Title order={1} ta="center" className={classes.title}>
-              The{" "}
-              <span className={classes.highlight}>
-                Open Agent Jobs Initiative
-              </span>
+              How{" "}
+              <span className={classes.highlight}>OJCP is governed</span>
             </Title>
             <Text ta="center" className={classes.subtitle} maw={680}>
-              OAJI is an industry coalition that supports the adoption of open
-              standards for agent-accessible job data. The Open Job Context
-              Protocol (OJCP) is the first such standard, governed
-              independently by its own steering committee.
+              OJCP is governed by an independent 7-seat steering committee
+              through a public RFC process, with infrastructure committed to
+              transfer to a neutral foundation before v1.0. It is being designed
+              to compose with broader agent-web standards efforts.
             </Text>
           </Stack>
         </Container>
@@ -76,18 +74,20 @@ export function About() {
         <Container size="lg">
           <Stack gap="xl">
             <Stack align="center" gap="xs">
-              <Text className={classes.overline}>Why This Matters</Text>
+              <Text className={classes.overline}>How It Works</Text>
               <Title order={2} ta="center" className={classes.sectionTitle}>
-                The hiring ecosystem needs a shared protocol
+                An independent steering committee
               </Title>
             </Stack>
             <Text ta="center" className={classes.body} maw={720} mx="auto">
-              AI agents are rapidly changing how people find and apply to jobs.
-              Today, every job board, ATS, and employer exposes job data
-              differently — forcing agent developers to build custom
-              integrations for each source. OAJI is the coalition working to
-              solve this; OJCP is the technical specification that does it.
-              Any provider can implement OJCP, and any agent can consume it.
+              Seven seats are allocated across distinct ecosystem segments —
+              employers, ATS vendors, job boards, staffing agencies, and agent
+              platforms — so no single company controls the standard. Changes
+              move through a public RFC process: anyone can propose, the
+              committee reviews in the open, and decisions are recorded. Before
+              v1.0, we are committed to transferring the standard&apos;s
+              infrastructure to a neutral foundation, so OJCP&apos;s long-term
+              home is independent of any of its founders.
             </Text>
           </Stack>
         </Container>
@@ -98,7 +98,7 @@ export function About() {
           <Stack align="center" gap="xs" mb={48}>
             <Text className={classes.overline}>Principles</Text>
             <Title order={2} ta="center" className={classes.sectionTitle}>
-              How OAJI operates
+              What the steering committee stands for
             </Title>
           </Stack>
 
@@ -147,14 +147,14 @@ export function About() {
             <Stack align="center" gap="xs">
               <Text className={classes.overline}>Get Involved</Text>
               <Title order={2} ta="center" className={classes.sectionTitle}>
-                Join the initiative
+                Help shape the standard
               </Title>
             </Stack>
             <Text ta="center" className={classes.body} maw={600}>
-              OAJI is open to employers, ATS vendors, job boards, staffing
+              OJCP is open to employers, ATS vendors, job boards, staffing
               agencies, and agent platforms. Whether you want to implement the
-              spec, join the registry, or shape the roadmap — we want to hear
-              from you.
+              spec, join the registry, or shape the roadmap through the RFC
+              process — we want to hear from you.
             </Text>
             <Group gap="md" mt="sm">
               <Button
@@ -180,7 +180,7 @@ export function About() {
             </Group>
             <Stack align="center" gap={8} mt={48}>
               <Text size="xs" c="var(--ojcp-text-muted)" tt="uppercase" lts="0.1em" fw={600}>
-                Founded by
+                Authored by
               </Text>
               <Image
                 src="/logos/recruitics-primary.svg"
@@ -189,9 +189,9 @@ export function About() {
                 className={classes.rxLogo}
               />
               <Text size="xs" c="var(--ojcp-text-muted)" mt={8} ta="center" maw={520}>
-                Recruitics founded OAJI and authored the OJCP v0.1 specification.
-                OJCP is governed independently by its steering committee — Recruitics
-                holds one seat of seven.
+                Recruitics authored the OJCP v0.1 specification. OJCP is governed
+                independently by its steering committee — Recruitics holds one
+                seat of seven.
               </Text>
             </Stack>
           </Stack>

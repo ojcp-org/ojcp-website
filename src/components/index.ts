@@ -9,4 +9,4 @@ export { Playground } from "./Playground";
 export { Community } from "./Community";
 export { Footer } from "./Footer";
 export { NotFound } from "./NotFound";
-export { About } from "./About";
+export { Governance } from "./Governance";

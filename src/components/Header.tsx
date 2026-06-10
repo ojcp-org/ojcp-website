@@ -16,7 +16,7 @@ import { specRepo, repoHostLabel } from "@/lib/repo-urls";
 import classes from "./Header.module.css";
 
 const links = [
-  { label: "About", href: "/about" },
+  { label: "Governance", href: "/governance" },
   { label: "Spec", href: "/#spec" },
   { label: "How It Works", href: "/#how-it-works" },
   { label: "Examples", href: "/#examples" },

@@ -110,13 +110,17 @@ export function Hero() {
           >
             <Stack align="center" gap="xl">
               <Text className={classes.subtitle} ta="center" maw={640}>
-                Part of the{" "}
-                <Anchor href="/about" c="var(--ojcp-gold)" underline="hover">
-                  Open Agent Jobs Initiative
-                </Anchor>
-                . OJCP defines how AI agents discover, reason over, and act on
+                OJCP defines how AI agents discover, reason over, and act on
                 job opportunities. Built on MCP. Interoperable with schema.org.
-                Designed for the agentic web.
+                Governed by an{" "}
+                <Anchor
+                  href="/governance"
+                  c="var(--ojcp-gold)"
+                  underline="hover"
+                >
+                  independent steering committee
+                </Anchor>
+                , and designed to compose with the broader agentic web.
               </Text>
 
               <Group gap="md" mt="sm" className={classes.buttons}>
