@@ -1,18 +1,16 @@
-# ── Stage 1: Install dependencies ──
-FROM core.harbor.recruitics.dev/dockerhub/library/node:24-alpine AS deps
-RUN corepack enable && corepack prepare pnpm@latest --activate
-WORKDIR /app
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm install --frozen-lockfile
-
-# ── Stage 2: Build ──
+# ── Stage 1: Install dependencies & build ──
+# Single stage on purpose: the CI runner uses podman's `vfs` storage driver,
+# which has no copy-on-write and snapshots the full filesystem for every layer.
+# A separate deps stage + `COPY --from=deps node_modules` would duplicate the
+# ~1GB of native deps (next-swc, sharp/libvips) on the pod's ephemeral disk and
+# blow past its 10Gi limit. Installing and building in one RUN keeps the pnpm
+# store ↔ node_modules hardlinks intact and minimises resident layer snapshots.
 FROM core.harbor.recruitics.dev/dockerhub/library/node:24-alpine AS builder
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN pnpm build
+RUN pnpm install --frozen-lockfile && pnpm build
 
 # ── Stage 3: Production runtime ──
 FROM core.harbor.recruitics.dev/dockerhub/library/node:24-alpine AS runner
