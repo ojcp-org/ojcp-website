@@ -1,3 +1,8 @@
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
+# pnpm 11 removed ignoredBuiltDependencies/onlyBuiltDependencies and consolidated
+# them into allowBuilds. With strictDepBuilds defaulting to true in v11, any
+# dependency with an unreviewed build script fails `pnpm install` (exit 1).
+# Listing these as `false` marks them reviewed-and-skipped: both ship prebuilt
+# platform binaries via @img/sharp-* / napi optional deps, so no build is needed.
+allowBuilds:
+  sharp: false
+  unrs-resolver: false
