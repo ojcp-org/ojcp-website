@@ -1,5 +1,6 @@
 export { Header } from "./Header";
 export { Hero } from "./Hero";
+export { FoundingMembers } from "./FoundingMembers";
 export { Features } from "./Features";
 export { Spec } from "./Spec";
 export { HowItWorks } from "./HowItWorks";

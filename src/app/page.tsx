@@ -1,6 +1,7 @@
 import {
   Header,
   Hero,
+  FoundingMembers,
   Features,
   Spec,
   HowItWorks,
@@ -17,6 +18,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <FoundingMembers />
         <Features />
         <Spec />
         <HowItWorks />

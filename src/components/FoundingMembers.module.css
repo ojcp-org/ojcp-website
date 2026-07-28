@@ -1,0 +1,97 @@
+.root {
+  padding: 72px 0;
+  background: var(--ojcp-bg-dark-alt);
+  border-top: 1px solid rgba(232, 168, 48, 0.08);
+  border-bottom: 1px solid rgba(232, 168, 48, 0.08);
+}
+
+.overline {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ojcp-gold);
+  font-weight: 500;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.6rem;
+  color: var(--ojcp-text-light);
+  text-align: center;
+  margin-top: 8px;
+}
+
+.subtitle {
+  color: var(--ojcp-text-muted-light);
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 6px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 44px;
+}
+
+/* White "chips" so mixed-color brand logos read cleanly on the dark section. */
+.member {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92px;
+  padding: 0 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 200ms, box-shadow 200ms;
+}
+
+.member:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.logoImg {
+  max-height: 52px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.wordmark {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #16161a;
+}
+
+@media (max-width: 62em) {
+  .logos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 48em) {
+  .root {
+    padding: 48px 0;
+  }
+  .logos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .member {
+    height: 72px;
+    padding: 0 14px;
+  }
+  .logoImg {
+    max-height: 38px;
+  }
+}
