@@ -1,8 +1,8 @@
+/* A single light band breaks up the dark page and lets mixed-color brand
+   logos sit in their natural color without per-logo boxes. */
 .root {
-  padding: 72px 0;
-  background: var(--ojcp-bg-dark-alt);
-  border-top: 1px solid rgba(232, 168, 48, 0.08);
-  border-bottom: 1px solid rgba(232, 168, 48, 0.08);
+  padding: 64px 0;
+  background: #f7f6f3;
 }
 
 .overline {
@@ -10,20 +10,20 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--ojcp-gold);
-  font-weight: 500;
+  color: #9a7a1c;
+  font-weight: 600;
   text-align: center;
 }
 
 .title {
   font-size: 1.6rem;
-  color: var(--ojcp-text-light);
+  color: #16161a;
   text-align: center;
   margin-top: 8px;
 }
 
 .subtitle {
-  color: var(--ojcp-text-muted-light);
+  color: #55555c;
   font-size: 0.95rem;
   text-align: center;
   margin-top: 6px;
@@ -35,34 +35,39 @@
 .logos {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 28px 32px;
+  align-items: center;
   margin-top: 44px;
 }
 
-/* White "chips" so mixed-color brand logos read cleanly on the dark section. */
 .member {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 92px;
-  padding: 0 24px;
-  background: #ffffff;
-  border-radius: 12px;
+  height: 60px;
   text-decoration: none;
-  transition: transform 200ms, box-shadow 200ms;
+  transition: transform 200ms;
 }
 
 .member:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
 
 .logoImg {
-  max-height: 52px;
-  max-width: 100%;
+  max-height: 46px;
+  max-width: 158px;
   width: auto;
   object-fit: contain;
   display: block;
+  /* Calm, unified at rest; brand color on hover. */
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: filter 200ms, opacity 200ms;
+}
+
+.member:hover .logoImg {
+  filter: none;
+  opacity: 1;
 }
 
 .wordmark {
@@ -81,17 +86,14 @@
 
 @media (max-width: 48em) {
   .root {
-    padding: 48px 0;
+    padding: 44px 0;
   }
   .logos {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-  .member {
-    height: 72px;
-    padding: 0 14px;
+    gap: 22px;
   }
   .logoImg {
     max-height: 38px;
+    max-width: 120px;
   }
 }
