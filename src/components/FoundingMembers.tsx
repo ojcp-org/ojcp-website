@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Title, Text } from "@mantine/core";
+import { Container, Title, Text, Anchor } from "@mantine/core";
 import classes from "./FoundingMembers.module.css";
 
 type Member = {
@@ -13,6 +13,8 @@ type Member = {
 };
 
 // ── Founding members ─────────────────────────────────────────────────────────
+// Keep this list in sync with the seat table in GOVERNANCE.md — readers do check
+// one against the other, and a mismatch reads as an inflated coalition claim.
 // Only list members CONFIRMED for public listing — a logo here reads as a public
 // endorsement. Logos live in /public/logos/members/; entries without a `logo`
 // render as a clean text wordmark (fine to ship while an asset is sourced).
@@ -60,8 +62,11 @@ export function FoundingMembers() {
         </Title>
         <Text className={classes.subtitle}>
           OJCP is shaped by employers, ATS vendors, job boards, staffing
-          agencies, and agent platforms — each holding one seat, none holding a
-          veto.
+          agencies, and agent platforms — each holding one seat on the{" "}
+          <Anchor href="/governance" className={classes.subtitleLink}>
+            steering committee
+          </Anchor>
+          , none holding a veto.
         </Text>
 
         <div className={classes.logos}>
