@@ -72,6 +72,20 @@
     "resume_embedding_hash": {
       "type": "string",
       "description": "SHA-256 hash of a resume embedding vector, enabling semantic match scoring without transmitting the full resume."
+    },
+    "name": {
+      "type": "string",
+      "description": "Candidate's full name. Only include when consent_scope is 'application_prefill' or 'full_profile'."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Candidate's contact email. Only include when consent_scope is 'application_prefill' or 'full_profile'."
+    },
+    "resume_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the candidate's resume document. Only include when consent_scope is 'application_prefill' or 'full_profile'."
     }
   }
 }

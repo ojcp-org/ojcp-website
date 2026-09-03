@@ -8,6 +8,7 @@
   "properties": {
     "ojcp_version": {
       "type": "string",
+      "enum": ["0.1"],
       "description": "The OJCP specification version."
     },
     "application_id": {
@@ -16,7 +17,7 @@
     },
     "status": {
       "type": "string",
-      "enum": ["initiated", "pending_submission", "submitted", "received", "reviewing", "interview_scheduled", "offer_extended", "rejected", "withdrawn"],
+      "enum": ["initiated", "pending_submission", "pending_verification", "submitted", "verification_failed", "validation_failed", "expired", "rejected", "received", "reviewing", "interview_scheduled", "offer_extended", "withdrawn"],
       "description": "Current application status."
     },
     "updated_at": {
@@ -31,6 +32,24 @@
     "estimated_response_days": {
       "type": "integer",
       "description": "Estimated number of business days until the next status update."
+    },
+    "verification_status": {
+      "type": "object",
+      "properties": {
+        "steps_total": { "type": "integer", "description": "Total number of verification steps." },
+        "steps_completed": { "type": "integer", "description": "Number of completed verification steps." },
+        "pending_steps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Step IDs that are still pending."
+        },
+        "completed_steps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Step IDs that have been completed."
+        }
+      },
+      "description": "Progress of identity verification steps. Present when status is 'pending_verification'."
     }
   }
 }

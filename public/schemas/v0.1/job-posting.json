@@ -137,6 +137,23 @@
       },
       "description": "Available application mechanisms for this job."
     },
+    "requisition_id": {
+      "type": "string",
+      "description": "Internal requisition or job ID used by the employer's ATS."
+    },
+    "department": {
+      "type": "string",
+      "description": "Department or business unit for this role."
+    },
+    "hiring_manager": {
+      "type": "string",
+      "description": "Name of the hiring manager."
+    },
+    "remote_policy": {
+      "type": "string",
+      "enum": ["on_site", "hybrid", "remote", "flexible"],
+      "description": "Remote work policy for this role."
+    },
     "agent_notes": {
       "type": "string",
       "description": "Free-text notes intended for agent consumption (e.g., recruiter info, timeline hints)."
@@ -149,8 +166,12 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["ats_direct", "adaptive_apply", "apply_anywhere", "indeed_apply", "email_apply", "external_url", "custom"],
+          "enum": ["ats_direct", "provider_hosted", "platform_native", "email", "external_redirect", "custom"],
           "description": "The application mechanism type."
+        },
+        "product_name": {
+          "type": "string",
+          "description": "Optional vendor product name for this apply path (e.g., 'Indeed Apply', 'Easy Apply'). Informational only."
         },
         "url": {
           "type": "string",
@@ -183,6 +204,15 @@
           "type": "string",
           "format": "uri",
           "description": "URL to a form skill descriptor that teaches agents how to fill out this apply path's form — field mappings, validation rules, conditional logic, and submission instructions."
+        },
+        "requires_verification": {
+          "type": "boolean",
+          "description": "Whether identity verification is required before the application can be submitted via this path."
+        },
+        "accepted_verifiers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Identity verifier identifiers accepted for this apply path (e.g., 'id.me', 'clear'). If omitted when requires_verification is true, the provider accepts any verifier listed in the manifest's supported_verifiers."
         }
       }
     }

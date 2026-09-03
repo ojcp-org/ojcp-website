@@ -4,10 +4,11 @@
   "title": "OJCP search_jobs Response",
   "description": "Response schema for the search_jobs tool.",
   "type": "object",
-  "required": ["ojcp_version", "total_results", "returned", "offset", "jobs"],
+  "required": ["ojcp_version", "query", "total_results", "returned", "offset", "jobs"],
   "properties": {
     "ojcp_version": {
       "type": "string",
+      "enum": ["0.1"],
       "description": "The OJCP specification version."
     },
     "query": {
