@@ -32,6 +32,18 @@
   margin-right: auto;
 }
 
+/* Inherit the subtitle's size/colour so the link reads as body copy, not a button. */
+.subtitleLink {
+  color: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.subtitleLink:hover {
+  color: #1c1c21;
+}
+
 .logos {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

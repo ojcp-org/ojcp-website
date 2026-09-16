@@ -27,7 +27,7 @@ const pillars = [
     icon: IconScale,
     title: "Open Governance",
     description:
-      "OJCP is governed by a 7-seat steering committee representing distinct ecosystem segments via a public RFC process. No single company has veto power. Pre-v1.0 we commit to transferring infrastructure to a neutral foundation.",
+      "OJCP is governed by a 9-seat steering committee drawn from across the hiring ecosystem via a public RFC process. No single company has veto power. Pre-v1.0 we commit to transferring infrastructure to a neutral foundation.",
   },
   {
     icon: IconUsers,
@@ -61,7 +61,7 @@ export function Governance() {
               <span className={classes.highlight}>OJCP is governed</span>
             </Title>
             <Text ta="center" className={classes.subtitle} maw={680}>
-              OJCP is governed by an independent 7-seat steering committee
+              OJCP is governed by an independent 9-seat steering committee
               through a public RFC process, with infrastructure committed to
               transfer to a neutral foundation before v1.0. It is being designed
               to compose with broader agent-web standards efforts.
@@ -80,9 +80,9 @@ export function Governance() {
               </Title>
             </Stack>
             <Text ta="center" className={classes.body} maw={720} mx="auto">
-              Seven seats are allocated across distinct ecosystem segments —
-              employers, ATS vendors, job boards, staffing agencies, and agent
-              platforms — so no single company controls the standard. Changes
+              Nine seats are held by employers, ATS vendors, job boards,
+              staffing agencies, and agent platforms — one seat per company, so
+              no single company controls the standard. Changes
               move through a public RFC process: anyone can propose, the
               committee reviews in the open, and decisions are recorded. Before
               v1.0, we are committed to transferring the standard&apos;s
