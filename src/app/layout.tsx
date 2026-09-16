@@ -13,9 +13,8 @@ export const metadata: Metadata = {
   title: "OJCP — Open Job Context Protocol",
   description:
     "The open standard for agent-consumable job feeds. Discover, reason over, and act on job opportunities with AI agents.",
-  icons: {
-    icon: "/logos/favicon.svg",
-  },
+  // Icons are provided by the App Router file convention: src/app/favicon.ico
+  // (legacy /favicon.ico) and src/app/icon.svg (crisp SVG for modern browsers).
 };
 
 export default function RootLayout({
