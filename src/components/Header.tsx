@@ -11,8 +11,9 @@ import {
   Stack,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBrandGithub } from "@tabler/icons-react";
-import { specRepo, repoHostLabel } from "@/lib/repo-urls";
+import { IconBrandGithub, IconStar } from "@tabler/icons-react";
+import { specRepo } from "@/lib/repo-urls";
+import { useGitHubStars } from "@/lib/useGitHubStars";
 import classes from "./Header.module.css";
 
 const links = [
@@ -27,6 +28,7 @@ const links = [
 
 export function Header() {
   const [opened, { toggle, close }] = useDisclosure(false);
+  const stars = useGitHubStars();
 
   return (
     <header className={classes.header}>
@@ -58,12 +60,17 @@ export function Header() {
             component="a"
             href={specRepo}
             target="_blank"
-            variant="subtle"
-            color="gray"
+            variant="default"
             size="sm"
             leftSection={<IconBrandGithub size={18} />}
+            rightSection={
+              <Group gap={4} align="center" className={classes.stars}>
+                <IconStar size={15} />
+                <span>{stars.toLocaleString()}</span>
+              </Group>
+            }
           >
-            {repoHostLabel}
+            Star
           </Button>
         </Group>
 

@@ -17,6 +17,9 @@ const SITE_REPO =
 
 export const specRepo = SPEC_REPO;
 
+/** owner/repo slug for the spec repo, e.g. "ojcp-org/ojcp" (for the GitHub API) */
+export const specRepoSlug = SPEC_REPO.replace(/^https?:\/\/github\.com\//, "");
+
 /** Rendered spec hosted via GitHub Pages */
 export const specRendered =
   process.env.NEXT_PUBLIC_SPEC_PAGES_URL ?? "https://spec.ojcp.dev/";
