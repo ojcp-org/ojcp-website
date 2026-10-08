@@ -63,7 +63,7 @@ const features = [
     icon: IconFingerprint,
     title: "Verified Agent Identity",
     description:
-      "Agents sign requests and bind agent_id to their own namespace, with delegated signing for third-party hosts. User mandates prove an agent is authorized to act for a specific person.",
+      "Agents sign requests and bind agent_id to their own namespace, with delegated signing for third-party hosts. User mandates prove that a person authorized one specific action.",
   },
   {
     icon: IconEyeCheck,
