@@ -15,6 +15,7 @@ import { motion, useMotionValue, useTransform, animate } from "motion/react";
 import { useEffect, useState } from "react";
 import { IconArrowRight, IconBrandGithub } from "@tabler/icons-react";
 import { specRepo, repoHostLabel } from "@/lib/repo-urls";
+import { OJCP_VERSION } from "@/lib/site";
 import classes from "./Hero.module.css";
 
 const TYPED_TEXT = "agent-native job data";
@@ -77,7 +78,7 @@ export function Hero() {
               radius="sm"
               className={classes.badge}
             >
-              v0.1 Draft Specification
+              Version {OJCP_VERSION}
             </Badge>
           </motion.div>
 

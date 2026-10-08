@@ -14,12 +14,13 @@ import {
 } from "@mantine/core";
 import { CodeHighlight } from "@mantine/code-highlight";
 import { useSiteStore } from "@/store";
+import { OJCP_VERSION } from "@/lib/site";
 import classes from "./CodeExamples.module.css";
 
 /* ── Discover ── */
 
 const discoverManifest = `{
-  "ojcp_version": "0.1",
+  "ojcp_version": "${OJCP_VERSION}",
   "provider": {
     "name": "Acme Careers",
     "employer_id": "acme",

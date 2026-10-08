@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
+import { OJCP_VERSION } from "@/lib/site";
 
 const manifest = {
-  ojcp_version: "0.1",
+  ojcp_version: OJCP_VERSION,
   provider: {
     name: "OJCP Reference Provider",
     url: "https://ojcp.dev",

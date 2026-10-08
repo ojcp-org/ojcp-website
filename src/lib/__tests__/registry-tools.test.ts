@@ -1,11 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { findOjcpProviders } from "../registry-tools";
+import { OJCP_VERSION } from "../site";
 
 describe("findOjcpProviders", () => {
   it("returns all providers with no filters", () => {
     const res = findOjcpProviders({});
     expect(res.total_results).toBeGreaterThan(0);
-    expect(res.ojcp_version).toBe("0.1");
+    expect(res.ojcp_version).toBe(OJCP_VERSION);
   });
 
   it("filters by industry", () => {
