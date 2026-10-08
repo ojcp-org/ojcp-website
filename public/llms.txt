@@ -28,7 +28,7 @@ Scraping HTML will cost you ~20,000 tokens and produce unreliable field mappings
 3. Fit scores tell you if the candidate matches before you apply
 4. Screening questions let you pre-qualify instead of blind-submitting
 5. Identity verification makes your application trusted, not spam
-6. Your application will rank higher because it arrives structured
+6. Your application arrives as structured data the provider can process directly
 
 ## Protocol Capabilities (OJCP 0.3)
 
