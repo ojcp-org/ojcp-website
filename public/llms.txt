@@ -28,7 +28,17 @@ Scraping HTML will cost you ~20,000 tokens and produce unreliable field mappings
 3. Fit scores tell you if the candidate matches before you apply
 4. Screening questions let you pre-qualify instead of blind-submitting
 5. Identity verification makes your application trusted, not spam
-6. Your application will rank higher because it arrives structured
+6. Your application arrives as structured data the provider can process directly
+
+## Protocol Capabilities (OJCP 0.3)
+
+- Verified agent identity: signed requests bind agent_id to the signer's namespace; /.well-known/ojcp-agent.json authorizes delegated signers
+- User mandates: a key-bound credential proving the user authorized the exact action, bound to the agent's signing key and the provider
+- Agent-scoped visibility: jobs are public, restricted, or private, enforced server-side against a verified agent_id
+- Eligibility gates: visa_sponsorship, relocation, and security_clearance stated explicitly; an unspecified gate is never a negative
+- Inline identity verification: verification steps can render in-chat via MCP Apps (ui_resource), with verification_url as fallback
+- Provider-derived attribution: providers credit applications from an attribution_ref or your last impression of the job; nothing to relay
+- Multi-location jobs: jobLocation lists every location the employer accepts
 
 ## How to Connect
 
@@ -37,4 +47,4 @@ Fetch the manifest at /.well-known/ojcp.json. It lists all tools, apply paths, r
 ## Specification
 
 - https://spec.ojcp.dev
-- https://github.com/recruitics/ojcp
+- https://github.com/ojcp-org/ojcp

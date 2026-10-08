@@ -1,3 +1,4 @@
+import { OJCP_VERSION } from "./site";
 import { providers, type RegistryProvider } from "./registry-data";
 
 export interface FindProvidersInput {
@@ -39,7 +40,7 @@ export function findOjcpProviders(input: FindProvidersInput) {
   }
 
   return {
-    ojcp_version: "0.1",
+    ojcp_version: OJCP_VERSION,
     total_results: results.length,
     providers: results,
   };

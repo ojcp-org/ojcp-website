@@ -30,7 +30,7 @@ const cards = [
     icon: IconBook,
     title: "Read the Spec",
     description:
-      "The full OJCP v0.1 specification covers tools, schemas, apply paths, and security requirements.",
+      "The full OJCP specification covers tools, schemas, apply paths, agent identity, and security requirements.",
     action: "View Specification",
     href: specRendered,
   },

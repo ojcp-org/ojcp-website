@@ -9,6 +9,7 @@ import {
 } from "../ojcp-tools";
 import { createApplicationSession } from "../mock-data";
 import { createMockProofToken } from "../mock-jwt";
+import { OJCP_VERSION } from "../site";
 
 // ── searchJobs ──
 
@@ -224,7 +225,7 @@ describe("beginApplication", () => {
 
   it("returns standard error envelope for unknown job", () => {
     const res = beginApplication({ job_id: "nonexistent" });
-    expect(res).toHaveProperty("ojcp_version", "0.1");
+    expect(res).toHaveProperty("ojcp_version", OJCP_VERSION);
     expect(res).toHaveProperty("error_code", "job_not_found");
     expect(res).toHaveProperty("message");
   });

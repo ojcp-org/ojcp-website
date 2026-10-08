@@ -19,9 +19,10 @@ import type {
   Warning,
   ScreeningError,
 } from "./schemas";
+import { OJCP_VERSION } from "./site";
 
 function ojcpError(error_code: string, message: string, details?: Record<string, unknown>) {
-  return { ojcp_version: "0.1", error_code, message, ...details };
+  return { ojcp_version: OJCP_VERSION, error_code, message, ...details };
 }
 
 export function searchJobs(input: SearchJobsInput) {

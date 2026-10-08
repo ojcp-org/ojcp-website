@@ -41,8 +41,11 @@ const schemas = [
       "ojcp_id",
       "skills_required",
       "experienceLevel",
+      "jobLocation (one or many)",
       "apply_paths",
       "urgency",
+      "visibility",
+      "eligibility",
     ],
   },
   {
@@ -61,12 +64,13 @@ const schemas = [
     name: "AgentDeclaration",
     file: "agent-declaration.json",
     specFragment: "schema-agent-declaration",
-    description: "Agent self-identification for audit trails",
+    description: "Agent identification, signed requests, and user mandates",
     fields: [
       "agent_id",
       "acting_on_behalf_of",
       "interaction_mode",
       "user_consent_token",
+      "user_mandate",
     ],
   },
   {
@@ -79,6 +83,7 @@ const schemas = [
       "type",
       "verifier_id",
       "verification_url",
+      "ui_resource (MCP Apps)",
       "human_required",
     ],
   },
@@ -110,6 +115,13 @@ const schemas = [
       "public_keys_url (JWKS)",
     ],
   },
+  {
+    name: "AgentIdentity",
+    file: "agent-identity.json",
+    specFragment: "agent-binding-delegated",
+    description: "Delegated signing document hosted at /.well-known/ojcp-agent.json",
+    fields: ["agent_id", "signers"],
+  },
 ];
 
 const tools = [
@@ -131,7 +143,7 @@ export function Spec() {
             Schemas & Tools
           </Title>
           <Text ta="center" className={classes.subtitle} maw={600}>
-            OJCP defines seven core schemas and six standard MCP tools.
+            OJCP defines eight core schemas and six standard MCP tools.
             Providers MUST implement <code>search_jobs</code>; all others are
             recommended. Custom tools use namespaced names
             (e.g., <code>acme:get_referral_link</code>).

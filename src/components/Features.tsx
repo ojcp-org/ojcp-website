@@ -16,6 +16,9 @@ import {
   IconRoute,
   IconBrain,
   IconWorldWww,
+  IconFingerprint,
+  IconEyeCheck,
+  IconTargetArrow,
 } from "@tabler/icons-react";
 import classes from "./Features.module.css";
 
@@ -42,7 +45,7 @@ const features = [
     icon: IconShieldCheck,
     title: "Consent-First Privacy",
     description:
-      "Candidate data is opt-in and scoped. Resume embeddings enable fit-scoring without transmitting PII. Agents self-declare identity.",
+      "Candidate data is opt-in and scoped. Resume embeddings enable fit-scoring without transmitting PII. Visa, relocation, and clearance eligibility is stated explicitly, and an unstated gate is never read as a no.",
   },
   {
     icon: IconBrain,
@@ -55,6 +58,24 @@ const features = [
     title: "WebMCP Ready",
     description:
       "Browser-native agents can access OJCP tools via navigator.modelContext. Same schemas, same tools, new surface.",
+  },
+  {
+    icon: IconFingerprint,
+    title: "Verified Agent Identity",
+    description:
+      "Agents sign requests and bind agent_id to their own namespace, with delegated signing for third-party hosts. User mandates prove that a person authorized one specific action.",
+  },
+  {
+    icon: IconEyeCheck,
+    title: "Agent-Scoped Visibility",
+    description:
+      "Providers mark jobs public, restricted, or private and enforce visibility server-side against a verified agent_id. Gating depends on the agent, never on the candidate.",
+  },
+  {
+    icon: IconTargetArrow,
+    title: "Provider-Derived Attribution",
+    description:
+      "Providers credit each application from evidence they already hold — an issued attribution_ref or the agent's last impression of the job. No relaying, no fingerprinting.",
   },
 ];
 

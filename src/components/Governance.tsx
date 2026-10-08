@@ -189,9 +189,9 @@ export function Governance() {
                 className={classes.rxLogo}
               />
               <Text size="xs" c="var(--ojcp-text-muted)" mt={8} ta="center" maw={520}>
-                Recruitics authored the OJCP v0.1 specification. OJCP is governed
+                Recruitics authored the OJCP specification. OJCP is governed
                 independently by its steering committee — Recruitics holds one
-                seat of seven.
+                seat of nine.
               </Text>
             </Stack>
           </Stack>
