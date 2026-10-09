@@ -17,6 +17,22 @@ export const metadata: Metadata = {
   title: "OJCP — Open Job Context Protocol",
   description:
     "The open standard for agent-consumable job feeds. Discover, reason over, and act on job opportunities with AI agents.",
+  // Link previews. The card image comes from the file convention (src/app/opengraph-image.png and
+  // twitter-image.png). Without it, unfurlers picked the first raster image on the page, which is
+  // a steering-member logo.
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "OJCP",
+    title: "OJCP — Open Job Context Protocol",
+    description: "The open standard for agent-native job data. Built on MCP, openly governed.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OJCP — Open Job Context Protocol",
+    description: "The open standard for agent-native job data. Built on MCP, openly governed.",
+  },
   // Icons are provided by the App Router file convention: src/app/favicon.ico
   // (legacy /favicon.ico) and src/app/icon.svg (crisp SVG for modern browsers).
 };
