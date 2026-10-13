@@ -1,8 +1,8 @@
 /**
  * Centralized repo URL helpers.
  *
- * Set NEXT_PUBLIC_SPEC_REPO_URL and NEXT_PUBLIC_SITE_REPO_URL in .env.local
- * to override defaults.
+ * Set NEXT_PUBLIC_SPEC_REPO_URL, NEXT_PUBLIC_SITE_REPO_URL and NEXT_PUBLIC_REGISTRY_REPO_URL in
+ * .env.local to override defaults.
  */
 
 const SPEC_REPO =
@@ -12,6 +12,10 @@ const SPEC_REPO =
 const SITE_REPO =
   process.env.NEXT_PUBLIC_SITE_REPO_URL ??
   "https://github.com/ojcp-org/ojcp-website";
+
+const REGISTRY_REPO =
+  process.env.NEXT_PUBLIC_REGISTRY_REPO_URL ??
+  "https://github.com/ojcp-org/registry";
 
 // ── Spec repo ──
 
@@ -43,8 +47,16 @@ export const repoHostLabel = "GitHub";
 
 export const siteRepo = SITE_REPO;
 
-export function siteNewIssue(params: { title: string; body: string }) {
-  const t = encodeURIComponent(params.title);
-  const b = encodeURIComponent(params.body);
-  return `${SITE_REPO}/issues/new?title=${t}&body=${b}`;
+// ── Registry repo ──
+
+export const registryRepo = REGISTRY_REPO;
+
+/**
+ * GitHub "create new file" URL that opens a PR-ready `providers/<domain>.json` pre-filled with
+ * `entry`, pretty-printed.
+ */
+export function registryNewEntryUrl(domain: string, entry: unknown, branch = "main") {
+  const filename = encodeURIComponent(`${domain}.json`);
+  const value = encodeURIComponent(`${JSON.stringify(entry, null, 2)}\n`);
+  return `${REGISTRY_REPO}/new/${branch}/providers?filename=${filename}&value=${value}`;
 }

@@ -236,26 +236,33 @@ export function WebMCPProvider() {
     mc.registerTool({
       name: "find_ojcp_providers",
       description:
-        "Find OJCP-compliant job data providers by industry, location, or employer name. Use this to discover which employers and job boards support the OJCP protocol.",
+        "Find OJCP job data providers listed in the OJCP registry, filtered by industry, employer name, agent-apply support, or minimum registry trust tier. Results include the registry's evidence (manifest facts, conformance results, check time); a listing is not an endorsement. `location` is accepted but does not filter: registry entries carry no location data.",
       inputSchema: {
         type: "object",
         properties: {
           industry: {
             type: "string",
-            description: "Industry to search for (e.g. 'technology', 'healthcare')",
+            description: "Industry tag to search for (e.g. 'technology', 'healthcare')",
           },
           employer_name: {
             type: "string",
-            description: "Provider or employer name to search for",
+            description: "Provider or employer name (or domain) to search for",
           },
           location: {
             type: "string",
-            description: "Location filter (city, state, or country)",
+            description:
+              "Accepted for spec compatibility; ignored, because registry entries carry no location data",
           },
           has_agent_apply: {
             type: "string",
             enum: ["true", "false"],
-            description: "Filter for providers supporting agent apply",
+            description: "Filter for providers whose manifest declares begin_application",
+          },
+          min_trust_tier: {
+            type: "string",
+            enum: ["unverified", "verified", "audited"],
+            description:
+              "Only return providers at this registry trust tier or higher (unverified < verified < audited)",
           },
         },
       },
@@ -270,6 +277,7 @@ export function WebMCPProvider() {
               employer_name: params.employer_name,
               location: params.location,
               has_agent_apply: params.has_agent_apply === "true" ? true : undefined,
+              min_trust_tier: params.min_trust_tier,
             },
           }),
         });
@@ -278,7 +286,9 @@ export function WebMCPProvider() {
           content: [
             {
               type: "text" as const,
-              text: `Found ${data.total_results} OJCP providers.`,
+              text: res.ok
+                ? `Found ${data.total_results} OJCP providers.`
+                : `Registry lookup failed: ${data.message}`,
             },
             { type: "json" as const, data },
           ],

@@ -8,6 +8,8 @@ import {
   checkApplicationStatus,
 } from "@/lib/ojcp-tools";
 import { findOjcpProviders } from "@/lib/registry-tools";
+import { RegistryUnavailableError } from "@/lib/registry-data";
+import { FindOjcpProvidersInputSchema } from "@/lib/schemas";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -50,8 +52,10 @@ export async function POST(request: Request) {
       case "check_application_status":
         result = checkApplicationStatus(args);
         break;
+      // Registry lookup. `location` is accepted per the spec but does not filter:
+      // registry entries carry no location data.
       case "find_ojcp_providers":
-        result = findOjcpProviders(args);
+        result = await findOjcpProviders(FindOjcpProvidersInputSchema.parse(args));
         break;
       default:
         return NextResponse.json(
@@ -65,6 +69,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json(result, { headers: cors });
   } catch (err) {
+    if (err instanceof RegistryUnavailableError) {
+      return NextResponse.json(
+        { error: "registry_unavailable", message: err.message },
+        { status: 503, headers: cors }
+      );
+    }
     return NextResponse.json(
       { error: "invalid_request", message: String(err) },
       { status: 400, headers: cors }

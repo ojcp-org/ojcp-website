@@ -4,9 +4,9 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   path: "/registry",
-  title: "OJCP Registry — Discover Providers",
+  title: "OJCP Registry — Providers and Evidence",
   description:
-    "Browse and discover OJCP-compliant job data providers. Find employers and job boards that support agent-consumable job feeds.",
+    "The OJCP registry lists job data providers that serve the Open Job Context Protocol, with evidence gathered daily: manifest facts and conformance results. A listing is not an endorsement.",
 });
 
 export default function RegistryPage() {

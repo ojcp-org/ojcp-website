@@ -8,6 +8,8 @@ import {
   checkApplicationStatus,
 } from "./ojcp-tools";
 import { findOjcpProviders } from "./registry-tools";
+import { RegistryUnavailableError } from "./registry-data";
+import { TrustTierSchema } from "./schemas";
 import { z } from "zod/v4";
 
 export function createOjcpServer() {
@@ -308,23 +310,32 @@ export function createOjcpServer() {
   // ── find_ojcp_providers (registry) ──
   server.tool(
     "find_ojcp_providers",
-    "Find OJCP-compliant job data providers by industry, location, or employer name.",
+    "Find OJCP job data providers listed in the OJCP registry, filtered by industry, employer name, agent-apply support, or minimum registry trust tier. Each result carries the registry's evidence (manifest facts, conformance results, check time). A listing is not an endorsement. `location` is accepted but does not filter: registry entries carry no location data.",
     {
-      industry: z.string().optional().describe("Industry to filter by (e.g. 'technology', 'healthcare')"),
-      employer_name: z.string().optional().describe("Employer or provider name to search for"),
-      location: z.string().optional().describe("Location to filter by (city, state, or country)"),
-      has_agent_apply: z.boolean().optional().describe("Filter for providers that support autonomous agent applications"),
+      industry: z.string().optional().describe("Industry tag to filter by (e.g. 'technology', 'healthcare')"),
+      employer_name: z.string().optional().describe("Employer or provider name (or domain) to search for"),
+      location: z.string().optional().describe("Accepted for spec compatibility; ignored, because registry entries carry no location data"),
+      has_agent_apply: z.boolean().optional().describe("Filter for providers whose manifest declares begin_application"),
+      min_trust_tier: TrustTierSchema.optional().describe("Only return providers at this registry trust tier or higher (unverified < verified < audited)"),
     },
     async (params) => {
-      const result = findOjcpProviders(params);
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: JSON.stringify(result, null, 2),
-          },
-        ],
-      };
+      try {
+        const result = await findOjcpProviders(params);
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      } catch (err) {
+        if (!(err instanceof RegistryUnavailableError)) throw err;
+        return {
+          isError: true,
+          content: [{ type: "text" as const, text: err.message }],
+        };
+      }
     }
   );
 

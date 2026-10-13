@@ -1,0 +1,115 @@
+{
+  "ojcp_registry_version": "0.2",
+  "generated_at": "2026-10-13T06:17:00.000Z",
+  "count": 4,
+  "providers": [
+    {
+      "domain": "www.foundrole.com",
+      "name": "FoundRole",
+      "manifest_url": "https://www.foundrole.com/.well-known/ojcp.json",
+      "trust_tier": "unverified",
+      "manifest_signed": false,
+      "has_agent_apply": false,
+      "attestations": [],
+      "added_at": "2026-10-13",
+      "tier_history": [{ "tier": "unverified", "date": "2026-10-13", "note": "Initial listing." }],
+      "health": {
+        "checked_at": "2026-10-13T06:17:04.000Z",
+        "manifest": {
+          "ojcp_version": "0.1",
+          "name": "FoundRole",
+          "description": "Curated job listings for AI agents.",
+          "mcp_endpoint": "https://www.foundrole.com/ojcp/mcp",
+          "tools": ["search_jobs", "get_job_detail"],
+          "apply_paths": ["provider_hosted"],
+          "auth_required": false,
+          "signed": false
+        },
+        "conformance": {
+          "suite_version": "0.3.0",
+          "passed": 9, "failed": 0, "skipped": 0,
+          "results": [
+            { "test": "manifest-valid", "status": "passed" },
+            { "test": "search-jobs-valid-schema", "status": "passed" }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "freehire.me",
+      "name": "freehire",
+      "manifest_url": "https://freehire.me/.well-known/ojcp.json",
+      "trust_tier": "unverified",
+      "manifest_signed": false,
+      "has_agent_apply": false,
+      "attestations": [],
+      "added_at": "2026-10-13",
+      "health": {
+        "checked_at": "2026-10-13T06:17:09.000Z",
+        "manifest": {
+          "ojcp_version": "0.1",
+          "name": "freehire",
+          "description": "Open-source job aggregator.",
+          "mcp_endpoint": "https://freehire.me/api/v1/ojcp/mcp",
+          "tools": ["search_jobs", "get_job_detail", "get_employer_context"],
+          "apply_paths": ["ats_direct", "external_redirect"],
+          "auth_required": false,
+          "signed": false
+        },
+        "conformance": {
+          "suite_version": "0.3.0",
+          "passed": 9, "failed": 0, "skipped": 0,
+          "results": [{ "test": "manifest-valid", "status": "passed" }]
+        }
+      }
+    },
+    {
+      "domain": "cloud.jobops.app",
+      "name": "JobOps",
+      "manifest_url": "https://cloud.jobops.app/.well-known/ojcp.json",
+      "trust_tier": "unverified",
+      "manifest_signed": false,
+      "has_agent_apply": false,
+      "attestations": [],
+      "added_at": "2026-10-13",
+      "health": {
+        "checked_at": "2026-10-13T06:17:13.000Z",
+        "manifest": {
+          "ojcp_version": "0.1",
+          "name": "JobOps",
+          "description": "Live job search backed by FreeHire.",
+          "mcp_endpoint": "http://cloud.jobops.app/ojcp/mcp",
+          "tools": ["search_jobs", "get_job_detail"],
+          "apply_paths": [],
+          "auth_required": false,
+          "signed": false
+        },
+        "conformance": {
+          "suite_version": "0.3.0",
+          "passed": 8, "failed": 1, "skipped": 0,
+          "results": [
+            { "test": "manifest-valid", "status": "passed" },
+            { "test": "search-jobs-valid-schema", "status": "failed", "message": "/jobLocation: must be object; /jobLocation: must be array" }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "ojcp.dev",
+      "name": "OJCP Reference Provider",
+      "manifest_url": "https://ojcp.dev/.well-known/ojcp.json",
+      "trust_tier": "unverified",
+      "manifest_signed": false,
+      "industries": ["reference"],
+      "has_agent_apply": true,
+      "attestations": [],
+      "added_at": "2026-08-10",
+      "health": {
+        "checked_at": "2026-10-13T06:17:15.000Z",
+        "manifest": null,
+        "manifest_error": "HTTP 503",
+        "conformance": null
+      }
+    }
+  ]
+}

@@ -314,31 +314,17 @@ export const ManifestSchema = z.object({
 });
 
 // ── Registry ──
-export const RegistryProviderSchema = z.object({
-  domain: z.string(),
-  name: z.string(),
-  description: z.string(),
-  mcp_endpoint: z.string(),
-  manifest_url: z.string(),
-  industries: z.array(z.string()),
-  location: z.object({
-    city: z.string().optional(),
-    state: z.string().optional(),
-    country: z.string(),
-  }),
-  tools: z.array(z.string()),
-  apply_paths: z.array(z.string()),
-  has_agent_apply: z.boolean(),
-  verified: z.boolean(),
-  verified_at: z.string(),
-  registered_at: z.string(),
-});
+/** Registry listing labels, lowest first. Order matters: `min_trust_tier` compares positions. */
+export const TRUST_TIERS = ["unverified", "verified", "audited"] as const;
+export const TrustTierSchema = z.enum(TRUST_TIERS);
 
 export const FindOjcpProvidersInputSchema = z.object({
   industry: z.string().optional(),
   employer_name: z.string().optional(),
+  // Accepted per the spec; registry entries carry no location, so it does not filter.
   location: z.string().optional(),
   has_agent_apply: z.boolean().optional(),
+  min_trust_tier: TrustTierSchema.optional(),
 });
 
 // ── Type exports ──
@@ -361,5 +347,5 @@ export type BeginApplicationInput = z.infer<typeof BeginApplicationInputSchema>;
 export type CheckApplicationStatusInput = z.infer<typeof CheckApplicationStatusInputSchema>;
 export type SubmitApplicationInput = z.infer<typeof SubmitApplicationInputSchema>;
 export type Manifest = z.infer<typeof ManifestSchema>;
-export type RegistryProvider = z.infer<typeof RegistryProviderSchema>;
 export type FindOjcpProvidersInput = z.infer<typeof FindOjcpProvidersInputSchema>;
+export type TrustTier = z.infer<typeof TrustTierSchema>;

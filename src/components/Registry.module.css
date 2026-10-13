@@ -66,9 +66,75 @@
   line-height: 1.5;
 }
 
-.toolCount {
+.evidenceIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.evidenceText {
+  color: var(--ojcp-text-light);
+  line-height: 1.5;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.muted {
+  color: var(--ojcp-text-muted-light);
+}
+
+.pass {
+  color: var(--mantine-color-green-5);
+}
+
+.warn {
+  color: var(--mantine-color-yellow-5);
+}
+
+.gold {
+  color: var(--ojcp-gold);
+}
+
+.mono {
   font-family: var(--mantine-font-family-monospace);
+  font-size: 11px;
+  color: var(--ojcp-text-muted-light);
+}
+
+.failToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: inherit;
+  color: var(--mantine-color-yellow-5);
+
+  &:hover span {
+    text-decoration: underline;
+  }
+}
+
+.failures {
+  margin: 6px 0 0;
+  padding-left: 16px;
+
+  & li {
+    margin-bottom: 4px;
+  }
+
+  & code {
+    font-family: var(--mantine-font-family-monospace);
+    color: var(--mantine-color-yellow-5);
+  }
+}
+
+.tierLine {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.entryPreview {
   font-size: 12px;
+  max-height: 320px;
+  overflow: auto;
 }
 
 .cta {
