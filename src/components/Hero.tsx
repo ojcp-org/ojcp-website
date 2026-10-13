@@ -11,56 +11,13 @@ import {
   Stack,
   Badge,
 } from "@mantine/core";
-import { motion, useMotionValue, useTransform, animate } from "motion/react";
-import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { IconArrowRight, IconBrandGithub } from "@tabler/icons-react";
 import { specRepo, repoHostLabel } from "@/lib/repo-urls";
 import { OJCP_VERSION } from "@/lib/site";
 import classes from "./Hero.module.css";
 
-const TYPED_TEXT = "agent-native job data";
-
-function TypeWriter({ onDone }: { onDone: () => void }) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) => Math.round(v));
-  const [displayed, setDisplayed] = useState("");
-  const [hideCursor, setHideCursor] = useState(false);
-
-  useEffect(() => {
-    const controls = animate(count, TYPED_TEXT.length, {
-      duration: TYPED_TEXT.length * 0.06,
-      ease: "linear",
-      onComplete: () => {
-        onDone();
-        // Keep cursor visible briefly, then fade it
-        setTimeout(() => setHideCursor(true), 600);
-      },
-    });
-    return () => controls.stop();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    return rounded.on("change", (v) => {
-      setDisplayed(TYPED_TEXT.slice(0, v));
-    });
-  }, [rounded]);
-
-  return (
-    <>
-      {displayed}
-      <span
-        className={classes.cursor}
-        style={{ opacity: hideCursor ? 0 : 1, transition: "opacity 0.3s" }}
-      >
-        |
-      </span>
-    </>
-  );
-}
-
 export function Hero() {
-  const [typingDone, setTypingDone] = useState(false);
-
   return (
     <section className={classes.root} id="hero">
       <div className={classes.glow} />
@@ -96,24 +53,23 @@ export function Hero() {
           </motion.div>
 
           <Title order={1} className={classes.title} ta="center">
-            The open standard for
+            A front door for
             <br />
-            <span className={classes.highlight}>
-              <TypeWriter onDone={() => setTypingDone(true)} />
-            </span>
+            <span className={classes.highlight}>candidates&apos; agents</span>
           </Title>
 
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={typingDone ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ opacity: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
           >
             <Stack align="center" gap="xl">
               <Text className={classes.subtitle} ta="center" maw={640}>
-                OJCP defines how AI agents discover, reason over, and act on
-                job opportunities. Built on MCP. Interoperable with schema.org.
-                Governed by an{" "}
+                OJCP is the open standard for how AI agents search, read and
+                apply to jobs, under rules the employer controls: verified
+                agent identity, applications a person actually approved, and
+                credit for whichever agent sent them. Built on MCP. Governed by
+                an{" "}
                 <Anchor
                   href="/governance"
                   c="var(--ojcp-gold)"
@@ -121,7 +77,7 @@ export function Hero() {
                 >
                   independent steering committee
                 </Anchor>
-                , and designed to compose with the broader agentic web.
+                .
               </Text>
 
               <Group gap="md" mt="sm" className={classes.buttons}>
