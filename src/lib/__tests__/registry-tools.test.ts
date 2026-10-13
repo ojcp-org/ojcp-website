@@ -5,10 +5,14 @@ import fixture from "./fixtures/registry-index.json";
 import { OJCP_VERSION } from "../site";
 import { REGISTRY_INDEX_TTL_MS } from "../registry-data";
 
-// Spec response schema, read from the spec submodule so drift breaks the test.
+// The spec's response schema, as the site publishes it under public/schemas.
+// (The spec submodule isn't checked out in CI.)
 const findProvidersSchema = JSON.parse(
   readFileSync(
-    path.join(__dirname, "../../../spec/schemas/responses/find-providers.json"),
+    path.join(
+      __dirname,
+      "../../../public/schemas/v0.1/responses/find-providers.json"
+    ),
     "utf-8"
   )
 );
