@@ -55,7 +55,7 @@ export function Hero() {
           <Title order={1} className={classes.title} ta="center">
             A front door for
             <br />
-            <span className={classes.highlight}>candidates&apos; agents</span>
+            <span className={classes.highlight}>the agents candidates send</span>
           </Title>
 
           <motion.div

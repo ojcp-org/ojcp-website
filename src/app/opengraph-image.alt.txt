@@ -1,1 +1,1 @@
-OJCP — Open Job Context Protocol: a front door for candidates' agents
+OJCP — Open Job Context Protocol: a front door for the agents candidates send

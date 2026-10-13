@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/site";
 export const SITE_NAME = "OJCP";
 export const SITE_TITLE = "OJCP — Open Job Context Protocol";
 export const SITE_DESCRIPTION =
-  "A front door for candidates' agents: OJCP is the open standard for how AI agents search, read and apply to jobs, under rules the employer controls.";
+  "A front door for the agents candidates send: OJCP is the open standard for how AI agents search, read and apply to jobs, under rules the employer controls.";
 
 /**
  * Per-page metadata for search and link previews. Each page needs its own canonical URL and
