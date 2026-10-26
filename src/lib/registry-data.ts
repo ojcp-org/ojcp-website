@@ -54,6 +54,12 @@ const HealthSchema = z.object({
   conformance: ConformanceSchema.nullable(),
 });
 
+const TierHistoryEventSchema = z.object({
+  tier: TrustTierSchema,
+  date: z.string(),
+  note: z.string().optional(),
+});
+
 const IndexEntrySchema = z.object({
   domain: z.string(),
   name: z.string(),
@@ -63,10 +69,13 @@ const IndexEntrySchema = z.object({
   industries: z.array(z.string()).optional(),
   has_agent_apply: z.boolean().optional(),
   added_at: z.string(),
+  // A malformed history is display-only: drop it rather than hide the listing.
+  tier_history: z.array(TierHistoryEventSchema).optional().catch(undefined),
   // Malformed evidence must not hide the listing: treat it as "not checked".
   health: HealthSchema.optional().catch(undefined),
 });
 type IndexEntry = z.infer<typeof IndexEntrySchema>;
+export type TierHistoryEvent = z.infer<typeof TierHistoryEventSchema>;
 
 const IndexSchema = z.object({ providers: z.array(z.unknown()) });
 
@@ -97,6 +106,8 @@ export interface RegistryProvider {
   manifest_signed: boolean;
   trust_tier: TrustTier;
   added_at: string;
+  /** Reviewed tier changes from the registry entry, oldest first. */
+  tier_history?: TierHistoryEvent[];
   ojcp_version?: string;
   auth_required?: boolean;
   /** When the registry last gathered evidence; absent if it never has. */
@@ -139,6 +150,7 @@ function toRegistryProvider(entry: IndexEntry): RegistryProvider {
     provider.auth_required = manifest.auth_required;
   }
   if (entry.industries?.length) provider.industries = [...entry.industries];
+  if (entry.tier_history?.length) provider.tier_history = entry.tier_history.map((e) => ({ ...e }));
   if (health) {
     provider.checked_at = health.checked_at;
     if (!manifest) provider.manifest_error = health.manifest_error ?? "manifest unavailable";
@@ -218,4 +230,14 @@ export async function getRegistryIndex(): Promise<RegistryProvider[]> {
       });
   }
   return inflight;
+}
+
+/**
+ * One provider by its registry domain, or `undefined` if it isn't listed. Registry domains are
+ * lower-case host names, so the lookup lower-cases its input. Throws RegistryUnavailableError if
+ * the index has never loaded.
+ */
+export async function getRegistryProvider(domain: string): Promise<RegistryProvider | undefined> {
+  const wanted = domain.toLowerCase();
+  return (await getRegistryIndex()).find((p) => p.domain === wanted);
 }

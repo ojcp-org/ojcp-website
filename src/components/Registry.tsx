@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, type ReactNode } from "react";
+import Link from "next/link";
 import {
   Container,
   Title,
@@ -42,19 +43,10 @@ import {
   IconBrandGithub,
 } from "@tabler/icons-react";
 import type { OjcpProviderItem } from "@/lib/registry-tools";
-import type { TrustTier } from "@/lib/schemas";
+import { TIER_EXPLANATION, providerLinkRel, providerPagePath } from "@/lib/registry-display";
 import { buildRegistryEntry, REGISTRY_DOMAIN_PATTERN, type NewRegistryEntry } from "@/lib/registry-entry";
 import { registryNewEntryUrl, registryRepo } from "@/lib/repo-urls";
 import classes from "./Registry.module.css";
-
-const TIER_EXPLANATION: Record<TrustTier, string> = {
-  unverified:
-    "Listed. The manifest exists and parses; the registry has not confirmed who operates the domain.",
-  verified:
-    "The manifest signature validates and the registry has confirmed the employer's identity.",
-  audited:
-    "Verified, plus the conformance suite passes and a security review has been completed.",
-};
 
 export function Registry() {
   const [query, setQuery] = useState("");
@@ -412,13 +404,13 @@ function ProviderCard({ provider: p }: { provider: OjcpProviderItem }) {
     <Card className={classes.card} padding="lg" radius="md">
       <Stack gap="sm" h="100%">
         <Stack gap={4}>
-          <Text fw={600} size="lg" c="white">
+          <Anchor component={Link} href={providerPagePath(p.domain)} fw={600} size="lg" c="white">
             {p.name}
-          </Text>
+          </Anchor>
           <Anchor
             href={p.manifest_url}
             target="_blank"
-            rel="noopener noreferrer"
+            rel={providerLinkRel(p.trust_tier)}
             className={classes.cardDomain}
           >
             {p.domain}
