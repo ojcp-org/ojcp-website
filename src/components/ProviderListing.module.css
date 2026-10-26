@@ -51,14 +51,9 @@
   color: var(--ojcp-text-light);
 }
 
-.body {
-  color: var(--ojcp-text-light);
-  line-height: 1.6;
-}
-
 .fact {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 140px 1fr;
   gap: 12px;
   padding: 6px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -97,8 +92,7 @@
   color: var(--mantine-color-yellow-5);
 }
 
-.history,
-.failures {
+.list {
   margin: 0;
   padding-left: 16px;
 
@@ -107,13 +101,7 @@
   }
 }
 
-.failures code {
+.list code {
   font-family: var(--mantine-font-family-monospace);
   color: var(--mantine-color-yellow-5);
-}
-
-.notice {
-  color: var(--ojcp-text-muted-light);
-  line-height: 1.6;
-  padding-top: 8px;
 }
