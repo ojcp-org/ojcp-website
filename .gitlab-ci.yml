@@ -7,6 +7,9 @@ variables:
   XDG_RUNTIME_DIR: "$CI_PROJECT_DIR/.tmp/xdg"
   HARBOR_REGISTRY: "core.harbor.recruitics.dev"
   HARBOR_PROJECT: "rx-engineering"
+  # Dockerfile base image (ARG NODE_IMAGE): Harbor's pull-through mirror of the
+  # public Docker Hub default, so in-cluster builds never pull from Docker Hub.
+  NODE_IMAGE: "core.harbor.recruitics.dev/dockerhub/library/node:24-alpine"
 
 test:
   stage: test
@@ -55,7 +58,7 @@ build_image_arm64:
     - IMAGE_TAG="${CI_COMMIT_SHA}"
     - PODMAN_IMAGE="${IMAGE_REF}:${IMAGE_TAG}-arm64"
     - HOST_PLATFORM="$(podman info --format '{{.Host.OS}}/{{.Host.Arch}}')"
-    - podman build --platform "${TARGET_PLATFORM}" --build-arg "BUILDPLATFORM=${HOST_PLATFORM}" -f Dockerfile -t "${PODMAN_IMAGE}" .
+    - podman build --platform "${TARGET_PLATFORM}" --build-arg "BUILDPLATFORM=${HOST_PLATFORM}" --build-arg "NODE_IMAGE=${NODE_IMAGE}" -f Dockerfile -t "${PODMAN_IMAGE}" .
     - podman push "${PODMAN_IMAGE}"
     - printf '%s\n' "${PODMAN_IMAGE}" > dist/image-arm64.txt
   artifacts:
@@ -102,7 +105,7 @@ build_image_amd64:
     - IMAGE_TAG="${CI_COMMIT_SHA}"
     - PODMAN_IMAGE="${IMAGE_REF}:${IMAGE_TAG}-amd64"
     - HOST_PLATFORM="$(podman info --format '{{.Host.OS}}/{{.Host.Arch}}')"
-    - podman build --platform "${TARGET_PLATFORM}" --build-arg "BUILDPLATFORM=${HOST_PLATFORM}" -f Dockerfile -t "${PODMAN_IMAGE}" .
+    - podman build --platform "${TARGET_PLATFORM}" --build-arg "BUILDPLATFORM=${HOST_PLATFORM}" --build-arg "NODE_IMAGE=${NODE_IMAGE}" -f Dockerfile -t "${PODMAN_IMAGE}" .
     - podman push "${PODMAN_IMAGE}"
     - printf '%s\n' "${PODMAN_IMAGE}" > dist/image-amd64.txt
   artifacts:

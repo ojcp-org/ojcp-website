@@ -5,7 +5,10 @@
 # ~1GB of native deps (next-swc, sharp/libvips) on the pod's ephemeral disk and
 # blow past its 10Gi limit. Installing and building in one RUN keeps the pnpm
 # store ↔ node_modules hardlinks intact and minimises resident layer snapshots.
-FROM core.harbor.recruitics.dev/dockerhub/library/node:24-alpine AS builder
+# Base image for both stages. Public Docker Hub by default; GitLab CI overrides
+# it with the Harbor pull-through mirror of the same image.
+ARG NODE_IMAGE=node:24-alpine
+FROM ${NODE_IMAGE} AS builder
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 COPY . .
@@ -13,7 +16,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm install --frozen-lockfile && pnpm build
 
 # ── Stage 3: Production runtime ──
-FROM core.harbor.recruitics.dev/dockerhub/library/node:24-alpine AS runner
+FROM ${NODE_IMAGE} AS runner
 
 # Fix CVE-2026-22184 / CVE-2026-27171 (zlib) and strip npm (CVE-2025-64756,
 # CVE-2026-23745, CVE-2026-23950, CVE-2026-24842, CVE-2026-26960,
