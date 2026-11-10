@@ -1,6 +1,6 @@
 # ojcp.dev
 
-The website and reference provider for the [Open Job Context Protocol](https://github.com/AustinRecs/ojcp) (OJCP).
+The website and reference provider for the [Open Job Context Protocol](https://github.com/ojcp-org/ojcp) (OJCP).
 
 ## What This Is
 
@@ -99,4 +99,4 @@ public/
 
 ## Related
 
-- [OJCP Spec](https://github.com/AustinRecs/ojcp) — The protocol specification, schemas, and examples
+- [OJCP Spec](https://github.com/ojcp-org/ojcp) — The protocol specification, schemas, and examples
