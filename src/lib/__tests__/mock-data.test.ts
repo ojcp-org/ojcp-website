@@ -101,7 +101,7 @@ describe("createApplicationSession", () => {
     const session = createApplicationSession("acme:sbe-2026-001", "provider_hosted");
     expect(session.application_id).toMatch(/^app_/);
     expect(session.session_token).toMatch(/^sess_/);
-    expect(session.status).toBe("submitted");
+    expect(session.status).toBe("pending_submission");
   });
 
   it("creates verification session with steps", () => {
