@@ -591,13 +591,54 @@ describe("submitApplication", () => {
     expect(res).toHaveProperty("status", "submitted");
   });
 
-  it("submits non-verification application without proofs", () => {
+  it("submits an application that needs no verification", () => {
+    const begun = beginApplication({ job_id: "acme:sbe-2026-001" }) as {
+      application_id: string;
+      session_token: string;
+      status: string;
+    };
+    // begin_application returns a pre-submission status (spec § begin_application).
+    expect(begun.status).toBe("pending_submission");
+
+    // A failed screening answer leaves the session open for another attempt.
+    const session = {
+      application_id: begun.application_id,
+      session_token: begun.session_token,
+    };
+    expect(submitApplication(session)).toHaveProperty("status", "validation_failed");
+
+    const res = submitApplication({
+      ...session,
+      application_data: { answers: { visa_sponsorship: false } },
+    });
+    expect(res).toHaveProperty("status", "submitted");
+    expect(res).toHaveProperty("message", "Application submitted successfully.");
+    expect(checkApplicationStatus({ application_id: begun.application_id })).toHaveProperty(
+      "status",
+      "submitted"
+    );
+  });
+
+  it("rejects a second submission with a standard error code", () => {
     const session = createApplicationSession("acme:sbe-2026-001", "provider_hosted");
-    // Non-verification sessions start as "submitted", so we need to test against that
-    // Actually they start as "submitted" already, so submitApplication would reject with invalid_status
-    // Let's test with a fresh pending_submission — but our mock doesn't support that directly.
-    // The non-verification flow goes through beginApplication instead.
-    expect(session.status).toBe("submitted");
+    const input = {
+      application_id: session.application_id,
+      session_token: session.session_token,
+      application_data: { answers: { visa_sponsorship: false } },
+    };
+    expect(submitApplication(input)).toHaveProperty("status", "submitted");
+
+    const res = submitApplication(input);
+    // `invalid_status` is not in the spec's error_code enum (schemas/responses/error.json).
+    expect(res).toHaveProperty("error_code", "invalid_request");
+    expect(res).toHaveProperty(
+      "message",
+      "This application has already been submitted (status: 'submitted') and cannot be submitted again."
+    );
+    expect(res).toHaveProperty("details", {
+      reason: "already_submitted",
+      application_status: "submitted",
+    });
   });
 
   it("returns validation_failed for missing required screening answers", () => {
@@ -735,7 +776,7 @@ describe("checkApplicationStatus", () => {
       application_id: session.application_id,
     });
     expect(res).toHaveProperty("application_id", session.application_id);
-    expect(res).toHaveProperty("status");
+    expect(res).toHaveProperty("status", "pending_submission");
   });
 
   it("returns error for unknown application", () => {

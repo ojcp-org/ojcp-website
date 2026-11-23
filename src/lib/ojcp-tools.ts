@@ -5,7 +5,7 @@ import {
   computeFitScore,
   createApplicationSession,
   getApplicationSession,
-  completeVerification,
+  markApplicationSubmitted,
   getScreeningQuestions,
 } from "./mock-data";
 import type {
@@ -255,7 +255,14 @@ export function submitApplication(input: SubmitApplicationInput) {
   }
 
   if (session.status !== "pending_verification" && session.status !== "pending_submission") {
-    return ojcpError("invalid_status", `Application status is '${session.status}', cannot submit.`);
+    // Every status past the two pending ones means the application was already
+    // submitted. The spec has no error code for that, so the reason and the
+    // status travel in `details`, where an agent can read them.
+    return ojcpError(
+      "invalid_request",
+      `This application has already been submitted (status: '${session.status}') and cannot be submitted again.`,
+      { details: { reason: "already_submitted", application_status: session.status } }
+    );
   }
 
   // Require proofs for agent_submitted verification steps
@@ -442,17 +449,20 @@ export function submitApplication(input: SubmitApplicationInput) {
     }
   }
 
-  // Complete the verification and transition to submitted
-  const updated = completeVerification(input.application_id);
+  // Complete any verification and transition to submitted
+  const verified = session.status === "pending_verification";
+  const updated = markApplicationSubmitted(input.application_id);
   if (!updated) {
-    return ojcpError("provider_error", "Failed to complete verification.");
+    return ojcpError("provider_error", "Failed to complete submission.");
   }
 
   const warnings = checkScopeWarnings(input.candidate_context);
   const result: Record<string, unknown> = {
     application_id: input.application_id,
     status: "submitted",
-    message: "Application submitted successfully. Verification proofs validated.",
+    message: verified
+      ? "Application submitted successfully. Verification proofs validated."
+      : "Application submitted successfully.",
     next_steps: "Your application is now under review. Use check_application_status to track progress.",
   };
   if (warnings.length > 0) {

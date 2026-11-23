@@ -480,6 +480,7 @@ interface ApplicationSession {
   job_id: string;
   status: string;
   created_at: string;
+  submitted_at?: string;
   apply_path: string;
   session_token: string;
   verification_steps?: VerificationStep[];
@@ -499,7 +500,9 @@ export function createApplicationSession(
   const session: ApplicationSession = {
     application_id: id,
     job_id: jobId,
-    status: requiresVerification ? "pending_verification" : "submitted",
+    // begin_application returns a pre-submission status; only
+    // submit_application moves a session to "submitted".
+    status: requiresVerification ? "pending_verification" : "pending_submission",
     created_at: new Date().toISOString(),
     apply_path: applyPath,
     session_token: token,
@@ -518,11 +521,11 @@ export function getApplicationSession(applicationId: string) {
   const session = applicationSessions.get(applicationId);
   if (!session) return null;
 
-  // Only progress time-based status for submitted (non-verification) sessions
+  // Progress time-based status once the application has been submitted
   if (session.status === "submitted") {
-    const elapsed = Date.now() - new Date(session.created_at).getTime();
+    const elapsed = Date.now() - new Date(session.submitted_at ?? session.created_at).getTime();
     if (elapsed > 60000) {
-      session.status = "under_review";
+      session.status = "reviewing";
     }
     if (elapsed > 120000) {
       session.status = "interview_scheduled";
@@ -536,7 +539,19 @@ export function completeVerification(applicationId: string): ApplicationSession 
   const session = applicationSessions.get(applicationId);
   if (!session || session.status !== "pending_verification") return null;
   session.status = "submitted";
+  session.submitted_at = new Date().toISOString();
   session.verification_completed = true;
+  return session;
+}
+
+/** Moves a session that is awaiting submission to "submitted". */
+export function markApplicationSubmitted(applicationId: string): ApplicationSession | null {
+  const session = applicationSessions.get(applicationId);
+  if (!session) return null;
+  if (session.status === "pending_verification") return completeVerification(applicationId);
+  if (session.status !== "pending_submission") return null;
+  session.status = "submitted";
+  session.submitted_at = new Date().toISOString();
   return session;
 }
 
